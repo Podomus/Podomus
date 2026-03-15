@@ -1,0 +1,6 @@
+{
+    "git.ignoreLimitWarning": true,
+    "i18n-ally.localesPaths": [
+        "src/app/admin/messages"
+    ]
+}

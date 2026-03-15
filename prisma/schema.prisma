@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Prisma 7 - Using new prisma-client generator with driver adapters
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    String   @default("new") // new, read, replied, archived
+
+  @@map("contact_message")
+}
+
+model Patient {
+  id            String      @id @default(cuid())
+  nom           String
+  prenom        String
+  dateNaissance DateTime?
+  email         String?
+  telephone     String?
+  adresse       String?
+  codePostal    String?
+  ville         String?
+  numSecu       String?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  appointments  Appointment[]
+  produits      Produit[]
+
+  @@map("patient")
+}
+
+model Produit {
+  id             String    @id @default(cuid())
+  type           String    // type de semelle
+  description    String?
+  dateCommande   DateTime  @default(now())
+  dateLivraison  DateTime?
+  prix           Float
+  status         String    @default("commande") // commande, en_fabrication, livree, facturee
+  patientId      String
+  patient        Patient   @relation(fields: [patientId], references: [id])
+  champsCustom   Json?     // Champs dynamiques personnalisés
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("produit")
+}
+
+model Appointment {
+  id          String    @id @default(cuid())
+  patientId   String?
+  patient     Patient?  @relation(fields: [patientId], references: [id])
+  patientName String
+  patientEmail String
+  patientPhone String?
+  date        DateTime
+  time        String
+  duration    Int       @default(30) // durée en minutes
+  status      String    @default("scheduled") // scheduled, completed, cancelled, no_show
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("appointment")
+}
+
+model CategorieProduit {
+  id            String        @id @default(cuid())
+  nom           String        @unique
+  description   String?
+  couleur       String?       // couleur d'affichage pour l'UI
+  icone         String?       // nom de l'icône
+  ordre         Int           @default(0) // pour trier les catégories
+  actif         Boolean       @default(true)
+  champsTemplate Json?        // Template des champs dynamiques pour cette catégorie
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  typesProduits TypeProduit[]
+
+  @@map("categorie_produit")
+}
+
+model TypeProduit {
+  id               String           @id @default(cuid())
+  nom              String
+  description      String?
+  prix             Float
+  delaiLivraison   Int              @default(7) // en jours
+  actif            Boolean          @default(true)
+  categorieId      String
+  categorie        CategorieProduit @relation(fields: [categorieId], references: [id])
+  champsTemplate   Json?            // Template des champs dynamiques pour ce type de produit
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@map("type_produit")
+}

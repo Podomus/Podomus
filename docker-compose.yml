@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:17
+    container_name: podomus-db
+    restart: always
+    environment:
+      POSTGRES_USER: podomus
+      POSTGRES_PASSWORD: podomus
+      POSTGRES_DB: podomus
+    ports:
+      - "5432:5432"
+    volumes:
+      - podomus-db-data:/var/lib/postgresql/data
+
+volumes:
+  podomus-db-data: 

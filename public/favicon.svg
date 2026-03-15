@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond élégant -->
+  <rect width="32" height="32" rx="4" fill="#40826D"/>
+  
+  <!-- Logo Podomus simplifié - basé sur le design original -->
+  <!-- Lettre P stylisée -->
+  <path d="M8 8H14C16.2091 8 18 9.79086 18 12C18 14.2091 16.2091 16 14 16H11V22H8V8Z" fill="white"/>
+  <path d="M11 11H14C14.5523 11 15 11.4477 15 12C15 12.5523 14.5523 13 14 13H11V11Z" fill="#40826D"/>
+  
+  <!-- Éléments décoratifs du logo original -->
+  <circle cx="22" cy="10" r="1.5" fill="#5BA08A"/>
+  <circle cx="24" cy="20" r="1" fill="#5BA08A"/>
+  <circle cx="20" cy="24" r="1.5" fill="#5BA08A"/>
+  
+  <!-- Ligne décorative inspirée du logo -->
+  <path d="M6 26L26 26" stroke="#5BA08A" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- Élément courbe du logo original -->
+  <path d="M22 6C24 8 26 10 26 12" stroke="#5BA08A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+</svg> 

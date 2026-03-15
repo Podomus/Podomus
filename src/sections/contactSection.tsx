@@ -1,0 +1,208 @@
+"use client";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
+
+import Location from "../../public/location.png";
+import { TbMapPin, TbPhone, TbCalendar } from "react-icons/tb";
+import { Button } from "@nextui-org/react";
+import { IoCalendarOutline } from "react-icons/io5";
+import { TbMapStar } from "react-icons/tb";
+
+import { motion } from "framer-motion";
+import { fadeIn } from "../lib/animation/variants";
+import { useInView } from "react-intersection-observer";
+import AppointmentModal from "../components/AppointmentModal";
+
+// Particules flottantes pour le fond
+function FloatingParticles() {
+  const [positions, setPositions] = useState<{x: number, y: number}[]>([]);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    if (mounted && typeof window !== "undefined") {
+      setPositions(Array.from({ length: 18 }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * 600,
+      })));
+    }
+  }, [mounted]);
+  if (!mounted || positions.length === 0) return null;
+  return (
+    <div className="absolute inset-0 pointer-events-none z-0">
+      {positions.map((pos, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-[#40826D]/15 rounded-full"
+          initial={{ x: pos.x, y: pos.y, opacity: 0 }}
+          animate={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * 600,
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 12 + Math.random() * 6,
+            repeat: Infinity,
+            ease: "linear",
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const ContactSection = () => {
+  const [ref, inView] = useInView({ triggerOnce: false });
+  const [refQuote, inViewQuote] = useInView({ triggerOnce: false });
+  const [openModal, setOpenModal] = useState(false);
+
+  return (
+    <section
+      className="relative w-full py-16 md:py-24 overflow-hidden"
+      style={{
+        background: '#F8FAFC'
+      }}
+      ref={ref}
+    >
+      <div className="container mx-auto px-4 ">
+      {/* Particules flottantes en arrière-plan */}
+      <FloatingParticles />
+
+      {/* Formes organiques flottantes avec soft teal */}
+      <motion.div
+        className="absolute top-1/4 right-1/4 w-32 h-32 bg-[#E8E4D9]/30 rounded-full blur-2xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-[#40826D]/8 rounded-full blur-xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/3 w-20 h-20 bg-[#E8E4D9]/25 rounded-full blur-lg"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.4, 0.7, 0.4],
+        }}
+        transition={{
+          duration: 3.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+      <motion.div
+        variants={fadeIn("left", 0)}
+        initial="hidden"
+        animate={inView ? "show" : "hidden"}
+        exit="hidden"
+        className="mx-auto flex w-full flex-col items-center justify-center py-0 sm:py-0 lg:flex-row lg:py-0 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8FAFC' }}
+      >
+        <motion.div
+                      className="flex w-full min-w-[50%] flex-col items-start justify-center gap-2 sm:gap-3 text-left text-textmain p-8 sm:p-12 lg:p-16"
+          initial={{ x: -40, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          <div className="flex flex-col items-center justify-center gap-1 px-2 sm:px-0">
+            <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
+              Contactez-nous
+            </span>
+            <h2 className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Cabinet Podomus</h2>
+          </div>
+
+          <div className="mt-3 sm:mt-4 flex flex-col items-start justify-start gap-2 sm:gap-3 w-full px-2 sm:px-0">
+            <motion.button
+              type="button"
+              className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-semibold text-softtail-400 hover:text-softtail-400/80 transition-colors duration-300 self-start w-full"
+              onClick={() => setOpenModal(true)}
+              whileHover={{ scale: 1.05, x: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="inline-flex"
+              >
+                <TbCalendar size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
+              </motion.span>
+              Prendre rendez-vous en ligne
+            </motion.button>
+            <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
+            <motion.a
+              href="https://maps.app.goo.gl/GWzVFYyQxu1rCZZ77"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-semibold text-softtail-400 hover:underline self-start w-full"
+              whileHover={{ scale: 1.05, x: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+                className="inline-flex"
+              >
+                <TbMapPin size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
+              </motion.span>
+              <span className="break-words text-xs sm:text-sm md:text-base">
+                Bureau BM2 1er Etage, Imm. Golf Center 2,<br />
+                Av. De L&apos;environnement,<br />
+                Dar Fadhal La Soukra 2036
+              </span>
+            </motion.a>
+            <motion.div
+              className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-semibold text-softtail-400 self-start w-full"
+              whileHover={{ scale: 1.05, x: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
+                className="inline-flex"
+              >
+                <TbPhone size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
+              </motion.span>
+              28 451 433
+            </motion.div>
+          </div>
+        </motion.div>
+        <motion.div
+          className="flex items-center justify-center w-full"
+          initial={{ x: 40, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+        >
+          <Image
+            src="/6.jpg"
+            alt="Photo du cabinet Podomus"
+            sizes="100vw"
+            width={0}
+            height={0}
+            className="h-auto max-w-xs md:max-w-md w-full object-cover p-3 sm:p-5 rounded-2xl shadow-lg"
+          />
+        </motion.div>
+      </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
