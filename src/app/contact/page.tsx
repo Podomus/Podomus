@@ -524,14 +524,14 @@ export default function ContactPage() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
               <div className="h-48 sm:h-64 md:h-80 relative">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3224.8880806087113!2d10.2462804!3d36.87499160000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cabd790ac0e5%3A0x6502a75769b26f84!2sV6FW%2BXF3!5e1!3m2!1sfr!2stn!4v1753879310554!5m2!1sfr!2stn"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1612.4!2d10.2460717!3d36.8747201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb522f3ff977%3A0xd8ae67ac7e208f02!2sPodomus%20Sonda%20Affes%20Podologue%20Soukra!5e0!3m2!1sfr!2stn!4v1710000000000!5m2!1sfr!2stn"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Localisation Podomus - Dar Fadhal La Soukra"
+                  title="Localisation Podomus - Sonda Affes Podologue Soukra"
                 />
               </div>
             </div>

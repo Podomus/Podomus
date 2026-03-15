@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaCalendarAlt, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
-import AppointmentModal from "../../../components/AppointmentModal";
+import AppointmentModal from "@/components/AppointmentModal";
 
 export default function SchedulePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

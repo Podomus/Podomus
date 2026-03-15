@@ -5,6 +5,10 @@ import UIProvider from "@/providers/UIProvider";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import ConditionalLayout from "@/components/ConditionalLayout";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { SanityLive } from "@/sanity/lib/live";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
+import { draftMode } from "next/headers";
 
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap" });
 
@@ -22,7 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -42,6 +46,13 @@ export default function RootLayout({
             {children}
           </ConditionalLayout>
         </UIProvider>
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
       </body>
     </html>
   );

@@ -23,7 +23,7 @@ import {
   TbCertificate,
   TbCalendarTime
 } from "react-icons/tb";
-import { useIsMobile } from "../../hooks/useIsMobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Particules flottantes décoratives
 function FloatingParticles() {
@@ -73,9 +73,9 @@ export default function AboutPage() {
 
   const stats = [
     { icon: <FaUsers className="text-3xl" />, number: "500+", label: "Patients Satisfaits" },
-    { icon: <FaAward className="text-3xl" />, number: "15+", label: "Années d'Expérience" },
-    { icon: <TbCertificate className="text-3xl" />, number: "100%", label: "Certification" },
-    { icon: <FaHeart className="text-3xl" />, number: "24/7", label: "Disponibilité" },
+    { icon: <FaAward className="text-3xl" />, number: "10+", label: "Années d'Expérience" },
+    { icon: <TbCertificate className="text-3xl" />, number: "3", label: "Pays d'Exercice" },
+    { icon: <FaHeart className="text-3xl" />, number: "5★", label: "Établissements de Luxe" },
   ];
 
   const values = [
@@ -107,24 +107,29 @@ export default function AboutPage() {
 
   const timeline = [
     {
-      year: "2008",
-      title: "Fondation de Podomus",
-      description: "Création du cabinet par Dr Sonda Affes Ben Mahmoud avec une vision innovante de la podologie."
+      year: "2015",
+      title: "Diplôme en Pédicurie-Podologie",
+      description: "Diplômée de l'École Supérieure des Sciences et Techniques de la Santé de Sousse, avec une recherche en oncologie au CHU Farhat Hached sur les effets de la chimiothérapie sur les pieds."
     },
     {
-      year: "2012",
-      title: "Première Certification",
-      description: "Obtention des premières certifications internationales en podologie avancée."
+      year: "2016",
+      title: "Ouverture du Cabinet à Sfax",
+      description: "Fondation de son premier cabinet de pédicurie médicale et podologie à Sfax, avec plus de 4 ans de pratique dédiée aux soins podologiques pour tous les âges."
     },
     {
-      year: "2018",
-      title: "Expansion des Services",
-      description: "Introduction de nouvelles techniques et équipements de pointe."
+      year: "2021",
+      title: "Bastien Gonzalez Studio — Maldives",
+      description: "Recrutée comme Podologue et Studio Manager au One&Only Reethi Rah, l'un des resorts les plus exclusifs au monde. Soins d'exception pour une clientèle VIP internationale."
     },
     {
       year: "2023",
-      title: "Reconnaissance Nationale",
-      description: "Podomus devient une référence en podologie en Tunisie."
+      title: "Bastien Gonzalez Studio — Dubaï",
+      description: "Nommée Studio Manager au One&Only Royal Mirage à Dubaï. Leadership d'équipe, mentorat et standards cinq étoiles dans un cadre cosmopolite."
+    },
+    {
+      year: "2025",
+      title: "Lancement de Podomus",
+      description: "Retour en Tunisie avec une vision renouvelée : la création de Podomus, un espace d'excellence en podologie alliant expertise médicale internationale et un savoir-faire hôtelier de luxe."
     }
   ];
 
@@ -167,7 +172,7 @@ export default function AboutPage() {
               whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
             >
-              Votre partenaire de confiance pour la santé et la beauté de vos pieds depuis plus de 15 ans
+              Excellence podologique, forgée entre la Tunisie, les Maldives et Dubaï
             </motion.p>
           </motion.div>
 
@@ -220,14 +225,14 @@ export default function AboutPage() {
                 Notre Mission
               </h2>
               <p className="text-lg text-textmain mb-6 leading-relaxed">
-                Chez Podomus, notre mission est de vous offrir des soins podologiques d&apos;exception, 
-                alliant expertise médicale, innovation technologique et accompagnement personnalisé. 
-                Nous nous engageons à améliorer votre qualité de vie en prenant soin de vos pieds 
-                avec professionnalisme et bienveillance.
+                Plus qu&apos;un cabinet, Podomus est un espace d&apos;excellence et d&apos;éducation en podologie. 
+                Nous combinons expertise médicale, savoir-faire hôtelier de luxe et une approche 
+                holistique et préventive de la santé du pied — parce que des pieds sains 
+                méritent plus qu&apos;un traitement clinique, ils méritent un soin avec intention.
               </p>
               <div className="flex items-center gap-4">
                 <TbTargetArrow className="text-4xl text-brand" />
-                <span className="text-lg font-semibold text-brand">Excellence & Innovation</span>
+                <span className="text-lg font-semibold text-brand">Excellence Médicale & Hospitalité</span>
               </div>
             </motion.div>
 
@@ -241,8 +246,9 @@ export default function AboutPage() {
               <div className="bg-gradient-to-br from-brand to-highlight rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Notre Vision</h3>
                 <p className="text-lg mb-6">
-                  Devenir la référence en podologie en Tunisie, en offrant des soins de qualité 
-                  internationale dans un environnement moderne et accueillant.
+                  Apporter en Tunisie le même niveau de soin podologique que celui proposé 
+                  dans les meilleurs établissements cinq étoiles au monde — accessible, humain 
+                  et centré sur le patient.
                 </p>
                 <div className="flex items-center gap-2">
                   <TbStar className="text-2xl" />
@@ -406,22 +412,24 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
               <div className="p-8 text-center">
-                <h3 className="text-3xl font-bold text-brand mb-3">Dr Sonda Affes Ben Mahmoud</h3>
-                <p className="text-highlight font-semibold mb-4 text-lg">Podologue Fondatrice</p>
+                <h3 className="text-3xl font-bold text-brand mb-3">Sonda Affes</h3>
+                <p className="text-highlight font-semibold mb-4 text-lg">Pédicure-Podologue | Fondatrice de Podomus</p>
                 <p className="text-textmain mb-6 leading-relaxed">
-                                  Spécialiste passionnée avec plus de 15 ans d&apos;expérience, alliant expertise médicale 
-                et sens de l&apos;écoute pour offrir des soins personnalisés de qualité. 
-                Fondatrice de Podomus, elle s&apos;engage à offrir des soins d&apos;excellence 
-                dans un environnement chaleureux et professionnel.
+                  Diplômée de l&apos;ESSTSS de Sousse, Sonda a d&apos;abord fondé son propre cabinet à Sfax 
+                  avant de rejoindre les prestigieux Bastien Gonzalez Studios — d&apos;abord au One&amp;Only 
+                  Reethi Rah aux Maldives, puis au One&amp;Only Royal Mirage à Dubaï. Spécialisée en 
+                  semelles thermoformées, bilans podologiques et soins des pathologies unguéales, 
+                  elle a soigné célébrités, athlètes et clientèle VIP à travers le monde. En 2025, 
+                  elle revient en Tunisie pour lancer Podomus.
                 </p>
                 <div className="flex justify-center gap-6">
                   <div className="flex items-center gap-2 text-sm text-textmain">
                     <TbCertificate className="text-brand text-lg" />
-                    <span>Certifiée</span>
+                    <span>K-Taping</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-textmain">
                     <TbCalendarTime className="text-brand text-lg" />
-                    <span>15+ ans</span>
+                    <span>Depuis 2016</span>
                   </div>
                 </div>
               </div>
@@ -441,11 +449,11 @@ export default function AboutPage() {
           >
             <TbStar className="text-6xl text-white/30 mx-auto mb-6" />
             <blockquote className="text-2xl md:text-3xl font-light text-white mb-6 italic">
-              &quot;Prendre soin de vos pieds, c&apos;est prendre soin de votre bien-être au quotidien. 
-              Chaque pas compte dans votre parcours vers une vie plus confortable.&quot;
+              &quot;Des pieds sains méritent plus qu&apos;un traitement clinique — 
+              ils méritent un soin avec intention.&quot;
             </blockquote>
             <div className="text-white">
-              <p className="text-xl font-semibold">Dr Sonda Affes Ben Mahmoud</p>
+              <p className="text-xl font-semibold">Sonda Affes</p>
               <p className="text-white/80">Fondatrice de Podomus</p>
             </div>
           </motion.div>

@@ -10,7 +10,8 @@
     "generate": "prisma generate",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
@@ -35,6 +36,7 @@
     "@radix-ui/react-tooltip": "^1.2.7",
     "@sanity/client": "^7.14.1",
     "@sanity/image-url": "^2.0.3",
+    "@sanity/vision": "^5.16.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/uuid": "^10.0.0",
     "@vercel/analytics": "^1.5.0",
@@ -49,7 +51,7 @@
     "framer-motion": "^12.23.11",
     "lucide-react": "^0.537.0",
     "next": "^16.1.6",
-    "next-sanity": "^13.0.0-cache-components.26",
+    "next-sanity": "^12.1.1",
     "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.5",
     "prisma": "^7.3.0",
