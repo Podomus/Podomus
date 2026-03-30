@@ -90,6 +90,23 @@ const services = [
     }
   },
   {
+    title: "Soin du Pied Diabétique",
+    description: "Une prise en charge spécialisée et préventive pour les patients diabétiques. Le pied diabétique nécessite une attention particulière pour prévenir les complications graves.",
+    image: "/9.jpg",
+    icon: <FaHeart size={32} className="text-brand" />,
+    details: {
+      points: [
+        "Examen vasculaire et neurologique",
+        "Soins préventifs des ongles et callosités",
+        "Détection précoce des plaies et ulcères",
+        "Conseils hygiène et chaussage adaptés",
+        "Suivi régulier et coordination médicale"
+      ],
+      image: "/9.jpg",
+      extra: "Prise en charge spécialisée — Suivi spécialisé pour prévenir toute complication."
+    }
+  },
+  {
     title: "Orthoplastie & orthonyxie",
     description: "Correction des déformations, soulagement des douleurs, appareillages sur-mesure, orthèses de protection et d’alignement.",
     image: "/8.jpg",
@@ -107,15 +124,15 @@ const services = [
   },
   {
     title: "Traitement laser",
-    description: "Des solutions innovantes pour les affections de l’ongle et de la peau avec des résultats rapides et indolores.",
+    description: "Des solutions innovantes pour les affections de l'ongle et de la peau avec des résultats progressifs.",
     image: "/laser.jpg",
     icon: <TbSparkles size={32} className="text-brand" />,
     details: {
       points: [
         "Traitement des mycoses de l’ongle (onychomycose)",
         "Traitement des verrues plantaires",
-        "Soins indolores et rapides",
-        "Résultats visibles dès les premières séances"
+        "Le traitement laser est très bien toléré et rapide",
+        "Résultats progressifs et visibles après quelques séances"
       ],
       image: "/laser.jpg",
       extra: "La technologie laser au service de vos pieds."
@@ -174,7 +191,7 @@ const faqs = [
   },
   {
     question: "Le traitement laser est-il douloureux ?",
-    answer: "Non, le traitement laser est indolore et rapide. Il permet de traiter efficacement mycoses, verrues et ongles incarnés.",
+    answer: "Non, le traitement laser est très bien toléré et rapide. Il permet de traiter efficacement mycoses, verrues et ongles incarnés.",
   },
   {
     question: "Comment prendre rendez-vous ?",
@@ -189,7 +206,7 @@ const faqs = [
 const specializedServices = [
   {
     title: "Horaires & Rendez-vous",
-    description: "Planifiez votre consultation en toute simplicité avec nos horaires flexibles et notre système de prise de rendez-vous en ligne.",
+    description: "Planifiez votre consultation en toute simplicité avec nos horaires étendus et notre système de prise de rendez-vous en ligne.",
     icon: <FaCalendarAlt className="text-4xl text-blue-600" />,
     link: "/service/schedule",
     color: "from-blue-500 to-blue-600",
@@ -525,7 +542,7 @@ export default function ServicesPage() {
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover w-full h-full rounded-2xl transition-all duration-500 group-hover:brightness-110 group-hover:scale-105"
+                    className="object-cover w-full h-full rounded-2xl transition-[transform,filter] duration-300 group-hover:brightness-110 group-hover:scale-105"
                     sizes="100vw"
                   />
                   {/* Lueur animée */}
@@ -562,7 +579,7 @@ export default function ServicesPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 30 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                   >
                     <div className="flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-6 items-center">
                       <div className="flex-1">
@@ -617,7 +634,7 @@ export default function ServicesPage() {
         >
           Pourquoi choisir Podomus ?
           <motion.span
-            className="absolute left-1/2 -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-all duration-500"
+            className="absolute -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-[width] duration-300"
             initial={{ width: 0 }}
             whileHover={{ width: "50%" }}
             style={{ left: "25%" }}
@@ -659,7 +676,7 @@ export default function ServicesPage() {
         >
           Ils nous font confiance
           <motion.span
-            className="absolute left-1/2 -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-all duration-500"
+            className="absolute -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-[width] duration-300"
             initial={{ width: 0 }}
             whileHover={{ width: "50%" }}
             style={{ left: "25%" }}
@@ -713,9 +730,9 @@ export default function ServicesPage() {
           animate={false}
           transition={undefined}
         >
-          FAQ
+          Questions Fréquentes
           <motion.span
-            className="absolute left-1/2 -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-all duration-500"
+            className="absolute -bottom-2 h-1 w-0 bg-highlight group-hover:w-1/2 rounded transition-[width] duration-300"
             initial={{ width: 0 }}
             whileHover={{ width: "50%" }}
             style={{ left: "25%" }}
@@ -735,7 +752,7 @@ export default function ServicesPage() {
                 onClick={() => setFaqOpen(faqOpen === i ? null : i)}
               >
                 <span>{faq.question}</span>
-                <motion.span animate={{ rotate: faqOpen === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                <motion.span animate={{ rotate: faqOpen === i ? 180 : 0 }} transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}>
                   <FaChevronDown />
                 </motion.span>
               </button>
@@ -745,7 +762,7 @@ export default function ServicesPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                     className="overflow-hidden mt-2"
                   >
                     <p className="text-base text-gray-700">{faq.answer}</p>
@@ -759,16 +776,10 @@ export default function ServicesPage() {
       
 
       {/* Services Spécialisés */}
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+      <div
         className="relative z-10 w-full max-w-7xl mx-auto px-4 py-12"
       >
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <div
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
@@ -779,15 +790,16 @@ export default function ServicesPage() {
             {specializedServices.map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: [0.23, 1, 0.32, 1] }}
                 className="group"
               >
                 <Link href={service.link}>
-                  <div className={`relative bg-gradient-to-br ${service.bgColor} rounded-2xl shadow-xl p-8 h-full hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer flex flex-col overflow-hidden`}>
+                  <div className={`relative bg-gradient-to-br ${service.bgColor} rounded-2xl shadow-xl p-8 h-full hover:shadow-2xl transition-[transform,box-shadow] duration-300 hover:scale-105 cursor-pointer flex flex-col overflow-hidden`}>
                     {/* Image d'arrière-plan */}
-                    <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
+                    <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300">
                       <Image
                         src={service.image}
                         alt={service.title}
@@ -812,7 +824,7 @@ export default function ServicesPage() {
                         {service.description}
                       </p>
                       <div className="text-center mt-auto">
-                        <span className={`inline-block bg-gradient-to-r ${service.color} text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg`}>
+                        <span className={`inline-block bg-gradient-to-r ${service.color} text-white font-semibold py-2 px-6 rounded-lg transition-[transform,box-shadow] duration-200 group-hover:scale-105 group-hover:shadow-lg`}>
                           Découvrir
                         </span>
                       </div>
@@ -827,23 +839,14 @@ export default function ServicesPage() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* Services Généraux */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-16"
-        >
-          
-        </motion.div>
+        </div>
 
         {/* Pourquoi nous choisir */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
@@ -882,26 +885,27 @@ export default function ServicesPage() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
       {/* Call to action */}
       <section className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center justify-center py-12">
         <motion.div
           className="bg-brand rounded-2xl shadow-xl p-8 flex flex-col items-center w-full"
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           <motion.h3
             className="text-2xl font-bold text-white mb-4 text-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           >
             Prêt à prendre soin de vos pieds ?
           </motion.h3>
           <button
             onClick={() => setOpenModal(true)}
-            className="bg-white text-brand px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group text-lg mt-2"
+            className="bg-white text-brand px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-[transform,box-shadow] duration-150 active:scale-[0.97] flex items-center gap-2 group text-lg mt-2"
           >
             Prendre rendez-vous
           </button>

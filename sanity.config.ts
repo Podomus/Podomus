@@ -53,7 +53,7 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/',
-            filter: `_type == "settings" && _id == "siteSettings"`,
+            filter: `_type == "homePage" && _id == "homePage"`,
           },
           {
             route: '/:slug',
@@ -68,6 +68,11 @@ export default defineConfig({
           settings: defineLocations({
             locations: [homeLocation],
             message: 'This document is used on all pages',
+            tone: 'positive',
+          }),
+          homePage: defineLocations({
+            locations: [homeLocation],
+            message: "This is the home page content",
             tone: 'positive',
           }),
           page: defineLocations({

@@ -49,8 +49,8 @@ const contactInfo = [
   {
     icon: <TbPhone size={32} className="text-brand" />,
     title: "Téléphone",
-    value: "+216 28 451 433",
-    link: "tel:+21628451433",
+    value: "+216 51 617 044",
+    link: "tel:+21651617044",
     description: "Appelez-nous pour prendre rendez-vous"
   },
   {
@@ -63,24 +63,36 @@ const contactInfo = [
   {
     icon: <TbMapPin size={32} className="text-brand" />,
     title: "Adresse",
-    value: "Bureau BM2 1er Etage, Imm. Golf Center 2, Av. De L'environnement, Dar Fadhal La Soukra 2036",
-    link: "https://maps.app.goo.gl/GWzVFYyQxu1rCZZ77",
-    description: "Notre cabinet à Dar Fadhal La Soukra"
+    value: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036",
+    link: "https://maps.app.goo.gl/uV382aFHbzwSFruK9",
+    description: "Notre cabinet à La Soukra"
   },
   {
     icon: <TbClock size={32} className="text-highlight" />,
     title: "Horaires",
-    value: "Lun-Ven: 9h-18h | Sam: 9h-13h",
+    value: "Lun-Ven\u00A0: 9h-18h | Sam\u00A0: 9h-13h",
     link: null,
     description: "Sur rendez-vous uniquement"
   }
 ];
 
 const socialLinks = [
-  { icon: <FaWhatsapp size={24} />, name: "WhatsApp", link: "https://wa.me/21628451433", color: "text-green-500" },
+  { icon: <FaWhatsapp size={24} />, name: "WhatsApp", link: "https://wa.me/21651617044", color: "text-green-500" },
   { icon: <FaInstagram size={24} />, name: "Instagram", link: "https://instagram.com/podomus", color: "text-pink-500" },
   { icon: <FaFacebook size={24} />, name: "Facebook", link: "https://facebook.com/podomus", color: "text-blue-600" }
 ];
+
+const EASE = [0.23, 1, 0.32, 1] as const;
+
+const formFieldVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: EASE } },
+};
+
+const formContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.03, delayChildren: 0.05 } },
+};
 
 export default function ContactPage() {
   const [openModal, setOpenModal] = useState(false);
@@ -150,14 +162,14 @@ export default function ContactPage() {
             className="fixed inset-0 z-50 bg-brand flex items-center justify-center"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
           >
             <motion.div
               className="text-white text-center"
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.2, opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              exit={{ scale: 1.02, opacity: 0 }}
+              transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
             >
               <motion.div
                 className="w-16 h-16 mx-auto mb-4 border-4 border-white/30 border-t-white rounded-full"
@@ -168,7 +180,7 @@ export default function ContactPage() {
                 className="text-2xl font-bold mb-2"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
+                transition={{ delay: 0.1, duration: 0.15, ease: "easeOut" }}
               >
                 Podomus
               </motion.h2>
@@ -176,7 +188,7 @@ export default function ContactPage() {
                 className="text-white/80"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
+                transition={{ delay: 0.15, duration: 0.15, ease: "easeOut" }}
               >
                 Chargement de la page contact...
               </motion.p>
@@ -200,9 +212,9 @@ export default function ContactPage() {
       {/* Hero Section */}
       <motion.section 
         className="relative w-full flex flex-col items-center justify-center py-20 md:py-32 overflow-hidden"
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.25, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
       >
         {/* Fond animé dynamique */}
         <motion.div
@@ -224,9 +236,9 @@ export default function ContactPage() {
         <motion.div className="relative z-10 text-center mb-8 px-4">
           <motion.h1
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-brand mb-6"
-            initial={{ y: 80, opacity: 0, scale: 0.8 }}
+            initial={{ y: 16, opacity: 0, scale: 0.97 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="block">Contact</span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-highlight">
@@ -239,7 +251,7 @@ export default function ContactPage() {
             className="w-32 h-1 bg-gradient-to-r from-brand via-highlight to-brand mx-auto rounded-full"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           />
         </motion.div>
 
@@ -248,7 +260,7 @@ export default function ContactPage() {
           className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 mb-12"
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.25, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
         >
           <motion.div
             className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 shadow-2xl border border-white/20"
@@ -263,7 +275,7 @@ export default function ContactPage() {
               className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-textmain text-center leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
+              transition={{ duration: 0.2, delay: 0.2, ease: "easeOut" }}
             >
               Nous sommes là pour vous accompagner dans votre santé podologique. 
               Contactez-nous pour toute question ou pour prendre rendez-vous.
@@ -287,9 +299,9 @@ export default function ContactPage() {
       <section className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
         <motion.h2
           className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand text-center mb-8 relative group"
-          initial={{ y: 40, opacity: 0 }}
+          initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.25, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
         >
           Nos Coordonnées
           <motion.span
@@ -307,7 +319,7 @@ export default function ContactPage() {
               className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col items-center text-center group relative overflow-hidden border border-transparent"
               initial={{ y: 60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: "easeOut" }}
+              transition={{ duration: 0.25, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 12px 40px 0 rgba(64, 130, 109, 0.18)",
@@ -358,9 +370,9 @@ export default function ContactPage() {
       <section className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
         <motion.h2
           className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand text-center mb-8 relative group"
-          initial={{ y: 40, opacity: 0 }}
+          initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.25, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
         >
           Envoyez-nous un message
           <motion.span
@@ -375,15 +387,21 @@ export default function ContactPage() {
           {/* Formulaire de contact */}
           <motion.div
             className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 md:p-8"
-            initial={{ x: -60, opacity: 0 }}
+            initial={{ x: -16, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             whileHover={{ 
               boxShadow: "0 20px 60px rgba(64, 130, 109, 0.15)"
             }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <motion.form
+              onSubmit={handleSubmit}
+              className="space-y-4 sm:space-y-6"
+              variants={formContainerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={formFieldVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-brand mb-2">
                     Nom complet *
@@ -395,7 +413,7 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-[border-color,box-shadow] duration-150 ease-out text-sm sm:text-base"
                     placeholder="Votre nom"
                   />
                 </div>
@@ -410,13 +428,13 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-[border-color,box-shadow] duration-150 ease-out text-sm sm:text-base"
                     placeholder="votre@email.com"
                   />
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <motion.div variants={formFieldVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-semibold text-brand mb-2">
                     Téléphone
@@ -427,7 +445,7 @@ export default function ContactPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-[border-color,box-shadow] duration-150 ease-out text-sm sm:text-base"
                     placeholder="+216 XX XXX XXX"
                   />
                 </div>
@@ -441,7 +459,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-[border-color,box-shadow] duration-150 ease-out text-sm sm:text-base"
                   >
                     <option value="">Choisir un sujet</option>
                     <option value="rendez-vous">Prise de rendez-vous</option>
@@ -449,10 +467,11 @@ export default function ContactPage() {
                     <option value="urgence">Urgence</option>
                     <option value="autre">Autre</option>
                   </select>
+                  <p className="mt-1 text-xs text-gray-500">Pour toute urgence médicale, appelez directement le +216 51 617 044.</p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div variants={formFieldVariants}>
                 <label htmlFor="message" className="block text-sm font-semibold text-brand mb-2">
                   Message *
                 </label>
@@ -463,36 +482,41 @@ export default function ContactPage() {
                   onChange={handleInputChange}
                   required
                   rows={4}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300 resize-none text-sm sm:text-base"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition-[border-color,box-shadow] duration-150 ease-out resize-none text-sm sm:text-base"
                   placeholder="Décrivez votre demande..."
                 />
-              </div>
+              </motion.div>
 
               {/* Messages de statut */}
-              {submitStatus !== 'idle' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`p-3 rounded-lg text-sm ${
-                    submitStatus === 'success' 
-                      ? 'bg-green-100 text-green-700 border border-green-200' 
-                      : 'bg-red-100 text-red-700 border border-red-200'
-                  }`}
-                >
-                  {submitMessage}
-                </motion.div>
-              )}
+              <AnimatePresence>
+                {submitStatus !== 'idle' && (
+                  <motion.div
+                    key={submitStatus}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className={`p-3 rounded-lg text-sm ${
+                      submitStatus === 'success' 
+                        ? 'bg-green-100 text-green-700 border border-green-200' 
+                        : 'bg-red-100 text-red-700 border border-red-200'
+                    }`}
+                  >
+                    {submitMessage}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-3 sm:py-4 px-6 sm:px-8 rounded-lg font-semibold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 group text-sm sm:text-base ${
+                className={`w-full py-3 sm:py-4 px-6 sm:px-8 rounded-lg font-semibold shadow-lg transition-[box-shadow] duration-150 flex items-center justify-center gap-2 group text-sm sm:text-base ${
                   isSubmitting 
                     ? 'bg-gray-400 cursor-not-allowed' 
                     : 'bg-brand text-white hover:shadow-xl'
                 }`}
                 whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.97 } : {}}
               >
                 {isSubmitting ? (
                   <>
@@ -510,21 +534,21 @@ export default function ContactPage() {
                   </>
                 )}
               </motion.button>
-            </form>
+            </motion.form>
           </motion.div>
 
           {/* Carte et informations supplémentaires */}
           <motion.div
             className="space-y-6"
-            initial={{ x: 60, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: 0.08, ease: [0.23, 1, 0.32, 1] }}
           >
             {/* Carte Google Maps */}
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
               <div className="h-48 sm:h-64 md:h-80 relative">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1612.4!2d10.2460717!3d36.8747201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb522f3ff977%3A0xd8ae67ac7e208f02!2sPodomus%20Sonda%20Affes%20Podologue%20Soukra!5e0!3m2!1sfr!2stn!4v1710000000000!5m2!1sfr!2stn"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.6529785084845!2d10.243496776443376!3d36.874724363494096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb522f3ff977%3A0xd8ae67ac7e208f02!2sPodomus%20Sonda%20Affes%20Podologue%20Soukra!5e0!3m2!1sen!2stn!4v1774822964163!5m2!1sen!2stn"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -553,10 +577,10 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className={`p-2 sm:p-3 rounded-full bg-gray-100 hover:bg-brand/10 transition-all duration-300 ${social.color}`}
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.97 }}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                    transition={{ duration: 0.25, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
                   >
                     {social.icon}
                   </motion.a>
@@ -600,21 +624,21 @@ export default function ContactPage() {
           className="bg-brand rounded-2xl shadow-xl p-8 flex flex-col items-center w-full"
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
         >
           <motion.h3
             className="text-2xl font-bold text-white mb-4 text-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.25, delay: 0.08, ease: [0.23, 1, 0.32, 1] }}
           >
             Prêt à prendre rendez-vous ?
           </motion.h3>
           <motion.button
             onClick={() => setOpenModal(true)}
             className="bg-white text-brand px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group text-lg mt-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
           >
             Prendre rendez-vous
           </motion.button>

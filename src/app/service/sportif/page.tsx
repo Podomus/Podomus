@@ -96,6 +96,7 @@ export default function SportifPage() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         className="bg-white shadow-lg"
       >
         <div className="max-w-7xl mx-auto px-4 py-8">
@@ -118,9 +119,10 @@ export default function SportifPage() {
         
         {/* Services */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
@@ -131,10 +133,11 @@ export default function SportifPage() {
             {sportifServices.map((service, index) => (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition duration-300"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: [0.23, 1, 0.32, 1] }}
+                className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-200"
               >
                 <div className="flex items-center mb-6">
                   {service.icon}
@@ -158,7 +161,7 @@ export default function SportifPage() {
                   
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-[transform,background-color] duration-150 hover:scale-105 active:scale-[0.97]"
                   >
                     Prendre Rendez-vous
                   </button>
@@ -170,9 +173,10 @@ export default function SportifPage() {
 
         {/* Avantages */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
@@ -214,9 +218,10 @@ export default function SportifPage() {
 
         {/* Témoignages */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
             Ce que disent nos sportifs
@@ -226,9 +231,10 @@ export default function SportifPage() {
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: [0.23, 1, 0.32, 1] }}
                 className="bg-white rounded-2xl shadow-lg p-6"
               >
                 <div className="flex items-center mb-4">
@@ -250,21 +256,22 @@ export default function SportifPage() {
             <section className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center justify-center py-12">
               <motion.div
                 className="bg-brand rounded-2xl shadow-xl p-8 flex flex-col items-center w-full"
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
               >
                 <motion.h3
                   className="text-2xl font-bold text-white mb-4 text-center"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                  transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
                 >
                   Prêt à prendre soin de vos pieds ?
                 </motion.h3>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="bg-white text-brand px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group text-lg mt-2"
+                  className="bg-white text-brand px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-[transform,box-shadow] duration-150 active:scale-[0.97] flex items-center gap-2 group text-lg mt-2"
                 >
                   Prendre rendez-vous
                 </button>
@@ -272,10 +279,6 @@ export default function SportifPage() {
               </motion.div>
             </section>
 
-      <AppointmentModal 
-        open={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
     </div>
   );
 } 

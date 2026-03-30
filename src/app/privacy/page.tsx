@@ -238,10 +238,9 @@ const PrivacyPage = () => {
               <p className="text-xs sm:text-sm md:text-base text-textmain">
                 <strong>Cabinet Podomus</strong><br />
                 Docteure Sonda Affes Ben Mahmoud<br />
-                Bureau BM2 1er Etage, Imm. Golf Center 2<br />
-                Av. De L&apos;environnement<br />
-                Dar Fadhal La Soukra 2036<br />
-                Téléphone : 28 451 433<br />
+                Imm. Golf Center 2, Bureau BM2<br />
+                La Soukra 2036<br />
+                Téléphone : +216 51 617 044<br />
                 Email : contact@podomus.tn
               </p>
             </div>

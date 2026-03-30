@@ -52,8 +52,8 @@ function FloatingParticles() {
 }
 
 const ContactSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: false });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: false });
+  const [ref, inView] = useInView({ triggerOnce: true });
+  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -118,8 +118,8 @@ const ContactSection = () => {
                       className="flex w-full min-w-[50%] flex-col items-start justify-center gap-2 sm:gap-3 text-left text-textmain p-8 sm:p-12 lg:p-16"
           initial={{ x: -40, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           <div className="flex flex-col items-center justify-center gap-1 px-2 sm:px-0">
             <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
@@ -147,7 +147,7 @@ const ContactSection = () => {
             </motion.button>
             <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
             <motion.a
-              href="https://maps.app.goo.gl/GWzVFYyQxu1rCZZ77"
+              href="https://maps.app.goo.gl/uV382aFHbzwSFruK9"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-semibold text-softtail-400 hover:underline self-start w-full"
@@ -162,9 +162,8 @@ const ContactSection = () => {
                 <TbMapPin size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
               </motion.span>
               <span className="break-words text-xs sm:text-sm md:text-base">
-                Bureau BM2 1er Etage, Imm. Golf Center 2,<br />
-                Av. De L&apos;environnement,<br />
-                Dar Fadhal La Soukra 2036
+                Imm. Golf Center 2, Bureau BM2,<br />
+                La Soukra 2036
               </span>
             </motion.a>
             <motion.div
@@ -179,7 +178,7 @@ const ContactSection = () => {
               >
                 <TbPhone size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
               </motion.span>
-              28 451 433
+              +216 51 617 044
             </motion.div>
           </div>
         </motion.div>
@@ -187,8 +186,8 @@ const ContactSection = () => {
           className="flex items-center justify-center w-full"
           initial={{ x: 40, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.06 }}
         >
           <Image
             src="/6.jpg"

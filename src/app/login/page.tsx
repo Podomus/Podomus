@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+
+const EASE = [0.23, 1, 0.32, 1] as const;
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -36,13 +39,10 @@ export default function LoginPage() {
         console.log("Utilisateur connecté:", data.user);
         console.log("Redirection vers /admin/dashboard...");
         
-        // Attendre un petit délai pour que le cookie soit défini
         await new Promise(resolve => setTimeout(resolve, 100));
         
-        // Essayer différentes méthodes de redirection
         try {
           router.replace("/admin/dashboard");
-          // Si ça ne marche pas, forcer avec window.location
           setTimeout(() => {
             if (window.location.pathname === "/login") {
               window.location.href = "/admin/dashboard";
@@ -66,17 +66,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ maxWidth: 400, width: "100%", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
-        <h1 style={{ textAlign: "center", marginBottom: 24 }}>Connexion Admin</h1>
-        <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2, ease: EASE }}
+        className="w-full max-w-[400px] p-6 bg-white rounded-xl shadow-md"
+      >
+        <h1 className="text-center text-xl font-bold mb-6 text-gray-800">
+          Connexion Admin
+        </h1>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
-            style={{ padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
+            className="px-3 py-2.5 rounded-lg border border-gray-300 text-sm outline-none
+                       transition-[border-color,box-shadow] duration-150 ease-out
+                       focus:border-[#40826D] focus:ring-2 focus:ring-[#40826D]/20"
           />
           <input
             type="password"
@@ -84,22 +93,39 @@ export default function LoginPage() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
-            style={{ padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
+            className="px-3 py-2.5 rounded-lg border border-gray-300 text-sm outline-none
+                       transition-[border-color,box-shadow] duration-150 ease-out
+                       focus:border-[#40826D] focus:ring-2 focus:ring-[#40826D]/20"
           />
-          <button 
-            type="submit" 
-            disabled={loading} 
-            style={{ padding: 10, borderRadius: 4, background: "#40826D", color: "#fff", fontWeight: "bold", border: "none" }}
+          <motion.button
+            type="submit"
+            disabled={loading}
+            className="py-2.5 rounded-lg bg-[#40826D] text-white font-semibold text-sm
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+            whileTap={!loading ? { scale: 0.97 } : {}}
+            transition={{ duration: 0.1, ease: "easeOut" }}
           >
             {loading ? "Connexion..." : "Se connecter"}
-          </button>
-          {error && <div style={{ color: "red", marginTop: 8 }}>{error}</div>}
+          </motion.button>
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                key="error"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="text-red-500 text-sm text-center"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </form>
-        <div style={{ marginTop: 16, textAlign: "center", fontSize: "14px", color: "#666" }}>
-          <p>Accès réservé à l&apos;administrateur</p>
-          <p>Email : admin@podomus.local</p>
-        </div>
-      </div>
+        <p className="mt-4 text-center text-xs text-gray-500">
+          Accès réservé à l&apos;administrateur
+        </p>
+      </motion.div>
     </div>
   );
-} 
+}

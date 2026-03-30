@@ -61,7 +61,7 @@ function OrganicShapes() {
 			{/* Forme principale - couleur brand Podomus */}
 			<motion.div
 				className="absolute top-20 right-10 w-96 h-96 bg-softtail-500/40 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2, ease: "easeOut" }}
 			/>
@@ -69,7 +69,7 @@ function OrganicShapes() {
 			{/* Forme secondaire - couleur highlight Podomus */}
 			<motion.div
 				className="absolute bottom-20 left-10 w-80 h-80 bg-softtail-400/35 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
 			/>
@@ -77,7 +77,7 @@ function OrganicShapes() {
 			{/* Forme tertiaire - couleur neutralbg Podomus */}
 			<motion.div
 				className="absolute top-1/2 left-1/3 w-72 h-72 bg-[#E8E4D9]/50 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2, delay: 1, ease: "easeOut" }}
 			/>
@@ -85,7 +85,7 @@ function OrganicShapes() {
 			{/* Formes de fusion avec la section suivante - partie haute */}
 			<motion.div
 				className="absolute top-32 left-16 w-64 h-64 bg-softtail-500/25 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.5, delay: 0.3, ease: "easeOut" }}
 			/>
@@ -93,7 +93,7 @@ function OrganicShapes() {
 			{/* Forme de transition vers la section suivante */}
 			<motion.div
 				className="absolute bottom-32 right-20 w-56 h-56 bg-softtail-400/30 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.2, delay: 0.7, ease: "easeOut" }}
 			/>
@@ -101,7 +101,7 @@ function OrganicShapes() {
 			{/* Forme centrale - fusion des couleurs */}
 			<motion.div
 				className="absolute top-1/3 right-1/4 w-48 h-48 bg-gradient-to-br from-softtail-500/25 to-softtail-400/25 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.8, delay: 1.2, ease: "easeOut" }}
 			/>
@@ -109,7 +109,7 @@ function OrganicShapes() {
 			{/* Forme de transition haute */}
 			<motion.div
 				className="absolute top-16 left-1/2 w-40 h-40 bg-neutralbg/40 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.3, delay: 0.9, ease: "easeOut" }}
 			/>
@@ -117,7 +117,7 @@ function OrganicShapes() {
 			{/* Forme de fusion basse - prépare la transition */}
 			<motion.div
 				className="absolute bottom-16 left-1/2 w-52 h-52 bg-gradient-to-tr from-softtail-400/20 to-softtail-500/20 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.6, delay: 1.5, ease: "easeOut" }}
 			/>
@@ -125,14 +125,14 @@ function OrganicShapes() {
 			{/* Formes géométriques de transition */}
 			<motion.div
 				className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-softtail-500/35 to-softtail-400/35 rounded-lg blur-2xl rotate-12"
-				initial={{ scale: 0, opacity: 0, rotate: 0 }}
+				initial={{ scale: 0.85, opacity: 0, rotate: 0 }}
 				animate={{ scale: 1, opacity: 1, rotate: 12 }}
 				transition={{ duration: 3, delay: 0.4, ease: "easeOut" }}
 			/>
 
 			<motion.div
 				className="absolute bottom-1/4 left-1/4 w-28 h-28 bg-gradient-to-tr from-neutralbg/45 to-softtail-500/30 rounded-lg blur-2xl -rotate-12"
-				initial={{ scale: 0, opacity: 0, rotate: 0 }}
+				initial={{ scale: 0.85, opacity: 0, rotate: 0 }}
 				animate={{ scale: 1, opacity: 1, rotate: -12 }}
 				transition={{ duration: 2.7, delay: 1.1, ease: "easeOut" }}
 			/>
@@ -140,14 +140,14 @@ function OrganicShapes() {
 			{/* Formes de fusion supplémentaires */}
 			<motion.div
 				className="absolute top-40 right-1/3 w-36 h-36 bg-softtail-500/20 rounded-full blur-2xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.4, delay: 0.6, ease: "easeOut" }}
 			/>
 
 			<motion.div
 				className="absolute bottom-40 left-1/3 w-44 h-44 bg-softtail-400/25 rounded-full blur-2xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.9, delay: 1.3, ease: "easeOut" }}
 			/>
@@ -155,7 +155,7 @@ function OrganicShapes() {
 			{/* Forme centrale de fusion */}
 			<motion.div
 				className="absolute top-1/2 right-1/2 w-60 h-60 bg-gradient-to-br from-neutralbg/35 to-softtail-400/20 rounded-full blur-3xl"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 3.2, delay: 0.8, ease: "easeOut" }}
 			/>
@@ -170,14 +170,14 @@ function OrganicShapes() {
 
 			<motion.div
 				className="absolute bottom-0 right-0 w-64 h-48 bg-gradient-to-tl from-softtail-500/15 to-transparent rounded-tl-full"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.5, delay: 2, ease: "easeOut" }}
 			/>
 
 			<motion.div
 				className="absolute bottom-0 left-1/3 w-48 h-40 bg-gradient-to-tr from-[#E8E4D9]/25 to-transparent rounded-tr-full"
-				initial={{ scale: 0, opacity: 0 }}
+				initial={{ scale: 0.85, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ duration: 2.3, delay: 2.2, ease: "easeOut" }}
 			/>
@@ -268,15 +268,15 @@ export default function HeroSection() {
 					{/* Contenu de gauche - style exact de l'image */}
 					<motion.div
 						className="lg:pr-8 p-8 sm:p-12 lg:p-16"
-						variants={fadeIn("right", 0.3)}
+						variants={fadeIn("right", 0)}
 						initial="hidden"
 						animate={inView ? "show" : "hidden"}
 					>
 						{/* Badge "Podologie" */}
 						<motion.div
-							initial={{ x: -50, opacity: 0 }}
+							initial={{ x: -20, opacity: 0 }}
 							animate={{ x: 0, opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.2 }}
+							transition={{ duration: 0.35, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
 							className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/50 mb-8"
 						>
 							<div className="w-2 h-2 bg-softtail-500 rounded-full"></div>
@@ -287,9 +287,9 @@ export default function HeroSection() {
 
 						{/* Titre principal - style exact de l'image */}
 						<motion.h1
-							initial={{ y: 50, opacity: 0 }}
+							initial={{ y: 20, opacity: 0 }}
 							animate={{ y: 0, opacity: 1 }}
-							transition={{ duration: 1, delay: 0.4 }}
+							transition={{ duration: 0.4, delay: 0.18, ease: [0.23, 1, 0.32, 1] }}
 							className="text-5xl lg:text-7xl font-bold leading-tight mb-6"
 						>
 							<span className="text-softtail-500 block">Podomus</span>
@@ -298,9 +298,9 @@ export default function HeroSection() {
 
 						{/* Description - style exact de l'image */}
 						<motion.p
-							initial={{ y: 30, opacity: 0 }}
+							initial={{ y: 16, opacity: 0 }}
 							animate={{ y: 0, opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.6 }}
+							transition={{ duration: 0.3, delay: 0.26, ease: [0.23, 1, 0.32, 1] }}
 							className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg"
 						>
 							Des soins sur-mesure, innovants et confidentiels, orchestrés par la
@@ -312,24 +312,24 @@ export default function HeroSection() {
 						<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 w-full">
 							{/* Bouton principal - Prendre rendez-vous */}
 							<Button
-								className="w-full sm:w-auto min-w-0 bg-softtail-400 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:bg-softtail-400/90 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group text-base sm:text-lg"
+								className="w-full sm:w-auto min-w-0 bg-softtail-400 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:bg-softtail-400/90 hover:shadow-xl transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] flex items-center justify-center gap-3 group text-base sm:text-lg"
 								onPress={() => setOpenModal(true)}
 							>
 								<IoCalendarOutline
 									size={20}
-									className="group-hover:rotate-12 transition-transform duration-300"
+									className="group-hover:rotate-12 transition-transform duration-150"
 								/>
 								<span>Prendre rendez-vous</span>
 							</Button>
 
 							{/* Bouton secondaire - Découvrir nos services */}
 							<Button
-								className="w-full sm:w-auto min-w-0 bg-white text-softtail-500 border-2 border-softtail-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:bg-softtail-500 hover:text-white hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group text-base sm:text-lg"
+								className="w-full sm:w-auto min-w-0 bg-white text-softtail-500 border-2 border-softtail-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:bg-softtail-500 hover:text-white hover:shadow-xl transition-[transform,background-color,border-color,color,box-shadow] duration-150 active:scale-[0.97] flex items-center justify-center gap-3 group text-base sm:text-lg"
 								onPress={() => router.push("/service")}
 							>
 								<IoPlay
 									size={20}
-									className="group-hover:scale-110 transition-transform duration-300"
+									className="group-hover:scale-110 transition-transform duration-150"
 								/>
 								<span>Découvrir nos services</span>
 							</Button>
@@ -367,8 +367,8 @@ export default function HeroSection() {
 						className="relative flex items-center justify-center w-full"
 						initial={{ x: 40, opacity: 0 }}
 						whileInView={{ x: 0, opacity: 1 }}
-						viewport={{ once: false, amount: 0.3 }}
-						transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+						viewport={{ once: true, margin: "-80px" }}
+						transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.06 }}
 					>
 						{/* Conteneur principal avec cadre arrondi */}
 						<div className="relative w-full max-w-lg">
@@ -395,7 +395,7 @@ export default function HeroSection() {
 								{/* Forme beige en haut à droite */}
 								<motion.div
 									className="absolute -top-8 -right-8 w-32 h-32 bg-[#F5F5DC]/30 rounded-full blur-xl"
-									initial={{ scale: 0, opacity: 0 }}
+									initial={{ scale: 0.85, opacity: 0 }}
 									animate={{ scale: 1, opacity: 1 }}
 									transition={{ duration: 1.5, delay: 0.8 }}
 								/>
@@ -403,7 +403,7 @@ export default function HeroSection() {
 								{/* Forme sombre en bas à gauche */}
 								<motion.div
 									className="absolute -bottom-8 -left-8 w-24 h-24 bg-gray-800/20 rounded-full blur-xl"
-									initial={{ scale: 0, opacity: 0 }}
+									initial={{ scale: 0.85, opacity: 0 }}
 									animate={{ scale: 1, opacity: 1 }}
 									transition={{ duration: 1.5, delay: 1.0 }}
 								/>
@@ -433,7 +433,13 @@ export default function HeroSection() {
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0">
+					<motion.div
+						className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
+						variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, margin: "-80px" }}
+					>
 						{[
 							{ anchor: "soins" },
 							{ anchor: "orthoplastie" },
@@ -441,17 +447,13 @@ export default function HeroSection() {
 						].map((meta, index) => (
 							<motion.div
 								key={`service-${index}`}
-								initial={{ y: 50, opacity: 0 }}
-								whileInView={{ y: 0, opacity: 1 }}
-								viewport={{ once: false, amount: 0.3 }}
-								transition={{
-									duration: 0.7,
-									delay: index * 0.2,
-									ease: "easeOut",
+								variants={{
+									hidden: { opacity: 0, y: 16 },
+									visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } },
 								}}
-								className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-all duration-300 group hover:shadow-2xl hover:scale-105"
+								className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-[border-color,box-shadow] duration-200 group hover:shadow-2xl"
 							>
-								<div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-300">
+								<div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-200">
 									<TbTargetArrow size={32} className="text-softtail-400" />
 								</div>
 								<h4 className="mb-2 font-bold text-softtail-400 group-hover:underline text-base sm:text-lg">
@@ -462,24 +464,24 @@ export default function HeroSection() {
 								</p>
 							</motion.div>
 						))}
-					</div>
+					</motion.div>
 
 					<motion.div
-						initial={{ y: 30, opacity: 0 }}
+						initial={{ y: 16, opacity: 0 }}
 						whileInView={{ y: 0, opacity: 1 }}
-						viewport={{ once: false, amount: 0.3 }}
-						transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
+						viewport={{ once: true, margin: "-80px" }}
+						transition={{ duration: 0.3, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
 						className="w-full flex justify-center"
 					>
 						<Button
-							className="h-12 sm:h-14 md:h-16 px-6 sm:px-8 lg:px-10 text-sm sm:text-base md:text-lg font-semibold bg-softtail-500 text-white hover:bg-softtail-600 hover:scale-105 hover:shadow-lg transition-all duration-300 tracking-wide uppercase"
+							className="h-12 sm:h-14 md:h-16 px-6 sm:px-8 lg:px-10 text-sm sm:text-base md:text-lg font-semibold bg-softtail-500 text-white hover:bg-softtail-600 hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
 							endContent={
 								<IoCalendarOutline size={20} className="ml-2" />
 							}
 							onPress={() => setOpenModal(true)}
 						>
 							<span className="hidden sm:inline">
-								Demander un rendez-vous privilégié
+							Prendre rendez-vous
 							</span>
 							<span className="sm:hidden">Prendre RDV</span>
 						</Button>

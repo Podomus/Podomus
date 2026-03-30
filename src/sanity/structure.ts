@@ -1,10 +1,16 @@
 import type { StructureResolver } from 'sanity/structure'
-import { CogIcon, DocumentTextIcon, DocumentIcon, TagIcon } from '@sanity/icons'
+import { CogIcon, DocumentTextIcon, DocumentIcon, TagIcon, HomeIcon } from '@sanity/icons'
 
 export const structure: StructureResolver = (S) =>
   S.list()
     .title('Podomus')
     .items([
+      // Home page singleton
+      S.listItem()
+        .title("Page d'accueil")
+        .icon(HomeIcon)
+        .child(S.document().schemaType('homePage').documentId('homePage')),
+      S.divider(),
       // Settings singleton
       S.listItem()
         .title('Settings')

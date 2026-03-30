@@ -66,6 +66,52 @@ export const post = defineType({
       type: 'reference',
       to: [{ type: 'category' }],
     }),
+    defineField({
+      name: 'author',
+      title: 'Auteur',
+      type: 'string',
+      description: "Nom et qualifications de l'auteur (ex: Dr. Sonda Affes Ben Mahmoud, Pédicure-Podologue)",
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Article mis en avant',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'lastReviewed',
+      title: 'Dernière révision médicale',
+      type: 'date',
+      description: "Date de la dernière vérification de l'exactitude médicale",
+    }),
+    defineField({
+      name: 'medicalDisclaimer',
+      title: 'Avertissement médical',
+      type: 'text',
+      rows: 3,
+      description: 'Avertissement à afficher en bas de l\'article (ex: "Cet article est fourni à titre informatif uniquement...")',
+    }),
+    defineField({
+      name: 'seoTitle',
+      title: 'Titre SEO',
+      type: 'string',
+      description: 'Titre personnalisé pour les moteurs de recherche (laissez vide pour utiliser le titre de l\'article)',
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'Description SEO',
+      type: 'text',
+      rows: 2,
+      description: 'Description pour les moteurs de recherche (150-160 caractères recommandés)',
+    }),
+    defineField({
+      name: 'seoKeywords',
+      title: 'Mots-clés SEO',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+      description: 'Mots-clés liés à cet article',
+    }),
   ],
   preview: {
     select: {

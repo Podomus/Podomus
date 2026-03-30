@@ -9,18 +9,18 @@ export default function SchedulePage() {
 
   const scheduleData = {
     weekdays: [
-      { day: "Lundi", hours: "8:00 - 18:00", status: "Ouvert" },
-      { day: "Mardi", hours: "8:00 - 18:00", status: "Ouvert" },
-      { day: "Mercredi", hours: "8:00 - 18:00", status: "Ouvert" },
-      { day: "Jeudi", hours: "8:00 - 18:00", status: "Ouvert" },
-      { day: "Vendredi", hours: "8:00 - 18:00", status: "Ouvert" },
-      { day: "Samedi", hours: "8:00 - 12:00", status: "Ouvert" },
+      { day: "Lundi", hours: "9:00 - 18:00", status: "Ouvert" },
+      { day: "Mardi", hours: "9:00 - 18:00", status: "Ouvert" },
+      { day: "Mercredi", hours: "9:00 - 18:00", status: "Ouvert" },
+      { day: "Jeudi", hours: "9:00 - 18:00", status: "Ouvert" },
+      { day: "Vendredi", hours: "9:00 - 18:00", status: "Ouvert" },
+      { day: "Samedi", hours: "9:00 - 13:00", status: "Ouvert" },
       { day: "Dimanche", hours: "Fermé", status: "Fermé" }
     ],
     contact: {
-      phone: "+33 1 23 45 67 89",
-      email: "contact@podomus.fr",
-      address: "123 Rue de la Santé, 75001 Paris"
+      phone: "+216 51 617 044",
+      email: "contact@podomus.tn",
+      address: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036"
     }
   };
 
@@ -30,12 +30,13 @@ export default function SchedulePage() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         className="bg-white shadow-lg"
       >
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Horaires & Rendez-vous
+              Horaires et Rendez-vous
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Planifiez votre consultation podologique en toute simplicité. 
@@ -50,9 +51,10 @@ export default function SchedulePage() {
           
           {/* Horaires */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             className="bg-white rounded-2xl shadow-xl p-8"
           >
             <div className="flex items-center mb-6">
@@ -65,8 +67,9 @@ export default function SchedulePage() {
                 <motion.div
                   key={item.day}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.3, delay: index * 0.05, ease: [0.23, 1, 0.32, 1] }}
                   className={`flex justify-between items-center p-4 rounded-lg ${
                     item.status === "Ouvert" 
                       ? "bg-green-50 border border-green-200" 
@@ -95,9 +98,10 @@ export default function SchedulePage() {
 
           {/* Prise de rendez-vous */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             className="bg-white rounded-2xl shadow-xl p-8"
           >
             <div className="flex items-center mb-6">
@@ -132,7 +136,7 @@ export default function SchedulePage() {
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-[transform,background-color] duration-150 hover:scale-105 active:scale-[0.97]"
               >
                 Prendre Rendez-vous Maintenant
               </button>
@@ -142,9 +146,10 @@ export default function SchedulePage() {
 
         {/* Contact Info */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           className="mt-12 bg-white rounded-2xl shadow-xl p-8"
         >
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">

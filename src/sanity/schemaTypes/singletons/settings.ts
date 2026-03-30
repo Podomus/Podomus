@@ -35,7 +35,7 @@ export const settings = defineType({
       name: 'phone',
       title: 'Phone',
       type: 'string',
-      initialValue: '+216 28 451 433',
+      initialValue: '+216 51 617 044',
     }),
     defineField({
       name: 'email',

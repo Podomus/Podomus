@@ -8,6 +8,7 @@ import { sanityFetch } from '@/sanity/lib/live'
 import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import type { Metadata } from 'next'
+import { PostHeader, PostBody } from './PostContent'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -98,7 +99,7 @@ export default async function PostPage({ params }: Props) {
         </Link>
 
         {/* Header */}
-        <header className="mb-10">
+        <PostHeader className="mb-10">
           {post.category && (
             <span className="text-sm font-semibold text-brand uppercase tracking-wider">
               {post.category.title}
@@ -112,7 +113,7 @@ export default async function PostPage({ params }: Props) {
               {format(parseISO(post.date), 'd MMMM yyyy', { locale: fr })}
             </time>
           )}
-        </header>
+        </PostHeader>
 
         {/* Cover */}
         {post.coverImage?.asset && (
@@ -128,14 +129,14 @@ export default async function PostPage({ params }: Props) {
         )}
 
         {/* Content */}
-        <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-textmain prose-a:text-brand">
+        <PostBody className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-textmain prose-a:text-brand">
           {post.content && (
             <PortableText
               value={post.content}
               components={portableTextComponents}
             />
           )}
-        </div>
+        </PostBody>
       </article>
     </main>
   )

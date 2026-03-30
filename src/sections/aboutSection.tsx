@@ -20,8 +20,8 @@ function useParallaxImages() {
 }
 
 const AboutSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: false });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: false });
+  const [ref, inView] = useInView({ triggerOnce: true });
+  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
   const scrollY = useParallaxImages();
 
   return (
@@ -124,8 +124,8 @@ const AboutSection = () => {
               className="text-center px-2 sm:px-0 p-8 sm:p-12 lg:p-16"
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
               À Propos de Podomus
@@ -138,8 +138,8 @@ const AboutSection = () => {
             className="text-sm sm:text-lg md:text-xl font-medium text-textmain bg-white/90 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg mt-4"
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.06 }}
           >
             Podomus, c&apos;est l&apos;expertise de la Docteure Sonda Affes Ben Mahmoud pour la santé et la beauté de vos pieds.<br />
             Un accompagnement personnalisé, dans un cadre élégant.
@@ -148,9 +148,10 @@ const AboutSection = () => {
           {/* Bloc mission avec lueur animée */}
           <motion.div
             className="flex flex-col items-center justify-center rounded-2xl bg-highlight p-4 sm:p-6 text-center xl:p-10 mt-4 sm:mt-6 shadow-lg relative overflow-visible"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
+            initial={{ y: 16, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.1 }}
           >
             {/* Lueur animée */}
             <motion.div
@@ -172,21 +173,23 @@ const AboutSection = () => {
             </span>
             <motion.p
               className="mt-3 sm:mt-5 text-sm sm:text-lg font-medium text-white md:text-xl relative z-10"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.55 }}
+              initial={{ y: 16, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.15 }}
             >
               Offrir des soins podologiques d&apos;exception, alliant innovation, confort et discrétion.
             </motion.p>
             {/* Lien animé vers /service */}
             <motion.a
               href="/service"
-              className="inline-block mt-6 sm:mt-8 bg-white text-brand font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-lg hover:bg-highlight hover:text-white transition-all duration-300 text-sm sm:text-lg"
+              className="inline-block mt-6 sm:mt-8 bg-white text-brand font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-lg hover:bg-highlight hover:text-white transition-[transform,background-color,color] duration-150 text-sm sm:text-lg"
               whileHover={{ scale: 1.07 }}
               whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
             >
               Découvrir tous nos services
             </motion.a>
@@ -204,12 +207,12 @@ const AboutSection = () => {
             return (
               <motion.div
                 key={img.src}
-                initial={{ scale: 0.8, opacity: 0 }}
+                initial={{ scale: 0.95, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.15, ease: "easeOut" }}
-                whileHover={{ scale: 1.07, boxShadow: "0 8px 32px 0 rgba(64, 130, 109, 0.25)" }}
-                className="w-full h-full rounded-xl overflow-hidden cursor-pointer transition-all"
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.3, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
+                whileHover={{ scale: 1.03, boxShadow: "0 8px 32px 0 rgba(64, 130, 109, 0.18)" }}
+                className="w-full h-full rounded-xl overflow-hidden cursor-pointer transition-transform"
                 style={{
                   transform: `translateY(${scrollY * parallaxFactors[i]}px)`
                 }}
@@ -219,7 +222,7 @@ const AboutSection = () => {
                   alt={img.alt}
                   width={400}
                   height={400}
-                  className="object-cover w-full h-full rounded-xl transition-all duration-300"
+                  className="object-cover w-full h-full rounded-xl transition-transform duration-200"
                 />
               </motion.div>
             );

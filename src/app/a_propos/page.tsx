@@ -72,10 +72,10 @@ export default function AboutPage() {
   const [activeTab, setActiveTab] = useState(0);
 
   const stats = [
-    { icon: <FaUsers className="text-3xl" />, number: "500+", label: "Patients Satisfaits" },
-    { icon: <FaAward className="text-3xl" />, number: "10+", label: "Années d'Expérience" },
+    { icon: <FaUsers className="text-3xl" />, number: "500+", label: "Patients Traités" },
+    { icon: <FaAward className="text-3xl" />, number: "9+", label: "Années d'Expérience" },
     { icon: <TbCertificate className="text-3xl" />, number: "3", label: "Pays d'Exercice" },
-    { icon: <FaHeart className="text-3xl" />, number: "5★", label: "Établissements de Luxe" },
+    { icon: <FaHeart className="text-3xl" />, number: "2", label: "Resorts 5★ BG Studios" },
   ];
 
   const values = [
@@ -107,29 +107,34 @@ export default function AboutPage() {
 
   const timeline = [
     {
-      year: "2015",
-      title: "Diplôme en Pédicurie-Podologie",
-      description: "Diplômée de l'École Supérieure des Sciences et Techniques de la Santé de Sousse, avec une recherche en oncologie au CHU Farhat Hached sur les effets de la chimiothérapie sur les pieds."
+      year: "2014",
+      title: "Stage — CHU Farhat Hached, Sousse",
+      description: "Stage en oncologie au CHU Farhat Hached de Sousse. En collaboration avec un oncologue, elle développe un protocole de prévention et de prise en charge des complications podologiques liées à la chimiothérapie — une expertise qui nourrit encore aujourd'hui sa pratique avec les patients vulnérables."
     },
     {
       year: "2016",
-      title: "Ouverture du Cabinet à Sfax",
-      description: "Fondation de son premier cabinet de pédicurie médicale et podologie à Sfax, avec plus de 4 ans de pratique dédiée aux soins podologiques pour tous les âges."
+      title: "Cabinet Sonda Affes — Sfax",
+      description: "Fondation de son cabinet privé de pédicurie médicale et de podologie à Sfax. Pendant près de 5 ans, elle accompagne des patients de tous âges avec un focus sur la prévention, les orthèses sur mesure et l'éducation thérapeutique, tout en assurant la direction de la structure."
+    },
+    {
+      year: "2019",
+      title: "Secrétaire Générale — ATSP",
+      description: "Nommée secrétaire générale de l'Association Tunisienne pour la Santé du Pied (ATSP). Elle contribue activement au développement de la podologie en Tunisie, à l'organisation de congrès spécialisés et au rayonnement de la profession."
     },
     {
       year: "2021",
       title: "Bastien Gonzalez Studio — Maldives",
-      description: "Recrutée comme Podologue et Studio Manager au One&Only Reethi Rah, l'un des resorts les plus exclusifs au monde. Soins d'exception pour une clientèle VIP internationale."
+      description: "Studio Manager au One&Only Reethi Rah, l'un des resorts les plus exclusifs au monde. Elle prodigue des soins podologiques avancés à une clientèle VIP internationale — célébrités, athlètes, personnalités — tout en assurant la coordination d'équipe et les standards cinq étoiles du studio."
     },
     {
       year: "2023",
       title: "Bastien Gonzalez Studio — Dubaï",
-      description: "Nommée Studio Manager au One&Only Royal Mirage à Dubaï. Leadership d'équipe, mentorat et standards cinq étoiles dans un cadre cosmopolite."
+      description: "Nommée Studio Manager au One&Only Royal Mirage à Dubaï. Elle allie expertise clinique et leadership dans un environnement cosmopolite exigeant, encadre les thérapeutes juniors et garantit l'excellence de la marque Bastien Gonzalez dans l'un des hôtels les plus prestigieux du Moyen-Orient."
     },
     {
       year: "2025",
-      title: "Lancement de Podomus",
-      description: "Retour en Tunisie avec une vision renouvelée : la création de Podomus, un espace d'excellence en podologie alliant expertise médicale internationale et un savoir-faire hôtelier de luxe."
+      title: "Lancement de Podomus — La Soukra",
+      description: "Retour en Tunisie avec une vision enrichie par dix ans d'expérience clinique et internationale. Elle crée Podomus à Ariana, un cabinet qui allie rigueur médicale, innovation et l'art du soin d'exception — parce que des pieds en bonne santé méritent bien plus qu'un traitement clinique."
     }
   ];
 
@@ -149,10 +154,10 @@ export default function AboutPage() {
           >
             <motion.span
               className="inline-block px-4 py-2 bg-brand/10 text-brand font-semibold rounded-full text-sm mb-4"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring" }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
               À PROPOS DE NOUS
             </motion.span>
@@ -188,11 +193,11 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
+                whileHover={{ scale: 1.02, y: -4 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
               >
                 <div className="text-brand mb-2 sm:mb-3 flex justify-center">
                   {stat.icon}
@@ -294,10 +299,10 @@ export default function AboutPage() {
                   className={`flex items-center gap-8 ${
                     index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -16 : 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
+                  transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                 >
                   <div className="flex-1">
                     <div className="bg-white rounded-2xl p-6 shadow-lg">
@@ -349,11 +354,11 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 className="group relative"
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0, y: 20 }}
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
               >
                 <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 shadow-lg border border-gray-100 group-hover:shadow-xl transition-all duration-300">
                   <div className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -379,7 +384,7 @@ export default function AboutPage() {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-brand mb-6">
-              Notre Équipe
+              Notre Fondatrice &amp; Directrice
             </h2>
             <p className="text-lg text-textmain max-w-2xl mx-auto">
               Des professionnels passionnés dédiés à votre bien-être
@@ -396,18 +401,18 @@ export default function AboutPage() {
             {/* Dr Sonda Affes Ben Mahmoud */}
             <motion.div
               className="bg-white rounded-2xl shadow-lg overflow-hidden group max-w-md"
-              whileHover={{ scale: 1.02, y: -5 }}
-              initial={{ opacity: 0, y: 50 }}
+              whileHover={{ scale: 1.01, y: -4 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
               <div className="relative h-80 overflow-hidden">
                 <Image
                   src="/sonda.jpg"
                   alt="Dr Sonda Affes Ben Mahmoud"
                   fill
-                  className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                  className="object-cover object-top group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
@@ -415,21 +420,20 @@ export default function AboutPage() {
                 <h3 className="text-3xl font-bold text-brand mb-3">Sonda Affes</h3>
                 <p className="text-highlight font-semibold mb-4 text-lg">Pédicure-Podologue | Fondatrice de Podomus</p>
                 <p className="text-textmain mb-6 leading-relaxed">
-                  Diplômée de l&apos;ESSTSS de Sousse, Sonda a d&apos;abord fondé son propre cabinet à Sfax 
-                  avant de rejoindre les prestigieux Bastien Gonzalez Studios — d&apos;abord au One&amp;Only 
-                  Reethi Rah aux Maldives, puis au One&amp;Only Royal Mirage à Dubaï. Spécialisée en 
-                  semelles thermoformées, bilans podologiques et soins des pathologies unguéales, 
-                  elle a soigné célébrités, athlètes et clientèle VIP à travers le monde. En 2025, 
-                  elle revient en Tunisie pour lancer Podomus.
+                  Diplômée de l&apos;ESSTSS de Sousse, Sonda fonde son cabinet à Sfax en 2016 avant
+                  de rejoindre les Bastien Gonzalez Studios — au One&amp;Only Reethi Rah aux Maldives
+                  (2021–2023) puis au One&amp;Only Royal Mirage à Dubaï (2023–2025). En décembre 2024,
+                  elle rentre en Tunisie et lance Podomus : un cabinet où l&apos;expertise médicale
+                  rencontre l&apos;art du soin d&apos;exception.
                 </p>
                 <div className="flex justify-center gap-6">
                   <div className="flex items-center gap-2 text-sm text-textmain">
                     <TbCertificate className="text-brand text-lg" />
-                    <span>K-Taping</span>
+                    <span>ESSTSS Sousse</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-textmain">
                     <TbCalendarTime className="text-brand text-lg" />
-                    <span>Depuis 2016</span>
+                    <span>Depuis 2025</span>
                   </div>
                 </div>
               </div>
@@ -487,51 +491,50 @@ export default function AboutPage() {
           >
             <motion.div
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-brand/5 to-highlight/5 border border-brand/20"
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 20 }}
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
               <FaMapMarkerAlt className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Adresse</h3>
               <p className="text-textmain">
-                Bureau BM2 1er Etage<br />
+                Bureau BM2, 1er Étage<br />
                 Imm. Golf Center 2<br />
-                Av. De L&apos;environnement<br />
-                Dar Fadhal La Soukra 2036
+                La Soukra 2036
               </p>
             </motion.div>
 
             <motion.div
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-brand/5 to-highlight/5 border border-brand/20"
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 20 }}
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
               <FaClock className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Horaires</h3>
               <p className="text-textmain">
                 Lundi - Vendredi: 9h - 18h<br />
-                Samedi: 9h - 14h<br />
+                Samedi: 9h - 13h<br />
                 Dimanche: Fermé
               </p>
             </motion.div>
 
             <motion.div
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-brand/5 to-highlight/5 border border-brand/20"
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 20 }}
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.15, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
               <FaPhone className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Contact</h3>
               <p className="text-textmain mb-2">
-                Téléphone: +216 28 451 433<br />
+                Téléphone: +216 51 617 044<br />
                 Email: contact@podomus.tn
               </p>
               <div className="flex justify-center gap-3 mt-4">
@@ -552,8 +555,8 @@ export default function AboutPage() {
             <motion.a
               href="/contact"
               className="inline-block bg-brand text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-highlight transition-all duration-300 text-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
             >
               Prendre Rendez-vous
             </motion.a>

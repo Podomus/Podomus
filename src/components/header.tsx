@@ -12,6 +12,7 @@ const navLinks = [
   { name: "ACCUEIL", href: "/" },
   { name: "À PROPOS", href: "/a_propos" },
   { name: "SERVICES", href: "/service" },
+  { name: "BLOG", href: "/blog" },
   { name: "CONTACT", href: "/contact" },
 ];
 
@@ -127,7 +128,7 @@ export default function Header() {
         <motion.div
           initial={{ x: -30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           <Link href="/" className="flex items-center group">
             <motion.div
@@ -224,7 +225,7 @@ export default function Header() {
            className="hidden md:flex gap-8 lg:gap-12 items-center"
            initial={{ y: -20, opacity: 0 }}
            animate={{ y: 0, opacity: 1 }}
-           transition={{ duration: 0.6, delay: 0.2 }}
+           transition={{ duration: 0.3, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
          >
            {navLinks.map((link, index) => (
              <motion.li key={link.name}>
@@ -244,11 +245,11 @@ export default function Header() {
            className="hidden md:block"
            initial={{ x: 30, opacity: 0 }}
            animate={{ x: 0, opacity: 1 }}
-           transition={{ duration: 0.6, delay: 0.4 }}
+           transition={{ duration: 0.3, delay: 0.25, ease: [0.23, 1, 0.32, 1] }}
          >
            <motion.button
              onClick={() => setOpenModal(true)}
-             className="bg-softtail-500 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-softtail-500/90 hover:shadow-xl transition-all duration-300 flex items-center gap-3 group text-lg"
+             className="bg-softtail-500 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-softtail-500/90 hover:shadow-xl transition-[background-color,box-shadow] duration-200 flex items-center gap-3 group text-lg active:scale-[0.97]"
              whileHover={{ scale: 1.05 }}
              whileTap={{ scale: 0.95 }}
            >
@@ -302,20 +303,20 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
           >
             <motion.ul 
               className="flex flex-col gap-1 py-6 px-6"
-              initial={{ y: -20, opacity: 0 }}
+              initial={{ y: -8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.05, ease: [0.23, 1, 0.32, 1], duration: 0.2 }}
             >
               {navLinks.map((link, index) => (
                 <motion.li 
                   key={link.name}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
+                  transition={{ delay: 0.06 + index * 0.05, ease: [0.23, 1, 0.32, 1], duration: 0.2 }}
                 >
                   <motion.a
                     href={link.href}
@@ -331,12 +332,12 @@ export default function Header() {
               <motion.li
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.3, ease: [0.23, 1, 0.32, 1], duration: 0.2 }}
                 className="pt-4"
               >
                 <button
                   onClick={() => { setMenuOpen(false); setOpenModal(true); }}
-                  className="block w-full bg-brand text-white px-6 py-4 rounded-full font-semibold shadow-lg hover:bg-brand/90 hover:shadow-xl transition-all duration-300 text-center flex items-center justify-center gap-2"
+                  className="block w-full bg-brand text-white px-6 py-4 rounded-full font-semibold shadow-lg hover:bg-brand/90 hover:shadow-xl transition-[background-color,box-shadow] duration-200 text-center flex items-center justify-center gap-2 active:scale-[0.97]"
                 >
                   <IoCalendarOutline size={18} />
                   <span>Prendre rendez-vous</span>

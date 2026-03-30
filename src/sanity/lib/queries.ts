@@ -9,6 +9,8 @@ export const POSTS_QUERY = defineQuery(`
     excerpt,
     date,
     coverImage,
+    author,
+    featured,
     category->{
       _id,
       title,
@@ -27,6 +29,13 @@ export const POST_QUERY = defineQuery(`
     excerpt,
     date,
     coverImage,
+    author,
+    featured,
+    lastReviewed,
+    medicalDisclaimer,
+    seoTitle,
+    seoDescription,
+    seoKeywords,
     category->{
       _id,
       title,
@@ -80,6 +89,30 @@ export const SETTINGS_QUERY = defineQuery(`
     email,
     address,
     socialLinks
+  }
+`)
+
+// Home page singleton (page builder)
+export const HOME_PAGE_QUERY = defineQuery(`
+  *[_type == "homePage"][0]{
+    title,
+    seoTitle,
+    seoDescription,
+    sections[] {
+      _type,
+      _key,
+      heading,
+      subheading,
+      body,
+      ctaLabel,
+      ctaUrl,
+      image { asset->, alt },
+      backgroundImage { asset->, alt },
+      services[] { title, description, icon, link },
+      testimonials[] { quote, patientName, rating },
+      items[] { question, answer },
+      values[] { title, description, icon },
+    }
   }
 `)
 

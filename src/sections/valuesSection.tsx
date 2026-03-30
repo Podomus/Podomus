@@ -18,13 +18,13 @@ const values: { title: string; text: string }[] = [
   },
   {
     title: "Prestige & Confiance",
-    text: "Podomus s’adresse à une clientèle exigeante, en quête de résultats irréprochables.",
+    text: "Podomus accueille tous les patients qui recherchent l'excellence et des résultats durables et fiables.",
   },
 ];
 
 const ValuesSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: false });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: false });
+  const [ref, inView] = useInView({ triggerOnce: true });
+  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
 
   return (
     <section
@@ -86,8 +86,8 @@ const ValuesSection = () => {
           id="Values"
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           L’ESPRIT PODOMUS <BsFillPatchCheckFill size={50} className="text-highlight" />
         </motion.h2>
@@ -95,17 +95,17 @@ const ValuesSection = () => {
                  <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-3 gap-8 w-full max-w-5xl mx-auto items-stretch p-8 sm:p-12 lg:p-16">
           {/* Ligne 1 : image 1 + valeur 1 */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.05 }}
             whileHover={{ scale: 1.05, boxShadow: "0 8px 32px 0 rgba(199,21,133,0.15)" }}
             className="w-full rounded-xl overflow-hidden shadow-md flex-1 row-span-1"
           >
             <Image
               src="/a.jpg"
               alt="Podomus podologie 1"
-              className="aspect-auto h-full w-full object-cover transition-all duration-300"
+              className="aspect-auto h-full w-full object-cover transition-transform duration-200"
               sizes="100vw"
               width={0}
               height={0}
@@ -115,10 +115,10 @@ const ValuesSection = () => {
             key={0}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.15)" }}
-            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-all flex-1 row-span-1"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
+            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
+            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1"
           >
             <p className="mx-auto w-[80%] rounded-t-2xl bg-brand p-2 font-bold text-white md:w-[60%]">
               {values[0].title}
@@ -129,17 +129,17 @@ const ValuesSection = () => {
           </motion.div>
           {/* Ligne 2 : image 2 + valeur 2 */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.05 }}
             whileHover={{ scale: 1.05, boxShadow: "0 8px 32px 0 rgba(199,21,133,0.15)" }}
             className="w-full rounded-xl overflow-hidden shadow-md flex-1 row-span-1"
           >
             <Image
               src="/c.jpg"
               alt="Podomus podologie 2"
-              className="aspect-auto h-full w-full object-cover transition-all duration-300"
+              className="aspect-auto h-full w-full object-cover transition-transform duration-200"
               sizes="100vw"
               width={0}
               height={0}
@@ -149,10 +149,10 @@ const ValuesSection = () => {
             key={1}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.15)" }}
-            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-all flex-1 row-span-1"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
+            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1"
           >
             <p className="mx-auto w-[80%] rounded-t-2xl bg-brand p-2 font-bold text-white md:w-[60%]">
               {values[1].title}
@@ -167,10 +167,10 @@ const ValuesSection = () => {
             key={2}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.15)" }}
-            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-all flex-1 row-span-1 mx-auto mt-[80px]"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.3, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
+            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
+            className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1 mx-auto mt-[80px]"
           >
             <p className="mx-auto w-[80%] rounded-t-2xl bg-brand p-2 font-bold text-white md:w-[60%]">
               {values[2].title}

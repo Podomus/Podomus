@@ -1,19 +1,13 @@
-import { AnimationGeneratorType, Variants } from "framer-motion"
+import { Variants } from "framer-motion"
 
 type direction = 'up' | 'left' | 'down' | 'right'
 
-export const fadeIn = (direction: direction, delay: number): Variants  => {
+export const fadeIn = (direction: direction, delay: number): Variants => {
   return {
     hidden: {
-      y: direction === 'up' ? 30 : direction === 'down' ? -30 : 0,
+      y: direction === 'up' ? 12 : direction === 'down' ? -12 : 0,
       opacity: 0,
-      x: direction === 'left' ? 30 : direction === 'right' ? -30 : 0,
-      transition: {
-        type: 'tween' ,
-        duration: 1,
-        delay,
-        ease: [0.25, 0.6, 0.3, 0.8],
-      },
+      x: direction === 'left' ? 12 : direction === 'right' ? -12 : 0,
     },
     show: {
       y: 0,
@@ -21,9 +15,9 @@ export const fadeIn = (direction: direction, delay: number): Variants  => {
       opacity: 1,
       transition: {
         type: 'tween',
-        duration: 1,
+        duration: 0.3,
         delay,
-        ease: [0.25, 0.25, 0.25, 0.75],
+        ease: [0.23, 1, 0.32, 1],
       },
     },
   }

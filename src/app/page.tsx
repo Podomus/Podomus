@@ -2,12 +2,25 @@ import AboutSection from "@/sections/aboutSection";
 import ContactSection from "@/sections/contactSection";
 import HeroSection from "@/sections/heroSection";
 import ValuesSection from "@/sections/valuesSection";
-import Image from "next/image";
+import { sanityFetch } from "@/sanity/lib/live";
+import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
+import SectionRenderer from "@/components/SectionRenderer";
 
-export default function Home() {
+export default async function Home() {
+  const { data: homePage } = await sanityFetch({ query: HOME_PAGE_QUERY });
+
+  if (homePage?.sections?.length) {
+    return (
+      <main>
+        {homePage.sections.map((section: any) => (
+          <SectionRenderer key={section._key} section={section} />
+        ))}
+      </main>
+    );
+  }
+
   return (
     <main>
-      {/* <Image src="/test/test-image.jpeg" alt="bg" width={1000} height={1000} className="opacity-40 absolute top-0 left-0 w-full object-cover z-50" /> */}
       <HeroSection />
       <AboutSection />
       <ContactSection />

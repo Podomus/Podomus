@@ -30,7 +30,7 @@ interface SocialLinkProps {
 function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
   return (
     <motion.div
-      initial={{ scale: 0, opacity: 0 }}
+      initial={{ scale: 0.85, opacity: 0 }}
       whileInView={{ scale: 1, opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ 
@@ -51,7 +51,7 @@ function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
           isIconOnly
           startContent={icon}
           size={size}
-          className="bg-white border border-white/20 text-brand hover:bg-white/90 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl"
+          className="bg-white border border-white/20 text-brand hover:bg-white/90 hover:border-white/40 transition-[background-color,border-color,box-shadow] duration-200 shadow-lg hover:shadow-xl active:scale-[0.97]"
         />
       </Link>
     </motion.div>
@@ -147,7 +147,7 @@ export default function Footer() {
       initial={{ y: 60, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: false, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
       className="relative w-full bg-gradient-to-br from-brand/95 to-brand text-white overflow-hidden"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -187,7 +187,7 @@ export default function Footer() {
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
               <Link href="/">
                 <motion.div
@@ -197,14 +197,14 @@ export default function Footer() {
                 >
                   <motion.div
                     whileHover={{ rotate: [0, -2, 2, 0] }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.25 }}
                   >
                     <Image
                       src="/Group 3.svg"
                       alt="Podomus - Cabinet de Podologie de Luxe"
                       width={180}
                       height={50}
-                      className="h-auto w-44 object-contain transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                      className="h-auto w-44 object-contain transition-[filter] duration-200 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
                     />
                   </motion.div>
                   <motion.span 
@@ -233,7 +233,7 @@ export default function Footer() {
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.12, ease: [0.23, 1, 0.32, 1] }}
             >
               <motion.h3 
                 className="text-lg font-semibold mb-4 flex items-center gap-2"
@@ -256,15 +256,13 @@ export default function Footer() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 360 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.25 }}
                   >
                     <TbMapStar size={18} className="text-highlight mt-1 flex-shrink-0" />
                   </motion.div>
                   <div className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
-                    <p>Bureau BM2 1er Etage</p>
-                    <p>Imm. Golf Center 2</p>
-                    <p>Av. De L&apos;environnement</p>
-                    <p>Dar Fadhal La Soukra 2036</p>
+                    <p>Imm. Golf Center 2, Bureau BM2</p>
+                    <p>La Soukra 2036</p>
                   </div>
                 </motion.div>
                 <motion.div 
@@ -278,7 +276,7 @@ export default function Footer() {
                   >
                     <TbPhone size={18} className="text-highlight flex-shrink-0" />
                   </motion.div>
-                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">28 451 433</span>
+                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 51 617 044</span>
                 </motion.div>
                 <motion.div 
                   className="flex items-center gap-3 group"
@@ -303,7 +301,7 @@ export default function Footer() {
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.16, ease: [0.23, 1, 0.32, 1] }}
             >
               <motion.h3 
                 className="text-lg font-semibold mb-4 flex items-center gap-2"
@@ -320,8 +318,8 @@ export default function Footer() {
               </motion.h3>
               <div className="space-y-2 text-sm text-white/80">
                 {[
-                  { day: "Lundi - Vendredi", time: "10:00 - 15:00" },
-                  { day: "Samedi", time: "09:00 - 14:00" },
+                  { day: "Lundi–Vendredi", time: "09:00–18:00" },
+                  { day: "Samedi", time: "09:00–13:00" },
                   { day: "Dimanche", time: "Fermé" }
                 ].map((schedule, index) => (
                                      <motion.div 
@@ -335,7 +333,7 @@ export default function Footer() {
                        type: "spring", 
                        stiffness: 300, 
                        damping: 15,
-                       delay: index * 0.1 
+                       delay: index * 0.05
                      }}
                    >
                     <span className="group-hover:text-white transition-colors duration-300">{schedule.day}</span>
@@ -353,7 +351,7 @@ export default function Footer() {
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
             >
               <motion.h3 
                 className="text-lg font-semibold mb-4"
@@ -381,7 +379,7 @@ export default function Footer() {
                       type: "spring", 
                       stiffness: 300, 
                       damping: 15,
-                      delay: index * 0.1 
+                      delay: index * 0.05
                     }}
                   >
                     <motion.span
@@ -402,7 +400,7 @@ export default function Footer() {
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.24, ease: [0.23, 1, 0.32, 1] }}
             >
               <motion.h3 
                 className="text-lg font-semibold mb-4"
@@ -414,7 +412,7 @@ export default function Footer() {
               <div className="space-y-2 text-sm text-white/80 mb-6">
                 {[
                   { label: "Soins podologiques personnalisés", anchor: "soins" },
-                  { label: "Orthoplastie & orthonyxie", anchor: "orthoplastie" },
+                  { label: "Orthoplastie et orthonyxie", anchor: "orthoplastie" },
                   { label: "Traitement laser", anchor: "laser" },
                   { label: "Conseils et suivi", anchor: "conseils" }
                 ].map((service, index) => (
@@ -430,7 +428,7 @@ export default function Footer() {
                       type: "spring", 
                       stiffness: 300, 
                       damping: 15,
-                      delay: index * 0.1 
+                      delay: index * 0.05
                     }}
                   >
                     <motion.span
@@ -449,7 +447,7 @@ export default function Footer() {
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 <Button
-                  className="w-full h-12 text-sm font-medium bg-white text-brand hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full h-12 text-sm font-medium bg-white text-brand hover:bg-white/90 transition-[background-color,box-shadow] duration-200 shadow-lg hover:shadow-xl"
                   endContent={
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
@@ -479,7 +477,7 @@ export default function Footer() {
                   delay={0.1}
                 />
                 <SocialLink
-                  href="https://www.facebook.com/cabientsondaaffes"
+                  href="https://www.facebook.com/cabinetsondaaffes"
                   icon={<FaFacebookF size={18} className="text-brand" />}
                   size="sm"
                   delay={0.2}
@@ -501,7 +499,7 @@ export default function Footer() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 0.4, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
         className="relative z-10 border-t border-white/20 bg-brand/50 backdrop-blur-sm px-4 py-4 text-center text-xs text-white/70"
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">

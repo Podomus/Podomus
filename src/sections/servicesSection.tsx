@@ -17,7 +17,7 @@ const services: { title: string; text: string }[] = [
   },
   {
     title: "Techniques de pointe",
-    text: "Orthoplastie, orthonyxie, laser : l&apos;innovation au service de votre confort.",
+    text: "Orthoplastie, orthonyxie, laser\u00A0: l&apos;innovation au service de votre confort.",
   },
   {
     title: "Suivi & Conseils",
@@ -26,8 +26,8 @@ const services: { title: string; text: string }[] = [
 ];
 
 const ServicesSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: false });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: false });
+  const [ref, inView] = useInView({ triggerOnce: true });
+  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -136,24 +136,37 @@ const ServicesSection = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0">
+          <motion.div
+            className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
+            variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
             {[
               { anchor: "soins" },
               { anchor: "orthoplastie" },
               { anchor: "conseils" }
             ].map((meta, index) => (
-              <div key={`service-${index}`} className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-all duration-300 group hover:shadow-2xl">
+              <motion.div
+                key={`service-${index}`}
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } },
+                }}
+                className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-[border-color,box-shadow] duration-200 group hover:shadow-2xl"
+              >
                 <div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-300">
                   <TbTargetArrow size={32} className="text-softtail-400" />
                 </div>
                 <h4 className="mb-2 font-bold text-softtail-400 group-hover:underline text-base sm:text-lg">{services[index].title}</h4>
                 <p className="text-xs sm:text-sm font-light">{services[index].text}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <Button
-            className="h-10 sm:h-12 md:h-16 w-full sm:w-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold bg-brand text-white hover:bg-highlight hover:scale-105 hover:shadow-lg transition-transform duration-300 tracking-wide uppercase"
+            className="h-10 sm:h-12 md:h-16 w-full sm:w-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold bg-brand text-white hover:bg-highlight hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
             endContent={<IoCalendarOutline size={16} className="ml-2 sm:ml-2 md:ml-2 sm:w-5 sm:h-5 md:text-2xl lg:text-3xl" />}
             onClick={() => setOpenModal(true)}
           >
