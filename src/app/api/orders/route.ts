@@ -3,7 +3,11 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url)
+    const patientId = searchParams.get('patientId')
+
     const produits = await prisma.produit.findMany({
+      where: patientId ? { patientId } : undefined,
       orderBy: {
         createdAt: 'desc'
       },

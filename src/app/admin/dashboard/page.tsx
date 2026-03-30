@@ -2,14 +2,19 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import { toast } from "sonner"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { authClient } from "@/lib/auth-client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Calendar, Clock, Users, Package, ChevronRight, Activity, AlertTriangle, LogOut } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Users, CalendarDays, Package, MessageSquare,
+  Clock, LogOut, Plus, UserPlus, ClipboardList,
+  ChevronRight,
+} from "lucide-react"
 
-// Types
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 interface DashboardStats {
   totalPatients: number
   totalAppointments: number
@@ -20,382 +25,329 @@ interface DashboardStats {
   deliveredProducts: number
 }
 
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+interface Appointment {
+  id: string
+  patientName: string
+  date: string
+  status: string
 }
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
+interface Delivery {
+  id: string
+  patientName: string
+  type: string
+  dateLivraison: string | null
 }
+
+// ─── Status badge config ───────────────────────────────────────────────────────
+
+const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
+  scheduled: { label: "Planifié",  className: "bg-blue-100  text-blue-700  border-blue-200"  },
+  completed: { label: "Terminé",   className: "bg-green-100 text-green-700 border-green-200" },
+  cancelled: { label: "Annulé",    className: "bg-red-100   text-red-700   border-red-200"   },
+  no_show:   { label: "Absent",    className: "bg-gray-100  text-gray-600  border-gray-200"  },
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "short" })
+}
+function fmtTime(iso: string) {
+  return new Date(iso).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+}
+function fmtDelivery(iso: string | null) {
+  return iso
+    ? new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+    : "Date à définir"
+}
+
+// ─── Stat Card ────────────────────────────────────────────────────────────────
+
+function StatCard({
+  icon, iconBg, label, value, sub,
+}: {
+  icon: React.ReactNode
+  iconBg: string
+  label: string
+  value: number
+  sub: string
+}) {
+  return (
+    <Card className="bg-white shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+      <CardContent className="p-5">
+        <div className="flex items-start gap-4">
+          <div className={`p-2.5 rounded-xl ${iconBg} shrink-0`}>{icon}</div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">{label}</p>
+            <p className="text-3xl font-bold text-softtail-800 mt-1 leading-none">{value}</p>
+            <p className="text-xs text-slate-400 mt-1">{sub}</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// ─── Skeleton helpers ─────────────────────────────────────────────────────────
+
+function StatCardSkeleton() {
+  return (
+    <Card className="bg-white border border-slate-100">
+      <CardContent className="p-5 flex items-start gap-4">
+        <Skeleton className="h-10 w-10 rounded-xl shrink-0" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-8 w-14" />
+          <Skeleton className="h-3 w-32" />
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function ListSkeleton() {
+  return (
+    <div className="space-y-3">
+      {[...Array(4)].map((_, i) => (
+        <div key={i} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+          <div className="space-y-1.5">
+            <Skeleton className="h-4 w-36" />
+            <Skeleton className="h-3 w-24" />
+          </div>
+          <Skeleton className="h-5 w-16 rounded-full" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = React.useState(true)
-  const [userSession, setUserSession] = React.useState<any>(null)
-  const [stats, setStats] = React.useState<DashboardStats>({
-    totalPatients: 0,
-    totalAppointments: 0,
-    totalProducts: 0,
-    upcomingAppointments: 0,
-    completedAppointments: 0,
-    pendingProducts: 0,
-    deliveredProducts: 0
-  })
-  const [recentAppointments, setRecentAppointments] = React.useState<any[]>([])
-  const [pendingDeliveries, setPendingDeliveries] = React.useState<any[]>([])
+  const [stats, setStats] = React.useState<DashboardStats | null>(null)
+  const [recentAppointments, setRecentAppointments] = React.useState<Appointment[]>([])
+  const [pendingDeliveries, setPendingDeliveries] = React.useState<Delivery[]>([])
+  const [newMessages, setNewMessages] = React.useState(0)
 
-  // Fonction de déconnexion
   const handleLogout = async () => {
-    try {
-      await authClient.signOut()
-      router.push("/login")
-    } catch (error) {
-      console.error("Erreur lors de la déconnexion:", error)
-    }
+    await authClient.signOut()
+    router.push("/login")
   }
-  // Fetch dashboard data
+
   React.useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data } = await authClient.getSession()
-        if (!data?.user) {
-          console.log("Aucune session active, redirection vers login")
-          router.push("/login")
-          return
-        }
-        
-        // Stocker les informations de session
-        setUserSession(data)
-        console.log("Session utilisateur active:", data.user.email)
-        
-        // Vérifier si c'est le bon compte admin
-        if (data.user?.email !== "admin@podomus.local") {
-          console.log("Utilisateur non autorisé:", data.user.email)
-          router.push("/login")
-          return
-        }
-        
-        try {
-          // Charger les données réelles depuis les APIs
-          const [statsResponse, appointmentsResponse, deliveriesResponse] = await Promise.all([
-            fetch('/api/admin/stats'),
-            fetch('/api/admin/recent-appointments'),
-            fetch('/api/admin/pending-deliveries')
-          ])
-
-          if (statsResponse.ok) {
-            const statsData = await statsResponse.json()
-            setStats(statsData)
-          }
-
-          if (appointmentsResponse.ok) {
-            const appointmentsData = await appointmentsResponse.json()
-            // Convertir les dates string en objets Date
-            const formattedAppointments = appointmentsData.map((apt: any) => ({
-              ...apt,
-              date: new Date(apt.date)
-            }))
-            setRecentAppointments(formattedAppointments)
-          }
-
-          if (deliveriesResponse.ok) {
-            const deliveriesData = await deliveriesResponse.json()
-            // Convertir les dates string en objets Date
-            const formattedDeliveries = deliveriesData.map((delivery: any) => ({
-              ...delivery,
-              dateLivraison: delivery.dateLivraison ? new Date(delivery.dateLivraison) : null
-            }))
-            setPendingDeliveries(formattedDeliveries)
-          }
-
-          setLoading(false)
-          
-        } catch (error) {
-          console.error('Error fetching dashboard data:', error)
-          setLoading(false)
-        }
-      } catch (error) {
-        console.error('Authentication error:', error)
+    const init = async () => {
+      const { data } = await authClient.getSession()
+      if (!data?.user || data.user.email !== "admin@podomus.local") {
         router.push("/login")
+        return
       }
-    }
 
-    checkAuth()
+      const [statsRes, aptsRes, deliveriesRes, messagesRes] = await Promise.all([
+        fetch("/api/admin/stats"),
+        fetch("/api/admin/recent-appointments"),
+        fetch("/api/admin/pending-deliveries"),
+        fetch("/api/contact"),
+      ])
+
+      if (statsRes.ok)      setStats(await statsRes.json())
+      if (aptsRes.ok)       setRecentAppointments(await aptsRes.json())
+      if (deliveriesRes.ok) setPendingDeliveries(await deliveriesRes.json())
+      if (messagesRes.ok) {
+        const msgs: { status: string }[] = await messagesRes.json()
+        setNewMessages(msgs.filter((m) => m.status === "new").length)
+      }
+
+      setLoading(false)
+    }
+    init().catch(() => router.push("/login"))
   }, [router])
 
-  // Format date for display
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    })
-  }
-  
-  // Format time for display
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
-
-  // Get appointment status label and color
-  const getAppointmentStatus = (status: string) => {
-    switch (status) {
-      case 'scheduled':
-        return { label: 'Planifié', color: 'bg-amber-500' }
-      case 'completed':
-        return { label: 'Terminé', color: 'bg-green-500' }
-      case 'cancelled':
-        return { label: 'Annulé', color: 'bg-red-500' }
-      case 'no_show':
-        return { label: 'Absent', color: 'bg-orange-500' }
-      default:
-        return { label: status, color: 'bg-gray-500' }
-    }
-  }
+  const todayFR = new Date().toLocaleDateString("fr-FR", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
+  })
 
   return (
-    <div className="p-6">
-      <div className="max-w-7xl mx-auto">
-            {/* Header avec breadcrumb et session */}
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-4">
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem>
-                      <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Tableau de bord</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-                
-                {/* Indicateur de session */}
-                {userSession && (
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-3 text-sm text-softtail-600 bg-green-50 px-3 py-2 rounded-lg border border-green-200">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span>Connecté en tant que: <strong>{userSession.user?.email}</strong></span>
-                    </div>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 text-sm text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg border border-red-200 transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Déconnexion
-                    </button>
-                  </div>
-                )}
-              </div>
-              <h1 className="text-2xl font-bold mt-2 text-softtail-800">Tableau de bord</h1>
-            </div>
-            
-            {loading ? (
-              <div className="text-center py-10">
-                <p>Chargement des données...</p>
-              </div>
-            ) : (
-              <>
-                {/* Statistiques générales */}
-                <motion.div
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
-                >
-                  <motion.div variants={fadeInUp}>
-                    <Card className="border border-softtail-100 hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm text-softtail-600 flex items-center">
-                          <Users className="h-4 w-4 mr-1" />
-                          Patients
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold text-softtail-800">
-                          {stats.totalPatients}
-                        </div>
-                        <p className="text-xs text-softtail-500">Total des patients</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                  
-                  <motion.div variants={fadeInUp}>
-                    <Card className="border border-softtail-100 hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm text-softtail-600 flex items-center">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          Rendez-vous
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold text-softtail-800">
-                          {stats.totalAppointments}
-                        </div>
-                        <div className="flex items-center justify-between text-xs text-softtail-500">
-                          <span>Total des rendez-vous</span>
-                          <span className="text-green-600 font-medium">{stats.upcomingAppointments} à venir</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                  
-                  <motion.div variants={fadeInUp}>
-                    <Card className="border border-softtail-100 hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm text-softtail-600 flex items-center">
-                          <Package className="h-4 w-4 mr-1" />
-                          Semelles
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold text-softtail-800">
-                          {stats.totalProducts}
-                        </div>
-                        <div className="flex items-center justify-between text-xs text-softtail-500">
-                          <span>Total des semelles</span>
-                          <span className="text-amber-600 font-medium">{stats.pendingProducts} en attente</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                  
-                  <motion.div variants={fadeInUp}>
-                    <Card className="border border-softtail-100 hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm text-softtail-600 flex items-center">
-                          <Activity className="h-4 w-4 mr-1" />
-                          Activité
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center gap-2 -mt-1">
-                          <div className="text-xl font-bold text-softtail-800">
-                            92%
-                          </div>
-                          <div className="text-xs bg-green-100 text-green-800 px-1.5 py-0.5 rounded">
-                            +3%
-                          </div>
-                        </div>
-                        <p className="text-xs text-softtail-500">Taux de rendez-vous honorés</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </motion.div>
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Prochains rendez-vous */}
-                  <Card className="border border-softtail-100">
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
-                        <span className="flex items-center">
-                          <Clock className="h-5 w-5 mr-2 text-softtail-500" />
-                          Prochains rendez-vous
-                        </span>
-                        <button 
-                          onClick={() => router.push('/admin/appointments')}
-                          className="text-xs text-softtail-500 hover:text-softtail-700 flex items-center"
-                        >
-                          Voir tout
-                          <ChevronRight className="h-3 w-3 ml-1" />
-                        </button>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {recentAppointments.map((appointment) => {
-                          const status = getAppointmentStatus(appointment.status)
-                          return (
-                            <div 
-                              key={appointment.id} 
-                              className="flex items-center justify-between pb-2 border-b border-gray-100 last:border-0"
-                            >
-                              <div>
-                                <p className="font-medium text-sm">{appointment.patientName}</p>
-                                <div className="flex items-center text-xs text-softtail-500 mt-1">
-                                  <Calendar className="h-3 w-3 mr-1" />
-                                  {formatDate(appointment.date)} à {formatTime(appointment.date)}
-                                </div>
-                              </div>
-                              <div className={`text-xs px-2 py-1 rounded-full text-white ${status.color}`}>
-                                {status.label}
-                              </div>
-                            </div>
-                          )
-                        })}
-                        
-                        {recentAppointments.length === 0 && (
-                          <div className="text-center py-6 text-softtail-500">
-                            Aucun rendez-vous prévu prochainement
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  {/* Livraisons prévues */}
-                  <Card className="border border-softtail-100">
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
-                        <span className="flex items-center">
-                          <AlertTriangle className="h-5 w-5 mr-2 text-amber-500" />
-                          Livraisons prévues
-                        </span>
-                        <button 
-                          onClick={() => router.push('/admin/orders')}
-                          className="text-xs text-softtail-500 hover:text-softtail-700 flex items-center"
-                        >
-                          Voir tout
-                          <ChevronRight className="h-3 w-3 ml-1" />
-                        </button>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {pendingDeliveries.map((delivery) => (
-                          <div 
-                            key={delivery.id} 
-                            className="flex items-center justify-between pb-2 border-b border-gray-100 last:border-0"
-                          >
-                            <div>
-                              <p className="font-medium text-sm">{delivery.patientName}</p>
-                              <p className="text-xs text-softtail-600 mt-1">{delivery.type}</p>
-                              <div className="flex items-center text-xs text-amber-600 mt-1">
-                                <Calendar className="h-3 w-3 mr-1" />
-                                {delivery.dateLivraison ? (
-                                  `Livraison prévue le ${formatDate(delivery.dateLivraison)}`
-                                ) : (
-                                  'Date de livraison à définir'
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                        
-                        {pendingDeliveries.length === 0 && (
-                          <div className="text-center py-6 text-softtail-500">
-                            Aucune livraison en attente
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </>
-            )}
-          </div>
+    <div className="p-6 max-w-7xl mx-auto space-y-8">
+
+      {/* ── Header ────────────────────────────────────────────────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-softtail-800">Bonjour, Docteure Sonda 👋</h1>
+          <p className="text-sm text-slate-500 mt-1 capitalize">{todayFR}</p>
         </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleLogout}
+          className="gap-2 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 self-start sm:self-auto"
+        >
+          <LogOut className="h-4 w-4" />
+          Déconnexion
+        </Button>
+      </div>
+
+      {/* ── Stat cards ────────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {loading ? (
+          [...Array(4)].map((_, i) => <StatCardSkeleton key={i} />)
+        ) : (
+          <>
+            <StatCard
+              icon={<Users className="h-5 w-5 text-blue-600" />}
+              iconBg="bg-blue-50"
+              label="Patients total"
+              value={stats?.totalPatients ?? 0}
+              sub="patients enregistrés"
+            />
+            <StatCard
+              icon={<CalendarDays className="h-5 w-5 text-emerald-600" />}
+              iconBg="bg-emerald-50"
+              label="Rendez-vous aujourd'hui"
+              value={stats?.upcomingAppointments ?? 0}
+              sub="rendez-vous à venir"
+            />
+            <StatCard
+              icon={<Package className="h-5 w-5 text-amber-600" />}
+              iconBg="bg-amber-50"
+              label="Orthèses en attente"
+              value={stats?.pendingProducts ?? 0}
+              sub="en cours de fabrication"
+            />
+            <StatCard
+              icon={<MessageSquare className="h-5 w-5 text-violet-600" />}
+              iconBg="bg-violet-50"
+              label="Nouveaux messages"
+              value={newMessages}
+              sub="messages non lus"
+            />
+          </>
+        )}
+      </div>
+
+      {/* ── Two-column lists ──────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        {/* Rendez-vous récents */}
+        <Card className="border border-slate-100 shadow-sm">
+          <CardHeader className="pb-3 flex flex-row items-center justify-between space-y-0">
+            <CardTitle className="text-base font-semibold text-softtail-800 flex items-center gap-2">
+              <Clock className="h-4 w-4 text-softtail-500" />
+              Rendez-vous récents
+            </CardTitle>
+            <button
+              onClick={() => router.push("/admin/appointments")}
+              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-colors"
+            >
+              Voir tout <ChevronRight className="h-3 w-3" />
+            </button>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <ListSkeleton />
+            ) : recentAppointments.length === 0 ? (
+              <p className="text-sm text-slate-400 text-center py-6">Aucun rendez-vous récent</p>
+            ) : (
+              <ul className="space-y-1">
+                {recentAppointments.map((apt) => {
+                  const cfg = STATUS_CONFIG[apt.status] ?? { label: apt.status, className: "bg-gray-100 text-gray-600 border-gray-200" }
+                  return (
+                    <li
+                      key={apt.id}
+                      className="flex items-center justify-between py-2.5 border-b border-slate-100 last:border-0"
+                    >
+                      <div>
+                        <p className="font-medium text-sm text-softtail-800">{apt.patientName}</p>
+                        <p className="text-xs text-slate-400 mt-0.5">
+                          {fmtDate(apt.date)} · {fmtTime(apt.date)}
+                        </p>
+                      </div>
+                      <Badge variant="outline" className={`text-xs ${cfg.className}`}>
+                        {cfg.label}
+                      </Badge>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Orthèses en attente */}
+        <Card className="border border-slate-100 shadow-sm">
+          <CardHeader className="pb-3 flex flex-row items-center justify-between space-y-0">
+            <CardTitle className="text-base font-semibold text-softtail-800 flex items-center gap-2">
+              <Package className="h-4 w-4 text-softtail-500" />
+              Orthèses en attente
+            </CardTitle>
+            <button
+              onClick={() => router.push("/admin/orders")}
+              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-colors"
+            >
+              Voir tout <ChevronRight className="h-3 w-3" />
+            </button>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <ListSkeleton />
+            ) : pendingDeliveries.length === 0 ? (
+              <p className="text-sm text-slate-400 text-center py-6">Aucune orthèse en attente</p>
+            ) : (
+              <ul className="space-y-1">
+                {pendingDeliveries.map((d) => (
+                  <li
+                    key={d.id}
+                    className="flex items-center justify-between py-2.5 border-b border-slate-100 last:border-0"
+                  >
+                    <div className="min-w-0 mr-4">
+                      <p className="font-medium text-sm text-softtail-800 truncate">{d.patientName}</p>
+                      <p className="text-xs text-slate-500 mt-0.5 truncate">{d.type}</p>
+                    </div>
+                    <span className="text-xs text-amber-600 font-medium whitespace-nowrap shrink-0">
+                      {fmtDelivery(d.dateLivraison)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* ── Quick actions ─────────────────────────────────────────────────── */}
+      <div>
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">
+          Actions rapides
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Button
+            onClick={() => router.push("/admin/appointments")}
+            className="gap-2 bg-softtail-700 hover:bg-softtail-800 text-white"
+          >
+            <Plus className="h-4 w-4" />
+            Nouveau rendez-vous
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => router.push("/admin/patients")}
+            className="gap-2"
+          >
+            <UserPlus className="h-4 w-4" />
+            Nouveau patient
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => router.push("/admin/ortheses")}
+            className="gap-2"
+          >
+            <ClipboardList className="h-4 w-4" />
+            Nouvelle orthèse
+          </Button>
+        </div>
+      </div>
+
+    </div>
   )
 }

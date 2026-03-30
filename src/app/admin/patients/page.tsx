@@ -3,20 +3,32 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import {
+  Breadcrumb, BreadcrumbItem, BreadcrumbLink,
+  BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator
+} from "@/components/ui/breadcrumb"
 import { authClient } from "@/lib/auth-client"
-import { Search, Plus, Edit, Trash, FileText, CalendarPlus } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Search, Plus, Edit, Trash, FileText,
+  CalendarPlus, Phone, Mail, MapPin, Calendar
+} from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Dialog, DialogContent, DialogDescription,
+  DialogFooter, DialogHeader, DialogTitle
+} from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select, SelectContent, SelectItem,
+  SelectTrigger, SelectValue
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
 
-// Types
 interface Patient {
   id: string
   nom: string
@@ -33,20 +45,23 @@ interface Patient {
   updatedAt: Date
 }
 
-// Animations
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+const emptyForm = {
+  nom: "", prenom: "", dateNaissance: "", email: "",
+  telephone: "", adresse: "", codePostal: "", ville: "", numSecu: "", notes: ""
 }
 
+const defaultTimeSlots = [
+  "07:30","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45",
+  "10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00",
+  "13:30","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45",
+  "16:00","16:15","16:30","16:45","17:00","17:15","17:30","17:45",
+  "18:00","18:15","18:30","18:45","19:00"
+]
+
+const fadeInUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.07 } }
 }
 
 export default function PatientsPage() {
@@ -54,370 +69,246 @@ export default function PatientsPage() {
   const [loading, setLoading] = React.useState(true)
   const [patients, setPatients] = React.useState<Patient[]>([])
   const [searchTerm, setSearchTerm] = React.useState("")
+  const [refresh, setRefresh] = React.useState(0)
+
   const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false)
   const [isAppointmentDialogOpen, setIsAppointmentDialogOpen] = React.useState(false)
+
   const [patientToEdit, setPatientToEdit] = React.useState<Patient | null>(null)
-  const [patientToDelete, setPatientToDelete] = React.useState<string | null>(null)
+  const [patientToDelete, setPatientToDelete] = React.useState<Patient | null>(null)
   const [patientForAppointment, setPatientForAppointment] = React.useState<Patient | null>(null)
 
-  // États pour la gestion des créneaux disponibles
+  const [form, setForm] = React.useState(emptyForm)
+
   const [existingAppointments, setExistingAppointments] = React.useState<any[]>([])
   const [availableTimeSlots, setAvailableTimeSlots] = React.useState<string[]>([])
-
-  // Créneaux horaires par défaut - Étendus avec plus d'options
-  const defaultTimeSlots = [
-    // Matin étendu: 7h30 - 12h00
-    "07:30", "08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45", 
-    "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00",
-    // Après-midi étendu: 13h30 - 19h00
-    "13:30", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45",
-    "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", 
-    "18:00", "18:15", "18:30", "18:45", "19:00"
-  ]
-
-  // Form state for new patient
-  const [newPatient, setNewPatient] = React.useState({
-    nom: "",
-    prenom: "",
-    dateNaissance: "",
-    email: "",
-    telephone: "",
-    adresse: "",
-    codePostal: "",
-    ville: "",
-    numSecu: "",
-    notes: ""
-  })
-
-  // Form state for new appointment
   const [newAppointment, setNewAppointment] = React.useState({
-    date: "",
-    time: "",
-    duration: "30",
-    notes: ""
+    date: "", time: "", duration: "30"
   })
-
-  // État pour forcer le rechargement des patients
-  const [refresh, setRefresh] = React.useState(0)
-  
-  // Fonction pour recharger les patients
-  const reloadPatients = () => {
-    setRefresh(prev => prev + 1)
-  }
 
   React.useEffect(() => {
-    const checkAuth = async () => {
+    const init = async () => {
       try {
         const { data } = await authClient.getSession()
-        if (!data) {
-          router.push("/login")
-          return
+        if (!data?.user || data.user.email !== "admin@podomus.local") {
+          router.push("/login"); return
         }
-        // Vérifier si c'est le bon compte admin
-        if (data.user?.email !== "admin@podomus.local") {
-          router.push("/login")
-          return
-        }
-        
-        try {
-          // Charger les patients depuis l'API
-          const response = await fetch('/api/patients')
-          if (!response.ok) throw new Error('Erreur lors du chargement des patients')
-          
-          let patients = await response.json()
-          
-          // Convertir les dates string en objets Date
-          patients = patients.map((pat: any) => ({
-            ...pat,
-            dateNaissance: pat.dateNaissance ? new Date(pat.dateNaissance) : undefined,
-            createdAt: new Date(pat.createdAt),
-            updatedAt: new Date(pat.updatedAt)
-          }))
-          
-          setPatients(patients)
-          await loadExistingAppointments()
-        } catch (error) {
-          toast.error('Erreur lors du chargement des patients')
-          console.error('Error fetching patients:', error)
-        } finally {
-          setLoading(false)
-        }
-      } catch (error) {
-        console.error('Authentication error:', error)
-        router.push("/login")
+        const res = await fetch('/api/patients')
+        if (!res.ok) throw new Error()
+        const list = await res.json()
+        setPatients(list.map((p: any) => ({
+          ...p,
+          dateNaissance: p.dateNaissance ? new Date(p.dateNaissance) : undefined,
+          createdAt: new Date(p.createdAt),
+          updatedAt: new Date(p.updatedAt)
+        })))
+        const aptRes = await fetch('/api/appointments')
+        if (aptRes.ok) setExistingAppointments(await aptRes.json())
+      } catch {
+        toast.error("Erreur lors du chargement des patients")
+      } finally {
+        setLoading(false)
       }
     }
-
-    checkAuth()
+    init()
   }, [router, refresh])
 
-  // Filter patients by search term
-  const filteredPatients = patients.filter(patient => 
-    patient.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    patient.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    patient.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    patient.telephone?.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const calculateAvailableTimeSlots = (date: string, duration = newAppointment.duration) => {
+    if (!date) return
+    const selectedDate = new Date(date)
+    const dayApts = existingAppointments.filter(apt => {
+      const d = new Date(apt.date)
+      return d.getFullYear() === selectedDate.getFullYear() &&
+        d.getMonth() === selectedDate.getMonth() &&
+        d.getDate() === selectedDate.getDate() &&
+        apt.status !== 'cancelled' && apt.status !== 'no_show'
+    })
+    const available = defaultTimeSlots.filter(slot => {
+      const [h, m] = slot.split(':').map(Number)
+      const slotStart = new Date(selectedDate); slotStart.setHours(h, m, 0)
+      const slotEnd = new Date(slotStart); slotEnd.setMinutes(slotEnd.getMinutes() + parseInt(duration))
+      return !dayApts.some(apt => {
+        const s = new Date(apt.date)
+        const e = new Date(s); e.setMinutes(e.getMinutes() + (apt.duration || 30))
+        return slotStart < e && slotEnd > s
+      })
+    })
+    setAvailableTimeSlots(available)
+  }
 
-  // Handle patient creation
-  const handleCreatePatient = async () => {
+  const filtered = patients.filter(p => {
+    const q = searchTerm.toLowerCase()
+    return p.nom.toLowerCase().includes(q) || p.prenom.toLowerCase().includes(q) ||
+      p.telephone?.includes(q) || p.email?.toLowerCase().includes(q)
+  })
+
+  const handleCreate = async () => {
     try {
-      // Conversion de la date de naissance
-      const dateNaissance = newPatient.dateNaissance ? new Date(newPatient.dateNaissance) : undefined
-      
-      const response = await fetch('/api/patients', {
+      const res = await fetch('/api/patients', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nom: newPatient.nom,
-          prenom: newPatient.prenom,
-          dateNaissance: dateNaissance?.toISOString(),
-          email: newPatient.email || undefined,
-          telephone: newPatient.telephone || undefined,
-          adresse: newPatient.adresse || undefined,
-          codePostal: newPatient.codePostal || undefined,
-          ville: newPatient.ville || undefined,
-          numSecu: newPatient.numSecu || undefined,
-          notes: newPatient.notes || undefined
+          ...form,
+          dateNaissance: form.dateNaissance ? new Date(form.dateNaissance).toISOString() : undefined,
+          email: form.email || undefined, telephone: form.telephone || undefined,
+          adresse: form.adresse || undefined, codePostal: form.codePostal || undefined,
+          ville: form.ville || undefined, numSecu: form.numSecu || undefined,
+          notes: form.notes || undefined
         })
       })
-      
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || 'Erreur lors de la création du patient')
-      }
-      
-      // Réinitialisation du formulaire
-      setNewPatient({
-        nom: "",
-        prenom: "",
-        dateNaissance: "",
-        email: "",
-        telephone: "",
-        adresse: "",
-        codePostal: "",
-        ville: "",
-        numSecu: "",
-        notes: ""
-      })
-      
-      // Fermeture du dialogue et rechargement des patients
-      setIsAddDialogOpen(false)
-      toast.success('Patient créé avec succès')
-      reloadPatients()
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Une erreur est survenue')
-    }
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || "Erreur") }
+      setIsAddDialogOpen(false); setForm(emptyForm)
+      toast.success("Patient créé avec succès")
+      setRefresh(r => r + 1)
+    } catch (e: any) { toast.error(e.message || "Une erreur est survenue") }
   }
 
-  // Handle patient update
-  const handleUpdatePatient = async () => {
+  const handleUpdate = async () => {
     if (!patientToEdit) return
-    
     try {
-      // Conversion de la date de naissance
-      const dateNaissance = newPatient.dateNaissance ? new Date(newPatient.dateNaissance) : undefined
-      
-      const response = await fetch(`/api/patients/${patientToEdit.id}`, {
+      const res = await fetch(`/api/patients/${patientToEdit.id}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nom: newPatient.nom,
-          prenom: newPatient.prenom,
-          dateNaissance: dateNaissance?.toISOString(),
-          email: newPatient.email || undefined,
-          telephone: newPatient.telephone || undefined,
-          adresse: newPatient.adresse || undefined,
-          codePostal: newPatient.codePostal || undefined,
-          ville: newPatient.ville || undefined,
-          numSecu: newPatient.numSecu || undefined,
-          notes: newPatient.notes || undefined
+          ...form,
+          dateNaissance: form.dateNaissance ? new Date(form.dateNaissance).toISOString() : undefined,
+          email: form.email || undefined, telephone: form.telephone || undefined,
+          adresse: form.adresse || undefined, codePostal: form.codePostal || undefined,
+          ville: form.ville || undefined, numSecu: form.numSecu || undefined,
+          notes: form.notes || undefined
         })
       })
-      
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || 'Erreur lors de la mise à jour du patient')
-      }
-      
-      // Réinitialisation du formulaire et état
-      setPatientToEdit(null)
-      setNewPatient({
-        nom: "",
-        prenom: "",
-        dateNaissance: "",
-        email: "",
-        telephone: "",
-        adresse: "",
-        codePostal: "",
-        ville: "",
-        numSecu: "",
-        notes: ""
-      })
-      
-      // Fermeture du dialogue et rechargement des patients
-      setIsEditDialogOpen(false)
-      toast.success('Patient mis à jour avec succès')
-      reloadPatients()
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Une erreur est survenue')
-    }
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || "Erreur") }
+      setIsEditDialogOpen(false); setPatientToEdit(null); setForm(emptyForm)
+      toast.success("Patient mis à jour avec succès")
+      setRefresh(r => r + 1)
+    } catch (e: any) { toast.error(e.message || "Une erreur est survenue") }
   }
 
-  // Handle patient deletion
-  const handleDeletePatient = async () => {
+  const handleDelete = async () => {
     if (!patientToDelete) return
-    
     try {
-      const response = await fetch(`/api/patients/${patientToDelete}`, {
-        method: 'DELETE'
-      })
-      
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || 'Erreur lors de la suppression du patient')
-      }
-      
-      // Réinitialisation de l'état
-      setPatientToDelete(null)
-      
-      // Fermeture du dialogue et rechargement des patients
-      setIsDeleteDialogOpen(false)
-      toast.success('Patient supprimé avec succès')
-      reloadPatients()
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Une erreur est survenue')
-    }
+      const res = await fetch(`/api/patients/${patientToDelete.id}`, { method: 'DELETE' })
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || "Erreur") }
+      setIsDeleteDialogOpen(false); setPatientToDelete(null)
+      toast.success("Patient supprimé avec succès")
+      setRefresh(r => r + 1)
+    } catch (e: any) { toast.error(e.message || "Une erreur est survenue") }
   }
 
   const handleCreateAppointment = async () => {
     if (!patientForAppointment || !newAppointment.date || !newAppointment.time) {
-      toast.error('Veuillez remplir tous les champs obligatoires')
-      return
+      toast.error("Veuillez remplir tous les champs obligatoires"); return
     }
-
     try {
-      const appointmentData = {
-        patientId: patientForAppointment.id,
-        patientName: `${patientForAppointment.prenom} ${patientForAppointment.nom}`,
-        patientEmail: patientForAppointment.email || '',
-        patientPhone: patientForAppointment.telephone || '',
-        date: new Date(newAppointment.date),
-        time: newAppointment.time,
-        duration: parseInt(newAppointment.duration),
-        status: 'scheduled',
-        notes: newAppointment.notes
-      }
-
-      const response = await fetch('/api/appointments', {
+      const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(appointmentData)
+        body: JSON.stringify({
+          patientId: patientForAppointment.id,
+          patientName: `${patientForAppointment.prenom} ${patientForAppointment.nom}`,
+          patientEmail: patientForAppointment.email || '',
+          patientPhone: patientForAppointment.telephone || '',
+          date: new Date(newAppointment.date),
+          time: newAppointment.time,
+          duration: parseInt(newAppointment.duration),
+          status: 'scheduled'
+        })
       })
-
-      if (response.ok) {
-        toast.success('Rendez-vous créé avec succès')
+      if (res.ok) {
+        toast.success("Rendez-vous créé avec succès")
         setIsAppointmentDialogOpen(false)
         setPatientForAppointment(null)
-        setNewAppointment({
-          date: "",
-          time: "",
-          duration: "30",
-          notes: ""
-        })
-        // Recharger les rendez-vous pour mettre à jour les créneaux disponibles
-        await loadExistingAppointments()
+        setNewAppointment({ date: "", time: "", duration: "30" })
+        const aptRes = await fetch('/api/appointments')
+        if (aptRes.ok) setExistingAppointments(await aptRes.json())
       } else {
-        toast.error('Erreur lors de la création du rendez-vous')
+        const e = await res.json()
+        toast.error(e.message || "Erreur lors de la création du rendez-vous")
       }
-    } catch (error) {
-      console.error('Error creating appointment:', error)
-      toast.error('Erreur lors de la création du rendez-vous')
-    }
+    } catch { toast.error("Erreur lors de la création du rendez-vous") }
   }
 
-  // Fonction pour charger les rendez-vous existants
-  const loadExistingAppointments = async () => {
-    try {
-      const response = await fetch('/api/appointments')
-      if (response.ok) {
-        const appointments = await response.json()
-        setExistingAppointments(appointments)
-      }
-    } catch (error) {
-      console.error('Error loading appointments:', error)
-    }
-  }
-
-  // Fonction pour calculer les créneaux disponibles pour une date donnée
-  const calculateAvailableTimeSlots = (selectedDate: string) => {
-    if (!selectedDate) {
-      setAvailableTimeSlots(defaultTimeSlots)
-      return
-    }
-
-    const selectedDateObj = new Date(selectedDate)
-    const today = new Date()
-    
-    // Si c'est aujourd'hui, filtrer les heures passées
-    let filteredSlots = [...defaultTimeSlots]
-    if (selectedDateObj.toDateString() === today.toDateString()) {
-      const currentTime = today.getHours() * 60 + today.getMinutes()
-      filteredSlots = defaultTimeSlots.filter(slot => {
-        const [hours, minutes] = slot.split(':').map(Number)
-        const slotTime = hours * 60 + minutes
-        return slotTime > currentTime + 15 // Réduire la marge à 15 min
-      })
-    }
-
-    // Filtrer les créneaux déjà réservés pour cette date
-    const dayAppointments = existingAppointments.filter(apt => {
-      const aptDate = new Date(apt.date)
-      return aptDate.toDateString() === selectedDateObj.toDateString()
-    })
-
-    const reservedSlots = dayAppointments.map(apt => apt.time)
-    const availableSlots = filteredSlots.filter(slot => !reservedSlots.includes(slot))
-    
-    setAvailableTimeSlots(availableSlots)
-  }
-
-  // Ouvre le dialogue d'édition et prérempli les champs
-  const openEditDialog = (patient: Patient) => {
-    setPatientToEdit(patient)
-    setNewPatient({
-      nom: patient.nom,
-      prenom: patient.prenom,
-      dateNaissance: patient.dateNaissance ? patient.dateNaissance.toISOString().split('T')[0] : "",
-      email: patient.email || "",
-      telephone: patient.telephone || "",
-      adresse: patient.adresse || "",
-      codePostal: patient.codePostal || "",
-      ville: patient.ville || "",
-      numSecu: patient.numSecu || "",
-      notes: patient.notes || ""
+  const openEditDialog = (p: Patient) => {
+    setPatientToEdit(p)
+    setForm({
+      nom: p.nom, prenom: p.prenom,
+      dateNaissance: p.dateNaissance ? p.dateNaissance.toISOString().split('T')[0] : "",
+      email: p.email || "", telephone: p.telephone || "", adresse: p.adresse || "",
+      codePostal: p.codePostal || "", ville: p.ville || "",
+      numSecu: p.numSecu || "", notes: p.notes || ""
     })
     setIsEditDialogOpen(true)
   }
 
-  // Fonction pour voir les détails d'un patient (vers une page spécifique)
-  const viewPatientDetails = (patientId: string) => {
-    router.push(`/admin/patients/${patientId}`)
-  }
+  const FormFields = () => (
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <Label>Prénom *</Label>
+        <Input placeholder="Prénom" value={form.prenom}
+          onChange={e => setForm({ ...form, prenom: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Nom *</Label>
+        <Input placeholder="Nom" value={form.nom}
+          onChange={e => setForm({ ...form, nom: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Date de naissance</Label>
+        <Input type="date" value={form.dateNaissance}
+          onChange={e => setForm({ ...form, dateNaissance: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>N° sécurité sociale</Label>
+        <Input placeholder="X XX XX XX XXX XXX XX" value={form.numSecu}
+          onChange={e => setForm({ ...form, numSecu: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Téléphone</Label>
+        <Input placeholder="06 XX XX XX XX" value={form.telephone}
+          onChange={e => setForm({ ...form, telephone: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Email</Label>
+        <Input type="email" placeholder="email@exemple.com" value={form.email}
+          onChange={e => setForm({ ...form, email: e.target.value })} className="mt-1" />
+      </div>
+      <div className="col-span-2">
+        <Label>Adresse</Label>
+        <Input placeholder="Adresse complète" value={form.adresse}
+          onChange={e => setForm({ ...form, adresse: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Code postal</Label>
+        <Input placeholder="75000" value={form.codePostal}
+          onChange={e => setForm({ ...form, codePostal: e.target.value })} className="mt-1" />
+      </div>
+      <div>
+        <Label>Ville</Label>
+        <Input placeholder="Ville" value={form.ville}
+          onChange={e => setForm({ ...form, ville: e.target.value })} className="mt-1" />
+      </div>
+      <div className="col-span-2">
+        <Label>Notes cliniques</Label>
+        <Textarea placeholder="Observations, antécédents, traitements en cours..."
+          value={form.notes}
+          onChange={e => setForm({ ...form, notes: e.target.value })}
+          className="mt-1 resize-none h-24" />
+      </div>
+    </div>
+  )
 
   return (
     <>
       <div className="p-6">
         <div className="max-w-7xl mx-auto">
-            {/* Header avec breadcrumb */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-              <Breadcrumb className="mb-4 sm:mb-0">
+
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <div>
+              <Breadcrumb className="mb-2">
                 <BreadcrumbList>
                   <BreadcrumbItem>
                     <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
@@ -428,442 +319,245 @@ export default function PatientsPage() {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
-              
-              <Button 
-                className="bg-softtail-600 hover:bg-softtail-700"
-                onClick={() => setIsAddDialogOpen(true)}
-              >
-                <Plus size={16} className="mr-1" /> Nouveau patient
-              </Button>
+              <h1 className="text-2xl font-bold text-gray-800">Gestion des patients</h1>
+              <p className="text-sm text-gray-500 mt-0.5">
+                {loading
+                  ? "Chargement..."
+                  : `${patients.length} patient${patients.length !== 1 ? "s" : ""} enregistré${patients.length !== 1 ? "s" : ""}`}
+              </p>
             </div>
-            
-            {/* Barre de recherche */}
-            <div className="mb-6">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-softtail-400" size={18} />
-                <Input
-                  className="pl-10 border-softtail-200 bg-white"
-                  placeholder="Rechercher un patient..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
+            <Button
+              className="mt-4 sm:mt-0 bg-softtail-600 hover:bg-softtail-700"
+              onClick={() => { setForm(emptyForm); setIsAddDialogOpen(true) }}
+            >
+              <Plus size={16} className="mr-2" /> Nouveau patient
+            </Button>
+          </div>
+
+          {/* Search */}
+          <div className="mb-6 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <Input
+              className="pl-10"
+              placeholder="Rechercher par nom, prénom ou téléphone..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          {/* List */}
+          {loading ? (
+            <div className="text-center py-16 text-gray-500">Chargement des patients...</div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-16 text-gray-400">
+              {searchTerm ? "Aucun patient ne correspond à votre recherche." : "Aucun patient enregistré."}
             </div>
-            
-            {/* Liste des patients */}
+          ) : (
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
             >
-              {loading ? (
-                <p>Chargement des patients...</p>
-              ) : filteredPatients.length === 0 ? (
-                <p>Aucun patient trouvé.</p>
-              ) : (
-                filteredPatients.map(patient => (
-                  <motion.div
-                    key={patient.id}
-                    variants={fadeInUp}
-                    className="bg-white rounded-lg shadow p-4 border border-softtail-100"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-lg font-medium text-softtail-800">
-                          {patient.nom} {patient.prenom}
-                        </h3>
-                        <p className="text-sm text-softtail-500 mt-1">
-                          {patient.dateNaissance && `Né(e) le: ${patient.dateNaissance.toLocaleDateString()}`}
-                        </p>
-                        {patient.email && (
-                          <p className="text-sm text-softtail-600 mt-2">
-                            Email: {patient.email}
-                          </p>
-                        )}
-                        {patient.telephone && (
-                          <p className="text-sm text-softtail-600">
-                            Tél: {patient.telephone}
-                          </p>
+              {filtered.map(patient => (
+                <motion.div key={patient.id} variants={fadeInUp}>
+                  <Card className="border border-gray-200 hover:shadow-md transition-shadow h-full flex flex-col">
+                    <CardHeader className="pb-3">
+                      <div className="flex justify-between items-start gap-2">
+                        <div className="min-w-0">
+                          <CardTitle className="text-base font-semibold text-gray-800">
+                            {patient.prenom} {patient.nom}
+                          </CardTitle>
+                          {patient.dateNaissance && (
+                            <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                              <Calendar size={11} />
+                              Né(e) le {patient.dateNaissance.toLocaleDateString('fr-FR')}
+                            </p>
+                          )}
+                        </div>
+                        {patient.ville && (
+                          <Badge variant="outline" className="text-xs shrink-0">
+                            {patient.ville}
+                          </Badge>
                         )}
                       </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-blue-600 border-blue-200"
-                          onClick={() => {
-                            setPatientForAppointment(patient)
-                            setIsAppointmentDialogOpen(true)
-                          }}
-                          title="Créer un rendez-vous"
-                        >
-                          <CalendarPlus size={14} />
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-softtail-600 border-softtail-200"
-                          onClick={() => viewPatientDetails(patient.id)}
-                        >
-                          <FileText size={14} />
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-amber-600 border-amber-200"
-                          onClick={() => openEditDialog(patient)}
-                        >
-                          <Edit size={14} />
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-red-600 border-red-200"
-                          onClick={() => {
-                            setPatientToDelete(patient.id)
-                            setIsDeleteDialogOpen(true)
-                          }}
-                        >
-                          <Trash size={14} />
-                        </Button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))
-              )}
-            </motion.div>
-          </div>
-        </div>
+                    </CardHeader>
 
-      {/* Dialog pour ajouter un patient */}
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+                    <CardContent className="pb-3 flex-1 space-y-1.5">
+                      {patient.telephone && (
+                        <p className="text-sm text-gray-600 flex items-center gap-2">
+                          <Phone size={13} className="text-gray-400 shrink-0" />
+                          {patient.telephone}
+                        </p>
+                      )}
+                      {patient.email && (
+                        <p className="text-sm text-gray-600 flex items-center gap-2">
+                          <Mail size={13} className="text-gray-400 shrink-0" />
+                          <span className="truncate">{patient.email}</span>
+                        </p>
+                      )}
+                      {(patient.codePostal || patient.ville) && (
+                        <p className="text-sm text-gray-600 flex items-center gap-2">
+                          <MapPin size={13} className="text-gray-400 shrink-0" />
+                          {[patient.codePostal, patient.ville].filter(Boolean).join(" ")}
+                        </p>
+                      )}
+                    </CardContent>
+
+                    <Separator />
+
+                    <CardFooter className="pt-3 flex flex-wrap gap-2">
+                      <Button size="sm" variant="outline"
+                        className="text-softtail-600 border-softtail-200 hover:bg-softtail-50"
+                        onClick={() => router.push(`/admin/patients/${patient.id}`)}
+                      >
+                        <FileText size={13} className="mr-1" /> Voir dossier
+                      </Button>
+                      <Button size="sm" variant="outline"
+                        className="text-amber-600 border-amber-200 hover:bg-amber-50"
+                        onClick={() => openEditDialog(patient)}
+                      >
+                        <Edit size={13} className="mr-1" /> Modifier
+                      </Button>
+                      <Button size="sm" variant="outline"
+                        className="text-green-600 border-green-200 hover:bg-green-50"
+                        onClick={() => { setPatientForAppointment(patient); setIsAppointmentDialogOpen(true) }}
+                      >
+                        <CalendarPlus size={13} className="mr-1" /> Rendez-vous
+                      </Button>
+                      <Button size="sm" variant="outline"
+                        className="text-red-600 border-red-200 hover:bg-red-50 ml-auto"
+                        onClick={() => { setPatientToDelete(patient); setIsDeleteDialogOpen(true) }}
+                      >
+                        <Trash size={13} className="mr-1" /> Supprimer
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </div>
+      </div>
+
+      {/* Dialog: Nouveau patient */}
+      <Dialog open={isAddDialogOpen} onOpenChange={open => { setIsAddDialogOpen(open); if (!open) setForm(emptyForm) }}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Nouveau patient</DialogTitle>
             <DialogDescription>
-              Remplissez les détails pour créer une fiche patient.
+              Créez une nouvelle fiche patient. Les champs marqués d'un * sont obligatoires.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-1">
-                <Label htmlFor="nom" className="text-softtail-700">Nom *</Label>
-                <Input
-                  id="nom"
-                  placeholder="Nom"
-                  value={newPatient.nom}
-                  onChange={(e) => setNewPatient({...newPatient, nom: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="prenom" className="text-softtail-700">Prénom *</Label>
-                <Input
-                  id="prenom"
-                  placeholder="Prénom"
-                  value={newPatient.prenom}
-                  onChange={(e) => setNewPatient({...newPatient, prenom: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="dateNaissance" className="text-softtail-700">Date de naissance</Label>
-                <Input
-                  id="dateNaissance"
-                  type="date"
-                  value={newPatient.dateNaissance}
-                  onChange={(e) => setNewPatient({...newPatient, dateNaissance: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="numSecu" className="text-softtail-700">N° Sécurité Sociale</Label>
-                <Input
-                  id="numSecu"
-                  placeholder="N° Sécurité Sociale"
-                  value={newPatient.numSecu}
-                  onChange={(e) => setNewPatient({...newPatient, numSecu: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="email" className="text-softtail-700">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="email@example.com"
-                  value={newPatient.email}
-                  onChange={(e) => setNewPatient({...newPatient, email: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="telephone" className="text-softtail-700">Téléphone</Label>
-                <Input
-                  id="telephone"
-                  placeholder="06 XX XX XX XX"
-                  value={newPatient.telephone}
-                  onChange={(e) => setNewPatient({...newPatient, telephone: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-2">
-                <Label htmlFor="adresse" className="text-softtail-700">Adresse</Label>
-                <Input
-                  id="adresse"
-                  placeholder="Adresse"
-                  value={newPatient.adresse}
-                  onChange={(e) => setNewPatient({...newPatient, adresse: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="codePostal" className="text-softtail-700">Code Postal</Label>
-                <Input
-                  id="codePostal"
-                  placeholder="Code Postal"
-                  value={newPatient.codePostal}
-                  onChange={(e) => setNewPatient({...newPatient, codePostal: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="ville" className="text-softtail-700">Ville</Label>
-                <Input
-                  id="ville"
-                  placeholder="Ville"
-                  value={newPatient.ville}
-                  onChange={(e) => setNewPatient({...newPatient, ville: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-2">
-                <Label htmlFor="notes" className="text-softtail-700">Notes</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Informations complémentaires..."
-                  value={newPatient.notes}
-                  onChange={(e) => setNewPatient({...newPatient, notes: e.target.value})}
-                  className="mt-1 resize-none h-24"
-                />
-              </div>
-            </div>
-          </div>
+          <div className="py-4"><FormFields /></div>
           <DialogFooter>
-            <Button 
-              variant="outline" 
-              onClick={() => setIsAddDialogOpen(false)}
-            >
-              Annuler
-            </Button>
-            <Button 
-              className="bg-softtail-600 hover:bg-softtail-700"
-              onClick={handleCreatePatient}
-              disabled={!newPatient.nom || !newPatient.prenom}
-            >
-              Créer
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Annuler</Button>
+            <Button className="bg-softtail-600 hover:bg-softtail-700" onClick={handleCreate}
+              disabled={!form.nom || !form.prenom}>
+              Créer le patient
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* Dialog pour modifier un patient */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+      {/* Dialog: Modifier patient */}
+      <Dialog open={isEditDialogOpen} onOpenChange={open => { setIsEditDialogOpen(open); if (!open) { setPatientToEdit(null); setForm(emptyForm) } }}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Modifier un patient</DialogTitle>
+            <DialogTitle>Modifier le patient</DialogTitle>
             <DialogDescription>
-              Modifiez les informations du patient.
+              {patientToEdit && `Fiche de ${patientToEdit.prenom} ${patientToEdit.nom}`}
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-1">
-                <Label htmlFor="edit-nom" className="text-softtail-700">Nom *</Label>
-                <Input
-                  id="edit-nom"
-                  placeholder="Nom"
-                  value={newPatient.nom}
-                  onChange={(e) => setNewPatient({...newPatient, nom: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-prenom" className="text-softtail-700">Prénom *</Label>
-                <Input
-                  id="edit-prenom"
-                  placeholder="Prénom"
-                  value={newPatient.prenom}
-                  onChange={(e) => setNewPatient({...newPatient, prenom: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-dateNaissance" className="text-softtail-700">Date de naissance</Label>
-                <Input
-                  id="edit-dateNaissance"
-                  type="date"
-                  value={newPatient.dateNaissance}
-                  onChange={(e) => setNewPatient({...newPatient, dateNaissance: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-numSecu" className="text-softtail-700">N° Sécurité Sociale</Label>
-                <Input
-                  id="edit-numSecu"
-                  placeholder="N° Sécurité Sociale"
-                  value={newPatient.numSecu}
-                  onChange={(e) => setNewPatient({...newPatient, numSecu: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-email" className="text-softtail-700">Email</Label>
-                <Input
-                  id="edit-email"
-                  type="email"
-                  placeholder="email@example.com"
-                  value={newPatient.email}
-                  onChange={(e) => setNewPatient({...newPatient, email: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-telephone" className="text-softtail-700">Téléphone</Label>
-                <Input
-                  id="edit-telephone"
-                  placeholder="06 XX XX XX XX"
-                  value={newPatient.telephone}
-                  onChange={(e) => setNewPatient({...newPatient, telephone: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-2">
-                <Label htmlFor="edit-adresse" className="text-softtail-700">Adresse</Label>
-                <Input
-                  id="edit-adresse"
-                  placeholder="Adresse"
-                  value={newPatient.adresse}
-                  onChange={(e) => setNewPatient({...newPatient, adresse: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-codePostal" className="text-softtail-700">Code Postal</Label>
-                <Input
-                  id="edit-codePostal"
-                  placeholder="Code Postal"
-                  value={newPatient.codePostal}
-                  onChange={(e) => setNewPatient({...newPatient, codePostal: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-1">
-                <Label htmlFor="edit-ville" className="text-softtail-700">Ville</Label>
-                <Input
-                  id="edit-ville"
-                  placeholder="Ville"
-                  value={newPatient.ville}
-                  onChange={(e) => setNewPatient({...newPatient, ville: e.target.value})}
-                  className="mt-1"
-                />
-              </div>
-              <div className="col-span-2">
-                <Label htmlFor="edit-notes" className="text-softtail-700">Notes</Label>
-                <Textarea
-                  id="edit-notes"
-                  placeholder="Informations complémentaires..."
-                  value={newPatient.notes}
-                  onChange={(e) => setNewPatient({...newPatient, notes: e.target.value})}
-                  className="mt-1 resize-none h-24"
-                />
-              </div>
-            </div>
-          </div>
+          <div className="py-4"><FormFields /></div>
           <DialogFooter>
-            <Button 
-              variant="outline" 
-              onClick={() => setIsEditDialogOpen(false)}
-            >
-              Annuler
-            </Button>
-            <Button 
-              className="bg-softtail-600 hover:bg-softtail-700"
-              onClick={handleUpdatePatient}
-              disabled={!newPatient.nom || !newPatient.prenom}
-            >
-              Mettre à jour
+            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
+            <Button className="bg-softtail-600 hover:bg-softtail-700" onClick={handleUpdate}
+              disabled={!form.nom || !form.prenom}>
+              Enregistrer les modifications
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* Dialog pour confirmer la suppression */}
-      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+      {/* Dialog: Supprimer patient */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={open => { setIsDeleteDialogOpen(open); if (!open) setPatientToDelete(null) }}>
+        <DialogContent className="sm:max-w-[420px]">
           <DialogHeader>
             <DialogTitle>Confirmer la suppression</DialogTitle>
             <DialogDescription>
-              Êtes-vous sûr de vouloir supprimer ce patient ? Cette action est irréversible.
+              {patientToDelete && (
+                <>
+                  Vous êtes sur le point de supprimer la fiche de{" "}
+                  <strong>{patientToDelete.prenom} {patientToDelete.nom}</strong>.{" "}
+                  Cette action est irréversible et supprimera toutes les données associées au patient.
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button 
-              variant="outline" 
-              onClick={() => setIsDeleteDialogOpen(false)}
-            >
-              Annuler
-            </Button>
-            <Button 
-              variant="destructive"
-              onClick={handleDeletePatient}
-            >
-              Supprimer
-            </Button>
+            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>Annuler</Button>
+            <Button variant="destructive" onClick={handleDelete}>Supprimer définitivement</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* Dialog pour créer un rendez-vous */}
-      <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+      {/* Dialog: Planifier rendez-vous */}
+      <Dialog open={isAppointmentDialogOpen} onOpenChange={open => {
+        setIsAppointmentDialogOpen(open)
+        if (!open) { setPatientForAppointment(null); setNewAppointment({ date: "", time: "", duration: "30" }); setAvailableTimeSlots([]) }
+      }}>
+        <DialogContent className="sm:max-w-[480px]">
           <DialogHeader>
-            <DialogTitle>Créer un rendez-vous</DialogTitle>
+            <DialogTitle>Planifier un rendez-vous</DialogTitle>
             <DialogDescription>
-              {patientForAppointment && 
-                `Créer un rendez-vous pour ${patientForAppointment.prenom} ${patientForAppointment.nom}`
-              }
+              {patientForAppointment &&
+                `Nouveau rendez-vous pour ${patientForAppointment.prenom} ${patientForAppointment.nom}`}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="date">Date du rendez-vous *</Label>
-              <Input
-                id="date"
-                type="date"
+            <div className="space-y-1.5">
+              <Label>Date du rendez-vous *</Label>
+              <Input type="date"
                 value={newAppointment.date}
-                onChange={(e) => {
-                  setNewAppointment({...newAppointment, date: e.target.value, time: ""})
-                  calculateAvailableTimeSlots(e.target.value)
+                onChange={e => {
+                  setNewAppointment({ ...newAppointment, date: e.target.value, time: "" })
+                  calculateAvailableTimeSlots(e.target.value, newAppointment.duration)
                 }}
                 min={new Date().toISOString().split('T')[0]}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="time">Heure *</Label>
-              <Select 
-                value={newAppointment.time} 
-                onValueChange={(value) => setNewAppointment({...newAppointment, time: value})}
+            <div className="space-y-1.5">
+              <Label>Durée</Label>
+              <Select value={newAppointment.duration}
+                onValueChange={v => {
+                  setNewAppointment({ ...newAppointment, duration: v, time: "" })
+                  if (newAppointment.date) calculateAvailableTimeSlots(newAppointment.date, v)
+                }}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="15">15 minutes</SelectItem>
+                  <SelectItem value="20">20 minutes</SelectItem>
+                  <SelectItem value="30">30 minutes</SelectItem>
+                  <SelectItem value="45">45 minutes</SelectItem>
+                  <SelectItem value="60">1 heure</SelectItem>
+                  <SelectItem value="75">1h15</SelectItem>
+                  <SelectItem value="90">1h30</SelectItem>
+                  <SelectItem value="120">2 heures</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Heure *</Label>
+              <Select
+                value={newAppointment.time}
+                onValueChange={v => setNewAppointment({ ...newAppointment, time: v })}
                 disabled={!newAppointment.date}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={
-                    !newAppointment.date 
-                      ? "Sélectionnez d'abord une date" 
-                      : availableTimeSlots.length === 0 
-                        ? "Aucun créneau disponible" 
+                    !newAppointment.date ? "Sélectionnez d'abord une date"
+                      : availableTimeSlots.length === 0 ? "Aucun créneau disponible"
                         : "Sélectionner l'heure"
                   } />
                 </SelectTrigger>
@@ -874,52 +568,18 @@ export default function PatientsPage() {
                 </SelectContent>
               </Select>
               {newAppointment.date && availableTimeSlots.length === 0 && (
-                <p className="text-xs text-red-500">
-                  Aucun créneau disponible pour cette date. Veuillez choisir une autre date.
-                </p>
+                <p className="text-xs text-red-500">Aucun créneau disponible. Choisissez une autre date.</p>
               )}
               {newAppointment.date && availableTimeSlots.length > 0 && (
-                <p className="text-xs text-green-600">
-                  {availableTimeSlots.length} créneau(x) disponible(s)
-                </p>
+                <p className="text-xs text-green-600">{availableTimeSlots.length} créneau(x) disponible(s)</p>
               )}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="duration">Durée (minutes)</Label>
-              <Select value={newAppointment.duration} onValueChange={(value) => setNewAppointment({...newAppointment, duration: value})}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="15">15 minutes</SelectItem>
-                  <SelectItem value="20">20 minutes</SelectItem>
-                  <SelectItem value="30">30 minutes</SelectItem>
-                  <SelectItem value="45">45 minutes</SelectItem>
-                  <SelectItem value="60">1 heure</SelectItem>
-                  <SelectItem value="75">1h15</SelectItem>
-                  <SelectItem value="90">1h30</SelectItem>
-                  <SelectItem value="105">1h45</SelectItem>
-                  <SelectItem value="120">2 heures</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="notes">Notes (optionnel)</Label>
-              <Textarea
-                id="notes"
-                placeholder="Notes concernant le rendez-vous..."
-                value={newAppointment.notes}
-                onChange={(e) => setNewAppointment({...newAppointment, notes: e.target.value})}
-              />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAppointmentDialogOpen(false)}>
-              Annuler
-            </Button>
-            <Button onClick={handleCreateAppointment}>
-              <CalendarPlus className="h-4 w-4 mr-2" />
-              Créer le rendez-vous
+            <Button variant="outline" onClick={() => setIsAppointmentDialogOpen(false)}>Annuler</Button>
+            <Button onClick={handleCreateAppointment}
+              disabled={!newAppointment.date || !newAppointment.time}>
+              <CalendarPlus size={14} className="mr-2" /> Créer le rendez-vous
             </Button>
           </DialogFooter>
         </DialogContent>

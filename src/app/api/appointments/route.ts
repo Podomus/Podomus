@@ -3,7 +3,11 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url)
+    const patientId = searchParams.get('patientId')
+
     const appointments = await prisma.appointment.findMany({
+      where: patientId ? { patientId } : undefined,
       orderBy: {
         date: 'asc',
       },
@@ -84,6 +88,7 @@ export async function POST(req: Request) {
     
     const appointment = await prisma.appointment.create({
       data: {
+        patientId: body.patientId || null,
         patientName: body.patientName,
         patientEmail: body.patientEmail,
         patientPhone: body.patientPhone || null,

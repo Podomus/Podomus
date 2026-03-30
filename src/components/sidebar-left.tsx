@@ -2,306 +2,104 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
-  Blocks,
-  Calendar,
-  Command,
-  FolderOpen,
-  Home,
-  Inbox,
-  MessageCircle,
-  MessageCircleQuestion,
+  CalendarDays,
+  LayoutDashboard,
+  MessageSquare,
   Package,
-  Search,
-  Settings2,
-  Sparkles,
-  Trash2,
-  LogOut,
+  Users,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { NavFavorites } from "@/components/nav-favorites"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavWorkspaces } from "@/components/nav-workspaces"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { SignOutButton } from "@/components/signout-button"
+import { authClient } from "@/lib/auth-client"
 
-// This is sample data.
-const data = {
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: Command,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Tableau de bord",
-      url: "/admin/dashboard",
-      icon: Home,
-    },
-    {
-      title: "Rendez-vous",
-      url: "/admin/appointments",
-      icon: Calendar,
-    },
-    {
-      title: "Patients",
-      url: "/admin/patients",
-      icon: Inbox,
-    },
-    {
-      title: "Ordres",
-      url: "/admin/orders",
-      icon: Blocks,
-    },
-    {
-      title: "Sous Produits",
-      url: "/admin/product-catalog",
-      icon: Package,
-    },
-    {
-      title: "Produits",
-      url: "/admin/categories", 
-      icon: FolderOpen,
-    },
-    {
-      title: "Templates des produits ",
-      url: "/admin/dynamic-fields",
-      icon: Settings2,
-    },
-    {
-      title: "Messages",
-      url: "/admin/messages",
-      icon: MessageCircle,
-      badge: "3", // Vous pouvez le rendre dynamique si nécessaire
-    },
-    {
-      title: "Recherche",
-      url: "#",
-      icon: Search,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Calendrier",
-      url: "#",
-      icon: Calendar,
-    },
-    {
-      title: "Paramètres",
-      url: "#",
-      icon: Settings2,
-    },
-    {
-      title: "Aide",
-      url: "#",
-      icon: MessageCircleQuestion,
-    },
-  ],
-  favorites: [
-    {
-      name: "Project Management & Task Tracking",
-      url: "#",
-      emoji: "📊",
-    },
-    {
-      name: "Family Recipe Collection & Meal Planning",
-      url: "#",
-      emoji: "🍳",
-    },
-    {
-      name: "Fitness Tracker & Workout Routines",
-      url: "#",
-      emoji: "💪",
-    },
-    {
-      name: "Book Notes & Reading List",
-      url: "#",
-      emoji: "📚",
-    },
-    {
-      name: "Sustainable Gardening Tips & Plant Care",
-      url: "#",
-      emoji: "🌱",
-    },
-    {
-      name: "Language Learning Progress & Resources",
-      url: "#",
-      emoji: "🗣️",
-    },
-    {
-      name: "Home Renovation Ideas & Budget Tracker",
-      url: "#",
-      emoji: "🏠",
-    },
-    {
-      name: "Personal Finance & Investment Portfolio",
-      url: "#",
-      emoji: "💰",
-    },
-    {
-      name: "Movie & TV Show Watchlist with Reviews",
-      url: "#",
-      emoji: "🎬",
-    },
-    {
-      name: "Daily Habit Tracker & Goal Setting",
-      url: "#",
-      emoji: "✅",
-    },
-  ],
-  workspaces: [
-    {
-      name: "Personal Life Management",
-      emoji: "🏠",
-      pages: [
-        {
-          name: "Daily Journal & Reflection",
-          url: "#",
-          emoji: "📔",
-        },
-        {
-          name: "Health & Wellness Tracker",
-          url: "#",
-          emoji: "🍏",
-        },
-        {
-          name: "Personal Growth & Learning Goals",
-          url: "#",
-          emoji: "🌟",
-        },
-      ],
-    },
-    {
-      name: "Professional Development",
-      emoji: "💼",
-      pages: [
-        {
-          name: "Career Objectives & Milestones",
-          url: "#",
-          emoji: "🎯",
-        },
-        {
-          name: "Skill Acquisition & Training Log",
-          url: "#",
-          emoji: "🧠",
-        },
-        {
-          name: "Networking Contacts & Events",
-          url: "#",
-          emoji: "🤝",
-        },
-      ],
-    },
-    {
-      name: "Creative Projects",
-      emoji: "🎨",
-      pages: [
-        {
-          name: "Writing Ideas & Story Outlines",
-          url: "#",
-          emoji: "✍️",
-        },
-        {
-          name: "Art & Design Portfolio",
-          url: "#",
-          emoji: "🖼️",
-        },
-        {
-          name: "Music Composition & Practice Log",
-          url: "#",
-          emoji: "🎵",
-        },
-      ],
-    },
-    {
-      name: "Home Management",
-      emoji: "🏡",
-      pages: [
-        {
-          name: "Household Budget & Expense Tracking",
-          url: "#",
-          emoji: "💰",
-        },
-        {
-          name: "Home Maintenance Schedule & Tasks",
-          url: "#",
-          emoji: "🔧",
-        },
-        {
-          name: "Family Calendar & Event Planning",
-          url: "#",
-          emoji: "📅",
-        },
-      ],
-    },
-    {
-      name: "Travel & Adventure",
-      emoji: "🧳",
-      pages: [
-        {
-          name: "Trip Planning & Itineraries",
-          url: "#",
-          emoji: "🗺️",
-        },
-        {
-          name: "Travel Bucket List & Inspiration",
-          url: "#",
-          emoji: "🌎",
-        },
-        {
-          name: "Travel Journal & Photo Gallery",
-          url: "#",
-          emoji: "📸",
-        },
-      ],
-    },
-  ],
-}
+const navItems = [
+  { title: "Tableau de bord", url: "/admin/dashboard", icon: LayoutDashboard },
+  { title: "Rendez-vous", url: "/admin/appointments", icon: CalendarDays },
+  { title: "Patients", url: "/admin/patients", icon: Users },
+  { title: "Orthèses", url: "/admin/ortheses", icon: Package },
+  { title: "Messages", url: "/admin/messages", icon: MessageSquare, hasBadge: true },
+]
 
 export function SidebarLeft({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
-  
-  // Mettre à jour l'état actif en fonction de l'URL actuelle
-  const navItems = data.navMain.map(item => ({
-    ...item,
-    isActive: pathname === item.url
-  }))
+  const { data: session } = authClient.useSession()
+  const [messageBadge, setMessageBadge] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    fetch("/api/contact?status=new")
+      .then((res) => res.json())
+      .then((data) => {
+        const count = Array.isArray(data) ? data.length : (data?.count ?? null)
+        setMessageBadge(count > 0 ? count : null)
+      })
+      .catch(() => setMessageBadge(null))
+  }, [])
 
   return (
-    <Sidebar className="border-r-0 flex flex-col" {...props}>
-      <SidebarHeader>
-        <NavMain items={navItems} />
+    <Sidebar className="border-r-0" {...props}>
+      <SidebarHeader className="px-4 py-5">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-lg font-bold tracking-tight text-sidebar-foreground">
+            Podomus
+          </span>
+          <span className="text-xs text-muted-foreground">Espace clinique</span>
+        </div>
       </SidebarHeader>
-      <SidebarContent className="flex-1">
-        <NavSecondary items={data.navSecondary} className="mt-4" />
+
+      <SidebarContent className="px-2">
+        <SidebarMenu>
+          {navItems.map((item) => {
+            const isActive = pathname.startsWith(item.url)
+            return (
+              <SidebarMenuItem key={item.url}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive}
+                  className={cn(
+                    "gap-3 rounded-lg",
+                    isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  )}
+                >
+                  <Link href={item.url}>
+                    <item.icon className="h-4 w-4 shrink-0" />
+                    <span className="flex-1">{item.title}</span>
+                    {item.hasBadge && messageBadge !== null && (
+                      <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">
+                        {messageBadge}
+                      </span>
+                    )}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
+          })}
+        </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-2 border-t">
+
+      <SidebarFooter className="px-2 py-3 border-t">
+        {session?.user?.email && (
+          <p className="px-2 pb-2 text-xs text-muted-foreground truncate">
+            {session.user.email}
+          </p>
+        )}
         <SignOutButton />
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   )
