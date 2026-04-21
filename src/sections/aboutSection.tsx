@@ -59,11 +59,7 @@ const AboutSection = () => {
         >
           <div className="flex w-full min-w-[50%] flex-col items-center justify-center gap-2 sm:gap-3">
             <motion.div
-              data-reveal
               className="text-center px-2 sm:px-0 p-8 sm:p-12 lg:p-16"
-              initial={{ y: 40, opacity: 0 }}
-              exit={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             >
               <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
                 À Propos de Podomus
@@ -73,7 +69,6 @@ const AboutSection = () => {
               </h2>
             </motion.div>
             <motion.p
-              data-reveal
               className="text-sm sm:text-lg md:text-xl font-medium text-textmain bg-white/90 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg mt-4"
               initial={{ y: 40, opacity: 0 }}
               exit={{ y: 0, opacity: 1 }}
@@ -85,7 +80,6 @@ const AboutSection = () => {
 
             {/* Bloc mission avec lueur animée */}
             <motion.div
-              data-reveal
               className="flex flex-col items-center justify-center rounded-2xl bg-highlight p-4 sm:p-6 text-center xl:p-10 mt-4 sm:mt-6 shadow-lg relative overflow-visible"
               initial={{ y: 16, opacity: 0 }}
               exit={{ y: 0, opacity: 1 }}
@@ -118,12 +112,6 @@ const AboutSection = () => {
               <motion.a
                 href="/service"
                 className="inline-block mt-6 sm:mt-8 bg-white text-brand font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-lg hover:bg-highlight hover:text-white transition-[transform,background-color,color] duration-150 text-sm sm:text-lg"
-                whileHover={{ scale: 1.07 }}
-                whileTap={{ scale: 0.97 }}
-                initial={{ opacity: 0, y: 16 }}
-                exit={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
               >
                 Voir tous nos soins
               </motion.a>
@@ -140,12 +128,7 @@ const AboutSection = () => {
               const parallaxFactors = [0.2, 0.1, -0.1, -0.2];
               return (
                 <motion.div
-                  data-reveal
                   key={img.src}
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  exit={{ scale: 1, opacity: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
-                  whileHover={{ scale: 1.03, boxShadow: "0 8px 32px 0 rgba(64, 130, 109, 0.18)" }}
                   className="w-full h-full rounded-xl overflow-hidden cursor-pointer transition-transform"
                   style={{
                     transform: `translateY(${scrollY * parallaxFactors[i]}px)`
