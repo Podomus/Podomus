@@ -102,7 +102,7 @@ const PlansSection = () => {
               href="tel:+21651617044"
               className="text-sm font-medium text-textmain/50 transition-colors duration-150 hover:text-brand"
             >
-              Ou appelez le +216 51 617 044
+              Ou appelez le <a href="tel:+21651617044" className="hover:underline">+216 51 617 044</a>
             </a>
           </motion.div>
         </div>

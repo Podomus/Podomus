@@ -573,8 +573,8 @@ export default function AboutPage() {
               <FaPhone className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Contact</h3>
               <p className="text-textmain mb-2">
-                Téléphone: +216 51 617 044<br />
-                Email: contact@podomus.tn
+                Téléphone: <a href="tel:+21651617044" className="text-brand hover:text-highlight">+216 51 617 044</a><br />
+                Email: <a href="mailto:contact@podomus.tn" className="text-brand hover:text-highlight">contact@podomus.tn</a>
               </p>
               <div className="flex justify-center gap-3 mt-4">
                 <FaFacebook className="text-2xl text-brand hover:text-highlight cursor-pointer transition-colors" />

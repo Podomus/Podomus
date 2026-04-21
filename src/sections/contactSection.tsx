@@ -93,8 +93,8 @@ const ContactSection = () => {
                 <TbMapPin size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
               </span>
               <span className="break-words text-xs sm:text-sm md:text-base">
-                Imm. Golf Center 2, Bureau BM2,<br />
-                La Soukra 2036
+                <a href="https://maps.app.goo.gl/uV382aFHbzwSFruK9" target="_blank" rel="noopener noreferrer">Imm. Golf Center 2, Bureau BM2,<br />
+                La Soukra 2036</a>
               </span>
             </motion.a>
             <motion.div
@@ -108,7 +108,7 @@ const ContactSection = () => {
               >
                 <TbPhone size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
               </span>
-              +216 51 617 044
+              <a href="tel:+21651617044" className="hover:underline">+216 51 617 044</a>
             </motion.div>
           </div>
         </motion.div>

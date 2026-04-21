@@ -33,14 +33,14 @@ function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
       initial={{ scale: 0.85, opacity: 0 }}
       whileInView={{ scale: 1, opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 200, 
-        damping: 15, 
-        delay: delay 
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+        delay: delay
       }}
-      whileHover={{ 
-        scale: 1.15, 
+      whileHover={{
+        scale: 1.15,
         rotate: 5,
         transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
@@ -60,7 +60,7 @@ function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
 
 // Composant pour les particules flottantes
 function FloatingParticles() {
-  const [positions, setPositions] = useState<{x: number, y: number}[]>([]);
+  const [positions, setPositions] = useState<{ x: number, y: number }[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -154,7 +154,7 @@ export default function Footer() {
     >
       {/* Particules flottantes */}
       <FloatingParticles />
-      
+
       {/* Lignes animées */}
       <AnimatedLines />
 
@@ -162,14 +162,14 @@ export default function Footer() {
       <motion.div
         aria-hidden
         initial={{ opacity: 0 }}
-        animate={{ 
+        animate={{
           opacity: isHovered ? 0.8 : 0.4,
           backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
           scale: isHovered ? 1.1 : 1,
         }}
-        transition={{ 
-          duration: 10, 
-          repeat: Infinity, 
+        transition={{
+          duration: 10,
+          repeat: Infinity,
           ease: "linear",
           scale: { duration: 0.5 }
         }}
@@ -180,7 +180,7 @@ export default function Footer() {
       {/* Contenu principal du footer */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+
           {/* Logo et présentation */}
           <div className="lg:col-span-1">
             <motion.div
@@ -207,7 +207,7 @@ export default function Footer() {
                       className="h-auto w-44 object-contain transition-[filter] duration-200 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
                     />
                   </motion.div>
-                  <motion.span 
+                  <motion.span
                     className="text-sm text-white/90 font-medium tracking-wide mt-2"
                     whileHover={{ color: "#ffffff" }}
                     transition={{ duration: 0.3 }}
@@ -216,12 +216,12 @@ export default function Footer() {
                   </motion.span>
                 </motion.div>
               </Link>
-              <motion.p 
+              <motion.p
                 className="mt-4 text-sm text-white/80 leading-relaxed"
                 whileHover={{ color: "rgba(255, 255, 255, 0.9)" }}
                 transition={{ duration: 0.3 }}
               >
-                Spécialiste en soins podologiques d&apos;exception, la Docteure Sonda Affes Ben Mahmoud vous accompagne 
+                Spécialiste en soins podologiques d&apos;exception, la Docteure Sonda Affes Ben Mahmoud vous accompagne
                 avec expertise et discrétion pour la santé et la beauté de vos pieds.
               </motion.p>
             </motion.div>
@@ -235,7 +235,7 @@ export default function Footer() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4, delay: 0.12, ease: [0.23, 1, 0.32, 1] }}
             >
-              <motion.h3 
+              <motion.h3
                 className="text-lg font-semibold mb-4 flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -249,7 +249,7 @@ export default function Footer() {
                 Contact & Accès
               </motion.h3>
               <div className="space-y-3">
-                <motion.div 
+                <motion.div
                   className="flex items-start gap-3 group"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -261,11 +261,13 @@ export default function Footer() {
                     <TbMapStar size={18} className="text-highlight mt-1 flex-shrink-0" />
                   </motion.div>
                   <div className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
-                    <p>Imm. Golf Center 2, Bureau BM2</p>
-                    <p>La Soukra 2036</p>
+                    <a href="https://maps.app.goo.gl/uV382aFHbzwSFruK9" target="_blank" rel="noopener noreferrer">
+                      <p>Imm. Golf Center 2, Bureau BM2</p>
+                      <p>La Soukra 2036</p>
+                    </a>
                   </div>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex items-center gap-3 group"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -276,9 +278,11 @@ export default function Footer() {
                   >
                     <TbPhone size={18} className="text-highlight flex-shrink-0" />
                   </motion.div>
-                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 51 617 044</span>
+                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
+                    <a href="tel:+21651617044" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 51 617 044</a>
+                  </span>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex items-center gap-3 group"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -289,7 +293,9 @@ export default function Footer() {
                   >
                     <TbMail size={18} className="text-highlight flex-shrink-0" />
                   </motion.div>
-                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">contact@podomus.tn</span>
+                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
+                    <a href="mailto:contact@podomus.tn" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">contact@podomus.tn</a>
+                  </span>
                 </motion.div>
               </div>
             </motion.div>
@@ -303,7 +309,7 @@ export default function Footer() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4, delay: 0.16, ease: [0.23, 1, 0.32, 1] }}
             >
-              <motion.h3 
+              <motion.h3
                 className="text-lg font-semibold mb-4 flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -322,20 +328,20 @@ export default function Footer() {
                   { day: "Samedi", time: "09:00–13:00" },
                   { day: "Dimanche", time: "Fermé" }
                 ].map((schedule, index) => (
-                                     <motion.div 
-                     key={index}
-                     className="flex justify-between group"
-                     whileHover={{ x: 5, scale: 1.02 }}
-                     initial={{ opacity: 0, x: -20 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }}
-                     transition={{ 
-                       type: "spring", 
-                       stiffness: 300, 
-                       damping: 15,
-                       delay: index * 0.05
-                     }}
-                   >
+                  <motion.div
+                    key={index}
+                    className="flex justify-between group"
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 15,
+                      delay: index * 0.05
+                    }}
+                  >
                     <span className="group-hover:text-white transition-colors duration-300">{schedule.day}</span>
                     <span className="group-hover:text-highlight transition-colors duration-300">{schedule.time}</span>
                   </motion.div>
@@ -353,7 +359,7 @@ export default function Footer() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
             >
-              <motion.h3 
+              <motion.h3
                 className="text-lg font-semibold mb-4"
                 whileHover={{ scale: 1.02, color: '#40826D' }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -375,9 +381,9 @@ export default function Footer() {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 300, 
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
                       damping: 15,
                       delay: index * 0.05
                     }}
@@ -402,7 +408,7 @@ export default function Footer() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4, delay: 0.24, ease: [0.23, 1, 0.32, 1] }}
             >
-              <motion.h3 
+              <motion.h3
                 className="text-lg font-semibold mb-4"
                 whileHover={{ scale: 1.02, color: '#40826D' }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -424,9 +430,9 @@ export default function Footer() {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 300, 
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
                       damping: 15,
                       delay: index * 0.05
                     }}
@@ -441,7 +447,7 @@ export default function Footer() {
                 ))}
               </div>
 
-              <motion.div 
+              <motion.div
                 className="mb-6"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -462,7 +468,7 @@ export default function Footer() {
                 </Button>
               </motion.div>
 
-              <motion.h4 
+              <motion.h4
                 className="text-sm font-semibold mb-3"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -503,13 +509,13 @@ export default function Footer() {
         className="relative z-10 border-t border-white/20 bg-brand/50 backdrop-blur-sm px-4 py-4 text-center text-xs text-white/70"
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-          <motion.p 
+          <motion.p
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 15 }}
           >
             &copy; {currentYear} Podomus. Tous droits réservés.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-xs"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

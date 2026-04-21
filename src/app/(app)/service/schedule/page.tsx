@@ -18,9 +18,9 @@ export default function SchedulePage() {
       { day: "Dimanche", hours: "Fermé", status: "Fermé" }
     ],
     contact: {
-      phone: "+216 51 617 044",
-      email: "contact@podomus.tn",
-      address: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036"
+      phone: { number: "+216 51 617 044", href: "tel:+21651617044" },
+      email: { address: "contact@podomus.tn", href: "mailto:contact@podomus.tn" },
+      address: { text: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036", href: "https://maps.app.goo.gl/uV382aFHbzwSFruK9" }
     }
   };
 
@@ -160,19 +160,31 @@ export default function SchedulePage() {
             <div className="text-center">
               <FaPhone className="text-3xl text-blue-600 mx-auto mb-4" />
               <h3 className="font-semibold text-gray-900 mb-2">Téléphone</h3>
-              <p className="text-gray-600">{scheduleData.contact.phone}</p>
+              <p className="text-gray-600">
+                <a href={scheduleData.contact.phone.href} className="text-blue-600 hover:text-blue-800">
+                  {scheduleData.contact.phone.number}
+                </a>
+              </p>
             </div>
             
             <div className="text-center">
               <FaEnvelope className="text-3xl text-blue-600 mx-auto mb-4" />
               <h3 className="font-semibold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600">{scheduleData.contact.email}</p>
+              <p className="text-gray-600">
+                <a href={scheduleData.contact.email.href} className="text-blue-600 hover:text-blue-800">
+                  {scheduleData.contact.email.address}
+                </a>
+              </p>
             </div>
             
             <div className="text-center">
               <FaMapMarkerAlt className="text-3xl text-blue-600 mx-auto mb-4" />
               <h3 className="font-semibold text-gray-900 mb-2">Adresse</h3>
-              <p className="text-gray-600">{scheduleData.contact.address}</p>
+              <p className="text-gray-600">
+                <a href={scheduleData.contact.address.href} className="text-blue-600 hover:text-blue-800">
+                  {scheduleData.contact.address.text}
+                </a>
+              </p>
             </div>
           </div>
         </motion.div>
