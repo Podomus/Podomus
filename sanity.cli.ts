@@ -5,7 +5,6 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 
 export default defineCliConfig({
   api: { projectId, dataset },
-  studioHost: 'podomus',
   deployment: {
     autoUpdates: true,
   }
