@@ -155,8 +155,6 @@ export default function Footer() {
       {/* Particules flottantes */}
       <FloatingParticles />
 
-      {/* Lignes animées */}
-      <AnimatedLines />
 
       {/* Gradient animé en fond */}
       <motion.div
@@ -410,7 +408,7 @@ export default function Footer() {
             >
               <motion.h3
                 className="text-lg font-semibold mb-4"
-                whileHover={{ scale: 1.02, color: '#40826D' }}
+                whileHover={{ scale: 1.02, color: '#fafafa' }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 <a href="/service" className="hover:underline hover:text-highlight transition-colors duration-300">Nos Services</a>
@@ -426,7 +424,7 @@ export default function Footer() {
                     key={index}
                     href={`/service#${service.anchor}`}
                     className="flex items-center gap-2 group hover:text-highlight transition-colors duration-300"
-                    whileHover={{ x: 5, color: "#40826D" }}
+                    whileHover={{ x: 5, color: "#fafafa" }}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
