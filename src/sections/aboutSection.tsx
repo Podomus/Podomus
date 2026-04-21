@@ -55,7 +55,6 @@ const AboutSection = () => {
           variants={fadeIn("up", 0)}
           initial="hidden"
           animate="show"
-          exit="show"
           className="mx-auto flex w-full flex-col items-center justify-center py-0 sm:py-0 lg:flex-row lg:py-0 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8FAFC' }}
         >
           <div className="flex w-full min-w-[50%] flex-col items-center justify-center gap-2 sm:gap-3">

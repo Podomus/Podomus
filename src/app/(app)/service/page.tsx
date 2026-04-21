@@ -394,7 +394,7 @@ export default function ServicesPage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.4 }}
               >
-                 des techniques éprouvées —
+                des techniques éprouvées —
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
@@ -415,7 +415,7 @@ export default function ServicesPage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2.0 }}
               >
-                {' '}et un regard formé
+                {' '} et un regard formé
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}

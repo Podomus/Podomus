@@ -238,7 +238,7 @@ export default function HeroSection() {
 
 	return (
 		<section
-			className="relative container min-h-screen overflow-hidden"
+			className="relative container min-h-screen "
 			style={{
 				background: "#F8FAFC",
 			}}
