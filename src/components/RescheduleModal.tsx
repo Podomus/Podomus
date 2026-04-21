@@ -78,7 +78,7 @@ export function RescheduleModal({
   
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] data-[state=open]:duration-200 data-[state=closed]:duration-150">
         <DialogHeader>
           <DialogTitle>Reprogrammer le rendez-vous</DialogTitle>
         </DialogHeader>
@@ -91,7 +91,7 @@ export function RescheduleModal({
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-left font-normal mt-2"
+                    className="w-full justify-start text-left font-normal mt-2 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {date ? format(date, "PPP", { locale: fr }) : "Sélectionner une date"}
@@ -154,11 +154,12 @@ export function RescheduleModal({
             variant="outline" 
             onClick={onClose} 
             disabled={loading}
+            className="active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           >
             Annuler
           </Button>
           <Button 
-            className="bg-softtail-600 hover:bg-softtail-700"
+            className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
             onClick={handleReschedule}
             disabled={loading}
           >

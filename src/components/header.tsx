@@ -2,7 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { IoCalendarOutline, IoPlay } from "react-icons/io5";
 import AppointmentModal from "./AppointmentModal";
 import NavigationLink from "./NavigationLink";
@@ -69,56 +70,71 @@ function FloatingParticles() {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
-  const { scrollY } = useScroll();
   const [openModal, setOpenModal] = useState(false);
-  
-  // Animation du header basée sur le scroll
-  const headerBackground = useTransform(
-    scrollY,
-    [0, 100],
-    ["rgba(255, 255, 255, 0.98)", "rgba(255, 255, 255, 0.99)"]
-  );
-  
-  const headerShadow = useTransform(
-    scrollY,
-    [0, 100],
-    ["0 1px 10px rgba(0, 0, 0, 0.05)", "0 2px 20px rgba(0, 0, 0, 0.08)"]
-  );
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-            setShowHeader(false); // Scroll vers le bas
+    if (!headerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      let lastY = 0;
+
+      // Elevation: add backdrop blur + semi-transparent bg after 60px
+      ScrollTrigger.create({
+        start: 60,
+        onEnter: () => {
+          gsap.to(headerRef.current, {
+            backgroundColor: "rgba(248, 250, 252, 0.88)",
+            backdropFilter: "blur(12px)",
+            boxShadow: "0 1px 0 0 rgba(74, 124, 89, 0.08)",
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(headerRef.current, {
+            backgroundColor: "rgba(248, 250, 252, 0)",
+            backdropFilter: "blur(0px)",
+            boxShadow: "none",
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        },
+      });
+
+      // Direction-aware: hide on scroll down, reveal on scroll up
+      ScrollTrigger.create({
+        start: 100,
+        end: "max",
+        onUpdate: (self) => {
+          const currentY = self.scroll();
+          if (currentY > lastY && currentY > 100) {
+            gsap.to(headerRef.current, {
+              yPercent: -100,
+              duration: 0.4,
+              ease: "power3.in",
+              overwrite: "auto",
+            });
           } else {
-            setShowHeader(true); // Scroll vers le haut
+            gsap.to(headerRef.current, {
+              yPercent: 0,
+              duration: 0.4,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
           }
-          lastScrollY.current = currentScrollY;
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+          lastY = currentY;
+        },
+      });
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <motion.header
-      style={{
-        backgroundColor: headerBackground,
-        boxShadow: headerShadow,
-      }}
-      className="sticky top-0 z-50 backdrop-blur-sm border-b border-white/30"
-      initial={{ y: 0, opacity: 1 }}
-      animate={{ y: showHeader ? 0 : -100, opacity: showHeader ? 1 : 0 }}
-      transition={{ y: { type: "spring", stiffness: 400, damping: 40 }, opacity: { duration: 0.2 } }}
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 will-change-transform border-b border-white/30"
     >
       {/* Particules flottantes subtiles */}
       <FloatingParticles />
@@ -350,6 +366,6 @@ export default function Header() {
       
       {/* Modal de rendez-vous */}
       <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
-    </motion.header>
+    </header>
   );
 }

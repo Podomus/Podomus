@@ -2,6 +2,7 @@
 
 import { type LucideIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -20,11 +21,24 @@ export function NavMain({
 }) {
   return (
     <SidebarMenu>
-      {items.map((item) => (
-        <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild isActive={item.isActive}>
+      {items.map((item, index) => (
+        <SidebarMenuItem
+          key={item.title}
+          className="motion-safe:animate-[nav-item-in_200ms_ease-out_both]"
+          style={{ animationDelay: `${index * 30}ms` }}
+        >
+          <SidebarMenuButton
+            asChild
+            isActive={item.isActive}
+            className={cn(
+              "border-l-2 border-transparent",
+              "transition-[transform,background-color,color,border-color] duration-150 ease-out",
+              "active:scale-[0.97]",
+              item.isActive && "border-sidebar-primary"
+            )}
+          >
             <a href={item.url}>
-              <item.icon />
+              <item.icon className="size-4 shrink-0" />
               <span>{item.title}</span>
             </a>
           </SidebarMenuButton>

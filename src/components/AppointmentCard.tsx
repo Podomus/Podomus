@@ -19,10 +19,11 @@ interface AppointmentCardProps {
 export function AppointmentCard({ appointment, onDelete, onStatusChange }: AppointmentCardProps) {
   return (
     <motion.div 
-      className="p-4 bg-white rounded-lg border border-softtail-100 hover:border-softtail-200 hover:shadow-md transition-all"
+      className="p-4 bg-white rounded-lg border border-softtail-100 hover:border-softtail-200 hover:shadow-md transition-[border-color,box-shadow] duration-150 ease-out"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
     >
       <div className="flex justify-between items-start">
         <div className="flex items-start gap-3">
@@ -44,11 +45,12 @@ export function AppointmentCard({ appointment, onDelete, onStatusChange }: Appoi
             <h4 className="font-medium text-softtail-800">{appointment.patientName}</h4>
             <div className="flex items-center gap-2 mt-1">
               <Badge 
-                className={
+                className={[
+                  "transition-colors duration-150",
                   appointment.status === "scheduled" ? "bg-amber-500" : 
                   appointment.status === "completed" ? "bg-green-500" :
                   appointment.status === "no_show" ? "bg-orange-500" : "bg-red-500"
-                }
+                ].join(" ")}
               >
                 {appointment.status === "scheduled" ? "Planifié" : 
                  appointment.status === "completed" ? "Terminé" : 
@@ -73,7 +75,7 @@ export function AppointmentCard({ appointment, onDelete, onStatusChange }: Appoi
           <Button 
             variant="outline" 
             size="icon"
-            className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
+            className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
             onClick={onDelete}
           >
             <Trash size={16} />

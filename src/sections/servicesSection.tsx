@@ -6,7 +6,7 @@ import { IoCalendarOutline } from "react-icons/io5";
 
 import { motion } from "framer-motion";
 import { fadeIn } from "../lib/animation/variants";
-import { useInView } from "react-intersection-observer";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 import AppointmentModal from "../components/AppointmentModal";
 import { TbTargetArrow } from "react-icons/tb";
 
@@ -26,8 +26,7 @@ const services: { title: string; text: string }[] = [
 ];
 
 const ServicesSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
+  const revealRef = useScrollReveal();
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -37,94 +36,31 @@ const ServicesSection = () => {
         background: '#F8FAFC'
       }}
       id="Services"
-      ref={ref}
+      ref={revealRef}
     >
-      {/* Particules flottantes en arrière-plan */}
-      {[
-        { left: "10%", top: "20%" },
-        { left: "85%", top: "15%" },
-        { left: "25%", top: "60%" },
-        { left: "70%", top: "45%" },
-        { left: "45%", top: "80%" },
-        { left: "90%", top: "70%" },
-        { left: "15%", top: "85%" },
-        { left: "60%", top: "25%" },
-        { left: "35%", top: "40%" },
-        { left: "80%", top: "90%" },
-        { left: "5%", top: "50%" },
-        { left: "75%", top: "35%" },
-        { left: "50%", top: "10%" },
-        { left: "20%", top: "75%" },
-        { left: "65%", top: "65%" }
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-softtail-400/20 rounded-full"
-          style={{
-            left: pos.left,
-            top: pos.top,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 3 + (i % 3),
-            repeat: Infinity,
-            delay: i * 0.2,
-          }}
-        />
-      ))}
 
-      {/* Formes organiques flottantes avec soft teal */}
-      <motion.div
+      <div
         className="absolute top-1/4 left-1/4 w-32 h-32 bg-[#E8E4D9]/35 rounded-full blur-2xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ animation: "blob-pulse 4s ease-in-out infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-softtail-400/8 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
+        style={{ animation: "blob-pulse-b 5s ease-in-out 1s infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute top-1/2 right-1/3 w-20 h-20 bg-softtail-400/6 rounded-full blur-lg"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 3.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
+        style={{ animation: "blob-pulse-c 3.5s ease-in-out 2s infinite", willChange: "transform" }}
       />
 
       <motion.div
         variants={fadeIn("down", 0)}
         initial="hidden"
-        animate={inView ? "show" : "hidden"}
+        animate="show"
         exit="hidden"
         className="relative z-10 mx-auto flex w-full flex-col items-center justify-center py-4 sm:py-6 lg:flex-row lg:py-8 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8FAFC' }}
       >
         <div className="flex w-full flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5 md:items-start md:justify-start text-textmain">
-          <div className="text-center md:text-start px-2 sm:px-0">
+          <div data-reveal className="text-center md:text-start px-2 sm:px-0">
             <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
               Nos Services
             </span>
@@ -136,24 +72,17 @@ const ServicesSection = () => {
             </p>
           </div>
 
-          <motion.div
+          <div
             className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
-            variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
           >
             {[
               { anchor: "soins" },
               { anchor: "orthoplastie" },
               { anchor: "conseils" }
             ].map((meta, index) => (
-              <motion.div
+              <div
+                data-reveal
                 key={`service-${index}`}
-                variants={{
-                  hidden: { opacity: 0, y: 16 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } },
-                }}
                 className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-[border-color,box-shadow] duration-200 group hover:shadow-2xl"
               >
                 <div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-300">
@@ -161,18 +90,20 @@ const ServicesSection = () => {
                 </div>
                 <h4 className="mb-2 font-bold text-softtail-400 group-hover:underline text-base sm:text-lg">{services[index].title}</h4>
                 <p className="text-xs sm:text-sm font-light">{services[index].text}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
-          <Button
-            className="h-10 sm:h-12 md:h-16 w-full sm:w-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold bg-brand text-white hover:bg-highlight hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
-            endContent={<IoCalendarOutline size={16} className="ml-2 sm:ml-2 md:ml-2 sm:w-5 sm:h-5 md:text-2xl lg:text-3xl" />}
-            onClick={() => setOpenModal(true)}
-          >
-            <span className="hidden sm:inline">Demander un rendez-vous privilégié</span>
-            <span className="sm:hidden">Prendre RDV</span>
-          </Button>
+          <div data-reveal className="w-full sm:w-auto">
+            <Button
+              className="h-10 sm:h-12 md:h-16 w-full sm:w-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold bg-brand text-white hover:bg-highlight hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
+              endContent={<IoCalendarOutline size={16} className="ml-2 sm:ml-2 md:ml-2 sm:w-5 sm:h-5 md:text-2xl lg:text-3xl" />}
+              onClick={() => setOpenModal(true)}
+            >
+              <span className="hidden sm:inline">Demander un rendez-vous privilégié</span>
+              <span className="sm:hidden">Prendre RDV</span>
+            </Button>
+          </div>
           <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
         </div>
       </motion.div>

@@ -14,7 +14,7 @@ export default function SportifPage() {
     {
       id: 1,
       title: "Bilan podologique sportif",
-      description: "Évaluation complète de la biomécanique et de la posture pour optimiser vos performances sportives.",
+      description: "On analyse votre foulée, vos appuis plantaires et les zones de surpression — pour comprendre pourquoi la douleur revient à chaque entraînement.",
       icon: <FaRunning className="text-3xl text-blue-600" />,
       features: [
         "Analyse de la marche et de la course",
@@ -28,7 +28,7 @@ export default function SportifPage() {
     {
       id: 2,
       title: "Orthèses sportives sur-mesure",
-      description: "Fabrication d'orthèses adaptées à votre sport et à votre morphologie pour prévenir les blessures.",
+      description: "Des semelles orthopédiques moulées sur votre pied, adaptées à votre sport — amortissement calibré pour la course, le football, le vélo.",
       icon: <TbTargetArrow className="text-3xl text-green-600" />,
       features: [
         "Moulage personnalisé",
@@ -42,7 +42,7 @@ export default function SportifPage() {
     {
       id: 3,
       title: "Soins des pieds du sportif",
-      description: "Traitement spécialisé des problèmes courants chez les sportifs : ampoules, ongles incarnés, callosités.",
+      description: "Ampoules, ongles incarnés, durillons, hyperkératoses — les lésions qui semblent mineures mais sabotent un entraînement ou une compétition.",
       icon: <TbShieldCheck className="text-3xl text-purple-600" />,
       features: [
         "Traitement des ampoules",
@@ -56,7 +56,7 @@ export default function SportifPage() {
     {
       id: 4,
       title: "Rééducation podologique",
-      description: "Programme de rééducation après blessure pour retrouver vos performances sportives optimales.",
+      description: "Après une fasciite plantaire ou une tendinite traitée, le retour progressif fait partie du protocole — pas un retour d'un coup au plein régime.",
       icon: <TbSparkles className="text-3xl text-orange-600" />,
       features: [
         "Évaluation post-blessure",
@@ -74,19 +74,19 @@ export default function SportifPage() {
       name: "Thomas Martin",
       sport: "Marathonien",
       rating: 5,
-      comment: "Grâce aux orthèses sur-mesure, j'ai pu améliorer mes performances et éviter les blessures récurrentes."
+      comment: "J'avais une fasciite plantaire depuis 18 mois. Les semelles ont réglé le problème en six semaines."
     },
     {
       name: "Sarah Dubois",
       sport: "Tennis",
       rating: 5,
-      comment: "Le bilan podologique m'a permis de comprendre mes problèmes de posture et d'optimiser mon jeu."
+      comment: "L'analyse de la foulée a révélé une surpropulsion du pied gauche que je ne percevais pas."
     },
     {
       name: "Marc Leroy",
       sport: "Football",
       rating: 5,
-      comment: "Excellent suivi après ma blessure. J'ai pu reprendre le sport en toute sécurité."
+      comment: "Après ma tendinite achilléenne, le protocole de reprise progressive m'a évité la rechute habituelle."
     }
   ];
 
@@ -105,11 +105,10 @@ export default function SportifPage() {
               <FaRunning className="text-5xl text-blue-600" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Services Podologiques pour Sportifs
+              Les douleurs que les sportifs normalisent à tort.
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Optimisez vos performances sportives avec nos soins podologiques spécialisés. 
-              De la prévention à la rééducation, nous vous accompagnons dans votre pratique sportive.
+              La fasciite plantaire qui revient chaque saison, la tendinite qui ne part jamais vraiment — ce ne sont pas des fatalités sportives. Ce sont des problèmes biomécaniques avec une solution mécanique précise.
             </p>
           </div>
         </div>
@@ -126,7 +125,7 @@ export default function SportifPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Nos Services Spécialisés
+            Ce qu&apos;on analyse, ce qu&apos;on traite
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
@@ -180,7 +179,7 @@ export default function SportifPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Pourquoi Choisir Nos Services Sportifs ?
+            Ce qui change avec un bilan podologique sportif
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -190,7 +189,7 @@ export default function SportifPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Expertise Sportive</h3>
               <p className="text-gray-600">
-                Notre équipe connaît les spécificités de chaque sport et adapte les soins en conséquence.
+                Courir avec une fasciite, c&apos;est compenser — et compenser crée d&apos;autres blessures. On traite la cause, pas la douleur du moment.
               </p>
             </div>
             
@@ -198,9 +197,9 @@ export default function SportifPage() {
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <TbTargetArrow className="text-2xl text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Performance Optimale</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Analyse de la Foulée</h3>
               <p className="text-gray-600">
-                Nos soins visent à améliorer vos performances tout en prévenant les blessures.
+                Une foulée analysée révèle souvent la source de douleurs de genou ou de hanche que le sport ne fait qu&apos;amplifier.
               </p>
             </div>
             
@@ -210,7 +209,7 @@ export default function SportifPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Prévention</h3>
               <p className="text-gray-600">
-                Nous vous aidons à prévenir les blessures courantes chez les sportifs.
+                Des semelles sur mesure absorbent les chocs que vos genoux et chevilles encaissent sinon — entraînement après entraînement.
               </p>
             </div>
           </div>
@@ -267,7 +266,7 @@ export default function SportifPage() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
                 >
-                  Prêt à prendre soin de vos pieds ?
+                  Une douleur qui revient, c&apos;est un bilan qui n&apos;a pas encore eu lieu.
                 </motion.h3>
                 <button
                   onClick={() => setIsModalOpen(true)}

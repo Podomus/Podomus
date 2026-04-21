@@ -12,12 +12,12 @@ export default function ChildrenPage() {
     {
       id: 1,
       title: "Bilan podologique pédiatrique",
-      description: "Évaluation complète de la croissance et du développement des pieds de votre enfant.",
+      description: "Un bilan qui examine la marche, les appuis et la posture — pour détecter pied plat, pied valgus et boiteries avant qu'ils ne s'installent.",
       icon: <FaChild className="text-3xl text-pink-600" />,
       features: [
         "Examen de la croissance",
         "Analyse de la marche",
-        "Détection précoce des problèmes",
+        "Détection du pied plat et du pied valgus",
         "Conseils aux parents",
         "Suivi de développement"
       ],
@@ -26,7 +26,7 @@ export default function ChildrenPage() {
     {
       id: 2,
       title: "Soins des pieds pour enfants",
-      description: "Traitement doux et adapté des problèmes courants chez les enfants : ongles incarnés, verrues, etc.",
+      description: "Ongles incarnés, verrues plantaires, mycoses — traités avec précision, sans traumatiser un enfant qui n'a souvent jamais consulté.",
       icon: <TbShieldCheck className="text-3xl text-blue-600" />,
       features: [
         "Traitement des ongles incarnés",
@@ -40,7 +40,7 @@ export default function ChildrenPage() {
     {
       id: 3,
       title: "Orthèses pédiatriques",
-      description: "Fabrication d'orthèses adaptées à la croissance de votre enfant pour corriger les problèmes de posture.",
+      description: "Des semelles orthopédiques sur mesure qui suivent la croissance du pied — ajustées à chaque consultation, pas remplacées en urgence.",
       icon: <TbTargetArrow className="text-3xl text-green-600" />,
       features: [
         "Orthèses sur-mesure",
@@ -54,7 +54,7 @@ export default function ChildrenPage() {
     {
       id: 4,
       title: "Prévention et conseils",
-      description: "Guidance pour les parents sur le choix des chaussures et la prévention des problèmes podologiques.",
+      description: "Les chaussures adaptées à chaque stade de développement changent tout — on guide les parents à chaque consultation.",
       icon: <TbSparkles className="text-3xl text-purple-600" />,
       features: [
         "Conseils chaussures",
@@ -70,22 +70,22 @@ export default function ChildrenPage() {
   const ageGroups = [
     {
       age: "0-3 ans",
-      description: "Suivi de la croissance et développement précoce",
+      description: "Voûte plantaire en formation — on observe, on oriente.",
       icon: <FaChild className="text-2xl text-pink-500" />
     },
     {
       age: "4-7 ans",
-      description: "Apprentissage de la marche et développement moteur",
+      description: "Pied plat fonctionnel ou structurel ? La réponse change le traitement.",
       icon: <FaSmile className="text-2xl text-blue-500" />
     },
     {
       age: "8-12 ans",
-      description: "Activités sportives et croissance active",
+      description: "Sport et poussée de croissance : les appuis à surveiller de près.",
       icon: <TbTargetArrow className="text-2xl text-green-500" />
     },
     {
       age: "13-17 ans",
-      description: "Sport intensif et développement final",
+      description: "Dernière fenêtre de correction avant ossification complète.",
       icon: <TbSparkles className="text-2xl text-purple-500" />
     }
   ];
@@ -95,19 +95,19 @@ export default function ChildrenPage() {
       name: "Marie Dubois",
       child: "Emma, 6 ans",
       rating: 5,
-      comment: "Le podologue a été très patient avec Emma. Elle n'a plus peur d'aller chez le médecin !"
+      comment: "Emma pleurait à chaque consultation médicale. Elle est sortie du cabinet en demandant quand on revient."
     },
     {
       name: "Pierre Martin",
       child: "Lucas, 10 ans",
       rating: 5,
-      comment: "Grâce aux orthèses, Lucas a pu reprendre le football sans douleur."
+      comment: "Les semelles ont corrigé son pied valgus en moins d'un an. Il court sans douleur depuis la rentrée."
     },
     {
       name: "Sophie Leroy",
       child: "Chloé, 4 ans",
       rating: 5,
-      comment: "Excellent diagnostic précoce. Nous avons pu corriger le problème avant qu'il ne s'aggrave."
+      comment: "On a détecté un début de pied plat que son pédiatre n'avait pas signalé. Le suivi a été simple et efficace."
     }
   ];
 
@@ -126,11 +126,10 @@ export default function ChildrenPage() {
               <FaChild className="text-5xl text-pink-600" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Soins Podologiques pour Enfants
+              Les pieds de votre enfant changent vite. Les problèmes aussi.
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Des soins spécialement adaptés aux plus jeunes. Notre approche douce et rassurante 
-              permet aux enfants de se sentir à l&apos;aise pendant leurs soins podologiques.
+              Le pied plat détecté à 4 ans se corrige avec une semelle légère. Le même pied ignoré jusqu&apos;à 12 ans nécessite souvent un suivi bien plus long — et parfois douloureux.
             </p>
           </div>
         </div>
@@ -147,7 +146,7 @@ export default function ChildrenPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Nos Services Pédiatriques
+            Ce qu&apos;on traite et ce qu&apos;on surveille
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
@@ -201,7 +200,7 @@ export default function ChildrenPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Soins Adaptés par Âge
+            Chaque tranche d&apos;âge, une priorité différente
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -233,7 +232,7 @@ export default function ChildrenPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Pourquoi Choisir Nos Soins Pédiatriques ?
+            Pourquoi consulter tôt ?
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -243,7 +242,7 @@ export default function ChildrenPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Approche Douce</h3>
               <p className="text-gray-600">
-                Notre équipe est spécialement formée pour rassurer les enfants et créer un environnement accueillant.
+                Un enfant qui a peur ne reviendra pas — et son problème continuera. Chaque consultation est pensée pour que la prochaine soit plus facile.
               </p>
             </div>
             
@@ -253,7 +252,7 @@ export default function ChildrenPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Prévention Précoce</h3>
               <p className="text-gray-600">
-                Détection et traitement précoces des problèmes pour éviter les complications futures.
+                Un pied plat repéré à 5 ans, corrigé avec une orthèse sur mesure — c&apos;est une adolescence sans douleurs aux genoux ni à la colonne.
               </p>
             </div>
             
@@ -263,7 +262,7 @@ export default function ChildrenPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Suivi Personnalisé</h3>
               <p className="text-gray-600">
-                Accompagnement adapté à chaque étape de la croissance de votre enfant.
+                Le bilan à 4 ans et le bilan à 12 ans ne cherchent pas les mêmes choses. Le suivi évolue avec le pied.
               </p>
             </div>
           </div>
@@ -320,7 +319,7 @@ export default function ChildrenPage() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
                 >
-                  Prêt à prendre soin de vos pieds ?
+                  Le bon moment pour un bilan pédiatrique, c&apos;est avant que la douleur commence.
                 </motion.h3>
                 <button
                   onClick={() => setIsModalOpen(true)}

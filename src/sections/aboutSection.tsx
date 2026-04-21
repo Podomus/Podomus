@@ -6,7 +6,7 @@ import { TbTargetArrow } from "react-icons/tb";
 
 import { motion } from "framer-motion";
 import { fadeIn } from "../lib/animation/variants";
-import { useInView } from "react-intersection-observer";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 // Hook parallax pour images
 function useParallaxImages() {
@@ -20,8 +20,7 @@ function useParallaxImages() {
 }
 
 const AboutSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
+  const revealRef = useScrollReveal();
   const scrollY = useParallaxImages();
 
   return (
@@ -31,81 +30,21 @@ const AboutSection = () => {
         background: '#F8FAFC'
       }}
       id="About"
-      ref={ref}
+      ref={revealRef}
     >
       <div className="container mx-auto px-4 ">
-      {/* Particules flottantes en arrière-plan */}
-      {[
-        { left: "15%", top: "25%" },
-        { left: "80%", top: "20%" },
-        { left: "30%", top: "65%" },
-        { left: "75%", top: "50%" },
-        { left: "50%", top: "85%" },
-        { left: "85%", top: "75%" },
-        { left: "20%", top: "80%" },
-        { left: "65%", top: "30%" },
-        { left: "40%", top: "45%" },
-        { left: "90%", top: "95%" },
-        { left: "10%", top: "55%" },
-        { left: "70%", top: "40%" }
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-[#40826D]/20 rounded-full"
-          style={{
-            left: pos.left,
-            top: pos.top,
-          }}
-          animate={{
-            y: [0, -15, 0],
-            opacity: [0.3, 0.7, 0.3],
-          }}
-          transition={{
-            duration: 4 + (i % 2),
-            repeat: Infinity,
-            delay: i * 0.3,
-          }}
-        />
-      ))}
-
       {/* Formes organiques flottantes avec soft teal */}
-      <motion.div
+      <div
         className="absolute top-1/3 left-1/5 w-28 h-28 bg-[#E8E4D9]/40 rounded-full blur-2xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ animation: "blob-pulse 4.5s ease-in-out infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute bottom-1/3 right-1/5 w-20 h-20 bg-[#40826D]/8 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 5.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1.5,
-        }}
+        style={{ animation: "blob-pulse-b 5.5s ease-in-out 1.5s infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute top-1/2 left-1/2 w-16 h-16 bg-[#E8E4D9]/30 rounded-full blur-lg"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 3.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2.5,
-        }}
+        style={{ animation: "blob-pulse-c 3.8s ease-in-out 2.5s infinite", willChange: "transform" }}
       />
 
       {/* Dégradé gauche */}
@@ -115,60 +54,53 @@ const AboutSection = () => {
       <motion.div
         variants={fadeIn("up", 0)}
         initial="hidden"
-        animate={inView ? "show" : "hidden"}
+        animate="show"
         exit="hidden"
         className="mx-auto flex w-full flex-col items-center justify-center py-0 sm:py-0 lg:flex-row lg:py-0 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8FAFC' }}
       >
                   <div className="flex w-full min-w-[50%] flex-col items-center justify-center gap-2 sm:gap-3">
                       <motion.div
+              data-reveal
               className="text-center px-2 sm:px-0 p-8 sm:p-12 lg:p-16"
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
               À Propos de Podomus
             </span>
             <h2 className="section-title mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-              Découvrez Podomus
+              La rigueur des palaces, en cabinet.
             </h2>
           </motion.div>
           <motion.p
+            data-reveal
             className="text-sm sm:text-lg md:text-xl font-medium text-textmain bg-white/90 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg mt-4"
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.06 }}
           >
-            Podomus, c&apos;est l&apos;expertise de la Docteure Sonda Affes Ben Mahmoud pour la santé et la beauté de vos pieds.<br />
-            Un accompagnement personnalisé, dans un cadre élégant.
+            Avant d'ouvrir Podomus, la Dre Sonda Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — à Dubaï, puis aux Maldives — là où la podologie rencontre l'hôtellerie de luxe et où chaque détail du soin est traité avec la même exigence qu'une suite cinq étoiles.<br />
+            Elle a ramené ce niveau d'exigence ici.
           </motion.p>
 
           {/* Bloc mission avec lueur animée */}
           <motion.div
+            data-reveal
             className="flex flex-col items-center justify-center rounded-2xl bg-highlight p-4 sm:p-6 text-center xl:p-10 mt-4 sm:mt-6 shadow-lg relative overflow-visible"
             initial={{ y: 16, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.1 }}
           >
             {/* Lueur animée */}
-            <motion.div
+            <div
               className="absolute -inset-4 z-0 rounded-2xl pointer-events-none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.25, 0.1, 0.25, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              style={{ background: "radial-gradient(circle, #4A7C5933 0%, transparent 80%)" }}
+              style={{ background: "radial-gradient(circle, #4A7C5933 0%, transparent 80%)", animation: "glow-pulse 6s ease-in-out infinite" }}
             />
             <span className="flex items-center justify-center gap-2 sm:gap-4 text-lg sm:text-2xl font-bold text-white xl:text-4xl relative z-10">
-              <motion.span
-                animate={{ scale: [1, 1.15, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+              <span
                 className="inline-flex"
+                style={{ animation: "icon-pulse 1.5s ease-in-out infinite" }}
               >
                 <TbTargetArrow size={30} className="sm:w-12 sm:h-12 text-highlight" />
-              </motion.span>
+              </span>
               NOTRE MISSION
             </span>
             <motion.p
@@ -178,7 +110,7 @@ const AboutSection = () => {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.15 }}
             >
-              Offrir des soins podologiques d&apos;exception, alliant innovation, confort et discrétion.
+              Soigner chaque pied avec la précision et la discrétion qu'on attend dans les meilleurs établissements — sans que vous ayez à traverser le monde pour ça.
             </motion.p>
             {/* Lien animé vers /service */}
             <motion.a
@@ -191,7 +123,7 @@ const AboutSection = () => {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
             >
-              Découvrir tous nos services
+              Voir tous nos soins
             </motion.a>
           </motion.div>
         </div>
@@ -206,10 +138,9 @@ const AboutSection = () => {
             const parallaxFactors = [0.2, 0.1, -0.1, -0.2];
             return (
               <motion.div
+                data-reveal
                 key={img.src}
                 initial={{ scale: 0.95, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.3, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
                 whileHover={{ scale: 1.03, boxShadow: "0 8px 32px 0 rgba(64, 130, 109, 0.18)" }}
                 className="w-full h-full rounded-xl overflow-hidden cursor-pointer transition-transform"

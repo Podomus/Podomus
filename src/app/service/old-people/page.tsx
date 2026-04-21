@@ -12,7 +12,7 @@ export default function OldPeoplePage() {
     {
       id: 1,
       title: "Bilan podologique gériatrique",
-      description: "Évaluation complète adaptée aux besoins spécifiques des seniors pour maintenir l'autonomie.",
+      description: "Un bilan qui évalue l'équilibre, analyse la marche et détecte les zones à risque de chute — avant l'incident.",
       icon: <FaHeart className="text-3xl text-red-600" />,
       features: [
         "Évaluation de l'équilibre",
@@ -26,11 +26,11 @@ export default function OldPeoplePage() {
     {
       id: 2,
       title: "Soins des pieds pour seniors",
-      description: "Traitement spécialisé des problèmes courants chez les personnes âgées : ongles épais, callosités, etc.",
+      description: "Cors, durillons, hyperkératoses, ongles épaissis — soignés avec précision pour soulager et réduire les appuis douloureux.",
       icon: <TbShieldCheck className="text-3xl text-blue-600" />,
       features: [
         "Soins des ongles épais",
-        "Traitement des callosités",
+        "Traitement des cors et durillons",
         "Prévention des ulcères",
         "Conseils d'hygiène",
         "Approche douce et respectueuse"
@@ -40,11 +40,11 @@ export default function OldPeoplePage() {
     {
       id: 3,
       title: "Orthèses gériatriques",
-      description: "Fabrication d'orthèses adaptées aux besoins des seniors pour améliorer le confort et la stabilité.",
+      description: "Des semelles orthopédiques sur mesure qui redistribuent les appuis, réduisent les points de pression et stabilisent la marche.",
       icon: <TbTargetArrow className="text-3xl text-green-600" />,
       features: [
         "Orthèses confortables",
-        "Matériaux adaptés",
+        "Matériaux souples et déchargeants",
         "Amélioration de l'équilibre",
         "Prévention des chutes",
         "Suivi régulier"
@@ -54,7 +54,7 @@ export default function OldPeoplePage() {
     {
       id: 4,
       title: "Prévention et conseils",
-      description: "Guidance pour maintenir l'autonomie et prévenir les problèmes podologiques liés à l'âge.",
+      description: "Le bon chaussage, les exercices de renforcement plantaire et un suivi régulier — trois conditions pour rester stable et autonome.",
       icon: <TbSparkles className="text-3xl text-purple-600" />,
       features: [
         "Conseils chaussures",
@@ -75,17 +75,17 @@ export default function OldPeoplePage() {
     },
     {
       title: "Accompagnement personnalisé",
-      description: "Prise en charge globale et bienveillante",
+      description: "Un suivi qui s'adapte à votre rythme",
       icon: <FaUserFriends className="text-2xl text-green-500" />
     },
     {
       title: "Prévention des chutes",
-      description: "Évaluation et conseils spécialisés",
+      description: "Analyse de la marche et des zones à risque",
       icon: <TbHeartHandshake className="text-2xl text-red-500" />
     },
     {
       title: "Suivi régulier",
-      description: "Accompagnement sur le long terme",
+      description: "Le pied diabétique ou fragile ne se traite pas une seule fois",
       icon: <TbSparkles className="text-2xl text-purple-500" />
     }
   ];
@@ -95,19 +95,19 @@ export default function OldPeoplePage() {
       name: "Jeanne Martin",
       age: "78 ans",
       rating: 5,
-      comment: "Grâce aux soins podologiques, je peux marcher sans douleur et garder mon autonomie."
+      comment: "J'avais des cors depuis des années. Après le premier soin, j'ai marché normalement dès le lendemain."
     },
     {
       name: "Pierre Dubois",
       age: "82 ans",
       rating: 5,
-      comment: "Le podologue vient à domicile, c'est très pratique. Il est très patient et compétent."
+      comment: "La consultation à domicile était décisive — je ne pouvais plus me déplacer facilement. Un soin complet, chez moi."
     },
     {
       name: "Marie Leroy",
       age: "75 ans",
       rating: 5,
-      comment: "Les orthèses m'ont permis de retrouver l'équilibre et d'éviter les chutes."
+      comment: "Les semelles ont corrigé mon appui instable. Je n'ai plus eu de chute depuis six mois."
     }
   ];
 
@@ -126,12 +126,10 @@ export default function OldPeoplePage() {
               <FaHeart className="text-5xl text-red-600" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Soins Podologiques pour Seniors
+              Des pieds qui portent une vie entière méritent un vrai soin.
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Des soins spécialement adaptés aux personnes âgées pour maintenir l&apos;autonomie 
-              et améliorer la qualité de vie. Notre approche bienveillante et respectueuse 
-              vous accompagne dans votre bien-être quotidien.
+              Les cors, les ongles épaissis, les durillons — ces problèmes modifient la marche, déséquilibrent, et augmentent le risque de chute. Traiter les pieds d&apos;un senior, c&apos;est préserver son autonomie.
             </p>
           </div>
         </div>
@@ -148,7 +146,7 @@ export default function OldPeoplePage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Nos Services Gériatriques
+            Ce qu&apos;on traite, ce qu&apos;on prévient
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
@@ -202,7 +200,7 @@ export default function OldPeoplePage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Services Spécialisés pour Seniors
+            Ce qui rend nos soins seniors différents
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -234,7 +232,7 @@ export default function OldPeoplePage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Pourquoi Choisir Nos Soins Gériatriques ?
+            Pourquoi le pied senior mérite une attention médicale sérieuse
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -244,7 +242,7 @@ export default function OldPeoplePage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Approche Bienveillante</h3>
               <p className="text-gray-600">
-                Notre équipe est formée aux spécificités gériatriques et adopte une approche respectueuse et patiente.
+                On prend le temps qu&apos;il faut — une consultation avec un patient âgé, c&apos;est souvent plus qu&apos;un soin de pied.
               </p>
             </div>
             
@@ -254,7 +252,7 @@ export default function OldPeoplePage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Prévention des Chutes</h3>
               <p className="text-gray-600">
-                Évaluation et prévention des risques de chute pour maintenir l&apos;autonomie et la sécurité.
+                Un tiers des chutes chez les seniors est lié à des douleurs ou déformations du pied — des problèmes directement traitables.
               </p>
             </div>
             
@@ -264,7 +262,7 @@ export default function OldPeoplePage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Maintien de l&apos;Autonomie</h3>
               <p className="text-gray-600">
-                Nos soins visent à préserver votre autonomie et améliorer votre qualité de vie quotidienne.
+                Des pieds qui ne font pas mal et une marche stable — c&apos;est la différence entre sortir seul et rester chez soi.
               </p>
             </div>
           </div>
@@ -321,7 +319,7 @@ export default function OldPeoplePage() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
                 >
-                  Prêt à prendre soin de vos pieds ?
+                  Marcher sans douleur, ça s&apos;entretient.
                 </motion.h3>
                 <button
                   onClick={() => setIsModalOpen(true)}

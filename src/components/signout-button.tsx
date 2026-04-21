@@ -18,9 +18,9 @@ export function SignOutButton() {
   }
 
   return (
-    <Button 
-      variant="ghost" 
-      className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
+    <Button
+      variant="ghost"
+      className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground transition-[transform,color,background-color] duration-150 ease-out active:scale-[0.97]"
       onClick={handleSignOut}
     >
       <LogOut className="h-4 w-4" />

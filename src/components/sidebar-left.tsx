@@ -63,16 +63,23 @@ export function SidebarLeft({
 
       <SidebarContent className="px-2">
         <SidebarMenu>
-          {navItems.map((item) => {
+          {navItems.map((item, index) => {
             const isActive = pathname.startsWith(item.url)
             return (
-              <SidebarMenuItem key={item.url}>
+              <SidebarMenuItem
+                key={item.url}
+                className="motion-safe:animate-[nav-item-in_200ms_ease-out_both]"
+                style={{ animationDelay: `${index * 30}ms` }}
+              >
                 <SidebarMenuButton
                   asChild
                   isActive={isActive}
                   className={cn(
                     "gap-3 rounded-lg",
-                    isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                    "border-l-2 border-transparent",
+                    "transition-[transform,background-color,color,border-color] duration-150 ease-out",
+                    "active:scale-[0.97]",
+                    isActive && "border-sidebar-primary"
                   )}
                 >
                   <Link href={item.url}>

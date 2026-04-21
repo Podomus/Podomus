@@ -5,26 +5,25 @@ import { BsFillPatchCheckFill } from "react-icons/bs";
 
 import { motion } from "framer-motion";
 import { fadeIn } from "../lib/animation/variants";
-import { useInView } from "react-intersection-observer";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const values: { title: string; text: string }[] = [
   {
-    title: "Excellence & Signature",
-    text: "La Docteure Sonda Affes Ben Mahmoud garantit un accompagnement d'exception, dans la plus grande discrétion.",
+    title: "Formée chez Bastien Gonzalez",
+    text: "Dix ans de pratique dans les studios Bastien Gonzalez — aux Maldives, puis à Dubaï — forment une main, un regard, une façon de soigner qui ne ressemble à rien d'autre. La Docteure Sonda Affes Ben Mahmoud l'exerce aujourd'hui à Ariana.",
   },
   {
-    title: "Sur-mesure & Confort",
-    text: "Chaque soin est adapté à vos besoins, pour un confort absolu.",
+    title: "Votre cas, votre soin",
+    text: "Vos pieds ont une histoire — une posture, une douleur que vous portez depuis des années, une chaussure qui a tout aggravé. Le Dr. Sonda évalue avant de toucher. Ensuite, et seulement ensuite, elle soigne.",
   },
   {
-    title: "Prestige & Confiance",
-    text: "Podomus accueille tous les patients qui recherchent l'excellence et des résultats durables et fiables.",
+    title: "Vous revenez parce que ça marche",
+    text: "Ce n'est pas un soin qu'on fait une fois et qu'on oublie — c'est un protocole qui s'adapte avec vous dans le temps. Podomus ne traite pas une douleur. Elle suit ce qui la cause.",
   },
 ];
 
 const ValuesSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true });
-  const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
+  const revealRef = useScrollReveal();
 
   return (
     <section
@@ -32,61 +31,34 @@ const ValuesSection = () => {
       style={{
         background: '#F8FAFC'
       }}
-      ref={ref}
+      ref={revealRef}
     >
       {/* Formes organiques avec soft teal */}
-      <motion.div
+      <div
         className="absolute top-1/4 left-1/4 w-40 h-40 bg-[#E8E4D9]/25 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ animation: "blob-pulse 4.5s ease-in-out infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-softtail-400/10 rounded-full blur-2xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 5.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1.5,
-        }}
+        style={{ animation: "blob-pulse-b 5.5s ease-in-out 1.5s infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute top-1/2 left-1/2 w-24 h-24 bg-[#E8E4D9]/20 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 3.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.8,
-        }}
+        style={{ animation: "blob-pulse-c 3.8s ease-in-out 0.8s infinite", willChange: "transform" }}
       />
 
       <motion.div
         variants={fadeIn("right", 0)}
         initial="hidden"
-        animate={inView ? "show" : "hidden"}
+        animate="show"
         exit="hidden"
         className="relative mx-auto flex w-full flex-col items-center justify-center gap-6 bg-cover bg-center bg-no-repeat py-0 md:py-0 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8FAFC' }}
       >
         <motion.h2
+          data-reveal
           className="flex items-center justify-center gap-5 text-2xl md:text-3xl font-bold text-brand "
           id="Values"
           initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
         >
           L’ESPRIT PODOMUS <BsFillPatchCheckFill size={50} className="text-highlight" />
@@ -112,10 +84,9 @@ const ValuesSection = () => {
             />
           </motion.div>
           <motion.div
+            data-reveal
             key={0}
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
             whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
             className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1"
@@ -146,10 +117,9 @@ const ValuesSection = () => {
             />
           </motion.div>
           <motion.div
+            data-reveal
             key={1}
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
             className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1"
@@ -164,10 +134,9 @@ const ValuesSection = () => {
           {/* Ligne 3 : cellule vide + valeur 3 centrée */}
           <div className="hidden lg:block" />
           <motion.div
+            data-reveal
             key={2}
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.3, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
             whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(64,130,109,0.12)" }}
             className="w-full max-w-3xl rounded-2xl overflow-hidden transition-transform flex-1 row-span-1 mx-auto mt-[80px]"

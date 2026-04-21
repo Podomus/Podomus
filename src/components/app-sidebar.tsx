@@ -53,7 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
+            <SidebarMenuButton className="transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.97]">
               <Plus />
               <span>New Calendar</span>
             </SidebarMenuButton>

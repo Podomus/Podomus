@@ -323,7 +323,7 @@ export default function OrthesesPage() {
             Suivi des commandes d'orthèses plantaires personnalisées
           </p>
         </div>
-        <Button onClick={openCreate} className="gap-2 bg-teal-600 hover:bg-teal-700">
+        <Button onClick={openCreate} className="gap-2 bg-teal-600 hover:bg-teal-700 active:scale-[0.97] transition-transform duration-100">
           <Plus className="h-4 w-4" />
           Nouvelle orthèse
         </Button>
@@ -354,7 +354,7 @@ export default function OrthesesPage() {
             <TabsTrigger
               key={s}
               value={s}
-              className={`rounded-lg py-2 text-sm font-medium transition-all ${STATUS_TAB_CLASSES[s]}`}
+              className={`rounded-lg py-2 text-sm font-medium transition-colors duration-150 ${STATUS_TAB_CLASSES[s]}`}
             >
               {STATUS_LABELS[s]}
               <span className="ml-1.5 text-xs opacity-60">({byStatus(s).length})</span>
@@ -365,15 +365,16 @@ export default function OrthesesPage() {
         {(["commande", "en_fabrication", "livree", "facturee"] as Status[]).map((status) => (
           <TabsContent key={status} value={status}>
             {byStatus(status).length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 text-slate-400 gap-2">
+              <div className="flex flex-col items-center justify-center py-16 text-slate-400 gap-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <Package className="h-10 w-10 opacity-30" />
                 <p className="text-sm">Aucune orthèse dans cette étape</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {byStatus(status).map((o) => (
+                {byStatus(status).map((o, index) => (
                   <OrtheseCard
                     key={o.id}
+                    index={index}
                     orthese={o}
                     statusLabel={STATUS_LABELS[status]}
                     badgeClass={STATUS_BADGE_CLASSES[status]}
@@ -430,10 +431,10 @@ export default function OrthesesPage() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2">
-            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={submitting}>
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={submitting} className="active:scale-[0.97] transition-transform duration-100">
               Annuler
             </Button>
-            <Button variant="destructive" onClick={handleDelete} disabled={submitting}>
+            <Button variant="destructive" onClick={handleDelete} disabled={submitting} className="active:scale-[0.97] transition-transform duration-100">
               {submitting ? "Suppression…" : "Supprimer"}
             </Button>
           </DialogFooter>
@@ -447,6 +448,7 @@ export default function OrthesesPage() {
 
 interface OrtheseCardProps {
   orthese: Orthese
+  index: number
   statusLabel: string
   badgeClass: string
   nextStatus: Status | null
@@ -460,6 +462,7 @@ interface OrtheseCardProps {
 
 function OrtheseCard({
   orthese: o,
+  index,
   statusLabel,
   badgeClass,
   nextStatus,
@@ -471,7 +474,10 @@ function OrtheseCard({
   onDelete,
 }: OrtheseCardProps) {
   return (
-    <Card className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
+    <Card
+      className="border border-slate-200 shadow-sm hover:shadow-md transition-[box-shadow] duration-150 rounded-xl overflow-hidden animate-in fade-in slide-in-from-bottom-2 fill-mode-both"
+      style={{ animationDelay: `${index * 40}ms` }}
+    >
       <CardHeader className="pb-3 pt-4 px-4">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-0.5 min-w-0">
@@ -487,7 +493,7 @@ function OrtheseCard({
           </div>
           <Badge
             variant="outline"
-            className={`shrink-0 text-xs font-medium border ${badgeClass}`}
+            className={`shrink-0 text-xs font-medium border transition-colors duration-150 ${badgeClass}`}
           >
             {statusLabel}
           </Badge>
@@ -523,7 +529,7 @@ function OrtheseCard({
               size="sm"
               variant="outline"
               onClick={onAdvance}
-              className="flex-1 gap-1.5 text-xs border-slate-300 hover:bg-slate-50"
+              className="flex-1 gap-1.5 text-xs border-slate-300 hover:bg-slate-50 active:scale-[0.97] transition-transform duration-100"
             >
               <ArrowRight className="h-3.5 w-3.5" />
               {nextLabel}
@@ -533,7 +539,7 @@ function OrtheseCard({
             size="icon"
             variant="ghost"
             onClick={onEdit}
-            className="h-8 w-8 text-slate-500 hover:text-slate-700"
+            className="h-8 w-8 text-slate-500 hover:text-slate-700 active:scale-[0.97] transition-transform duration-100"
             title="Modifier"
           >
             <Edit className="h-3.5 w-3.5" />
@@ -542,7 +548,7 @@ function OrtheseCard({
             size="icon"
             variant="ghost"
             onClick={onDelete}
-            className="h-8 w-8 text-red-400 hover:text-red-600 hover:bg-red-50"
+            className="h-8 w-8 text-red-400 hover:text-red-600 hover:bg-red-50 active:scale-[0.97] transition-transform duration-100"
             title="Supprimer"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -676,10 +682,10 @@ function OrtheseDialog({
         </div>
 
         <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={submitting} className="active:scale-[0.97] transition-transform duration-100">
             Annuler
           </Button>
-          <Button onClick={onSubmit} disabled={submitting} className="bg-teal-600 hover:bg-teal-700">
+          <Button onClick={onSubmit} disabled={submitting} className="bg-teal-600 hover:bg-teal-700 active:scale-[0.97] transition-transform duration-100">
             {submitting ? "Enregistrement…" : submitLabel}
           </Button>
         </DialogFooter>

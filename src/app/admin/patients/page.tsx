@@ -58,10 +58,17 @@ const defaultTimeSlots = [
   "18:00","18:15","18:30","18:45","19:00"
 ]
 
-const fadeInUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
+const EASE_OUT: [number, number, number, number] = [0.23, 1, 0.32, 1]
+const fadeInUp = {
+  hidden: { opacity: 0, y: 12 },
+  visible: (custom: any) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.2, ease: EASE_OUT, delay: Math.min((custom as number) * 0.03, 0.2) }
+  })
+}
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.07 } }
+  visible: { opacity: 1 }
 }
 
 export default function PatientsPage() {
@@ -248,54 +255,54 @@ export default function PatientsPage() {
       <div>
         <Label>Prénom *</Label>
         <Input placeholder="Prénom" value={form.prenom}
-          onChange={e => setForm({ ...form, prenom: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, prenom: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Nom *</Label>
         <Input placeholder="Nom" value={form.nom}
-          onChange={e => setForm({ ...form, nom: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, nom: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Date de naissance</Label>
         <Input type="date" value={form.dateNaissance}
-          onChange={e => setForm({ ...form, dateNaissance: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, dateNaissance: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>N° sécurité sociale</Label>
         <Input placeholder="X XX XX XX XXX XXX XX" value={form.numSecu}
-          onChange={e => setForm({ ...form, numSecu: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, numSecu: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Téléphone</Label>
         <Input placeholder="06 XX XX XX XX" value={form.telephone}
-          onChange={e => setForm({ ...form, telephone: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, telephone: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Email</Label>
         <Input type="email" placeholder="email@exemple.com" value={form.email}
-          onChange={e => setForm({ ...form, email: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, email: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div className="col-span-2">
         <Label>Adresse</Label>
         <Input placeholder="Adresse complète" value={form.adresse}
-          onChange={e => setForm({ ...form, adresse: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, adresse: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Code postal</Label>
         <Input placeholder="75000" value={form.codePostal}
-          onChange={e => setForm({ ...form, codePostal: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, codePostal: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div>
         <Label>Ville</Label>
         <Input placeholder="Ville" value={form.ville}
-          onChange={e => setForm({ ...form, ville: e.target.value })} className="mt-1" />
+          onChange={e => setForm({ ...form, ville: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
       </div>
       <div className="col-span-2">
         <Label>Notes cliniques</Label>
         <Textarea placeholder="Observations, antécédents, traitements en cours..."
           value={form.notes}
           onChange={e => setForm({ ...form, notes: e.target.value })}
-          className="mt-1 resize-none h-24" />
+          className="mt-1 resize-none h-24 transition-[box-shadow] duration-150" />
       </div>
     </div>
   )
@@ -327,7 +334,7 @@ export default function PatientsPage() {
               </p>
             </div>
             <Button
-              className="mt-4 sm:mt-0 bg-softtail-600 hover:bg-softtail-700"
+              className="mt-4 sm:mt-0 bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color] duration-100"
               onClick={() => { setForm(emptyForm); setIsAddDialogOpen(true) }}
             >
               <Plus size={16} className="mr-2" /> Nouveau patient
@@ -338,7 +345,7 @@ export default function PatientsPage() {
           <div className="mb-6 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             <Input
-              className="pl-10"
+              className="pl-10 transition-[box-shadow] duration-150"
               placeholder="Rechercher par nom, prénom ou téléphone..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
@@ -349,9 +356,14 @@ export default function PatientsPage() {
           {loading ? (
             <div className="text-center py-16 text-gray-500">Chargement des patients...</div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-gray-400">
+            <motion.div
+              className="text-center py-16 text-gray-400"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+            >
               {searchTerm ? "Aucun patient ne correspond à votre recherche." : "Aucun patient enregistré."}
-            </div>
+            </motion.div>
           ) : (
             <motion.div
               variants={staggerContainer}
@@ -359,9 +371,12 @@ export default function PatientsPage() {
               animate="visible"
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
             >
-              {filtered.map(patient => (
-                <motion.div key={patient.id} variants={fadeInUp}>
-                  <Card className="border border-gray-200 hover:shadow-md transition-shadow h-full flex flex-col">
+              {filtered.map((patient, index) => (
+                <motion.div key={patient.id} variants={fadeInUp} custom={index}>
+                  <Card
+                    className="border border-gray-200 hover:shadow-md transition-[transform,box-shadow] duration-150 h-full flex flex-col cursor-pointer active:scale-[0.98]"
+                    onClick={() => router.push(`/admin/patients/${patient.id}`)}
+                  >
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start gap-2">
                         <div className="min-w-0">
@@ -408,26 +423,26 @@ export default function PatientsPage() {
 
                     <CardFooter className="pt-3 flex flex-wrap gap-2">
                       <Button size="sm" variant="outline"
-                        className="text-softtail-600 border-softtail-200 hover:bg-softtail-50"
-                        onClick={() => router.push(`/admin/patients/${patient.id}`)}
+                        className="text-softtail-600 border-softtail-200 hover:bg-softtail-50 active:scale-[0.97] transition-[transform,color,background-color] duration-100"
+                        onClick={e => { e.stopPropagation(); router.push(`/admin/patients/${patient.id}`) }}
                       >
                         <FileText size={13} className="mr-1" /> Voir dossier
                       </Button>
                       <Button size="sm" variant="outline"
-                        className="text-amber-600 border-amber-200 hover:bg-amber-50"
-                        onClick={() => openEditDialog(patient)}
+                        className="text-amber-600 border-amber-200 hover:bg-amber-50 active:scale-[0.97] transition-[transform,color,background-color] duration-100"
+                        onClick={e => { e.stopPropagation(); openEditDialog(patient) }}
                       >
                         <Edit size={13} className="mr-1" /> Modifier
                       </Button>
                       <Button size="sm" variant="outline"
-                        className="text-green-600 border-green-200 hover:bg-green-50"
-                        onClick={() => { setPatientForAppointment(patient); setIsAppointmentDialogOpen(true) }}
+                        className="text-green-600 border-green-200 hover:bg-green-50 active:scale-[0.97] transition-[transform,color,background-color] duration-100"
+                        onClick={e => { e.stopPropagation(); setPatientForAppointment(patient); setIsAppointmentDialogOpen(true) }}
                       >
                         <CalendarPlus size={13} className="mr-1" /> Rendez-vous
                       </Button>
                       <Button size="sm" variant="outline"
-                        className="text-red-600 border-red-200 hover:bg-red-50 ml-auto"
-                        onClick={() => { setPatientToDelete(patient); setIsDeleteDialogOpen(true) }}
+                        className="text-red-600 border-red-200 hover:bg-red-50 ml-auto active:scale-[0.97] transition-[transform,color,background-color] duration-100"
+                        onClick={e => { e.stopPropagation(); setPatientToDelete(patient); setIsDeleteDialogOpen(true) }}
                       >
                         <Trash size={13} className="mr-1" /> Supprimer
                       </Button>
@@ -451,8 +466,8 @@ export default function PatientsPage() {
           </DialogHeader>
           <div className="py-4"><FormFields /></div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Annuler</Button>
-            <Button className="bg-softtail-600 hover:bg-softtail-700" onClick={handleCreate}
+            <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsAddDialogOpen(false)}>Annuler</Button>
+            <Button className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleCreate}
               disabled={!form.nom || !form.prenom}>
               Créer le patient
             </Button>
@@ -471,8 +486,8 @@ export default function PatientsPage() {
           </DialogHeader>
           <div className="py-4"><FormFields /></div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
-            <Button className="bg-softtail-600 hover:bg-softtail-700" onClick={handleUpdate}
+            <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
+            <Button className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleUpdate}
               disabled={!form.nom || !form.prenom}>
               Enregistrer les modifications
             </Button>
@@ -496,8 +511,8 @@ export default function PatientsPage() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>Annuler</Button>
-            <Button variant="destructive" onClick={handleDelete}>Supprimer définitivement</Button>
+            <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsDeleteDialogOpen(false)}>Annuler</Button>
+            <Button variant="destructive" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleDelete}>Supprimer définitivement</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -576,8 +591,8 @@ export default function PatientsPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAppointmentDialogOpen(false)}>Annuler</Button>
-            <Button onClick={handleCreateAppointment}
+            <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsAppointmentDialogOpen(false)}>Annuler</Button>
+            <Button className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleCreateAppointment}
               disabled={!newAppointment.date || !newAppointment.time}>
               <CalendarPlus size={14} className="mr-2" /> Créer le rendez-vous
             </Button>

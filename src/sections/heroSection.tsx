@@ -5,23 +5,23 @@ import { IoCalendarOutline, IoPlay, IoAdd } from "react-icons/io5";
 import { TbTargetArrow } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { fadeIn } from "../lib/animation/variants";
-import { useInView } from "react-intersection-observer";
 import React, { useEffect, useRef, useState } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import AppointmentModal from "../components/AppointmentModal";
 import { useRouter } from "next/navigation"; // Ajout du router
 
 const services: { title: string; text: string }[] = [
 	{
 		title: "Soins personnalisés",
-		text: "Diagnostic précis et soins adaptés à chaque pied.",
+		text: "Un diagnostic clinique complet précède chaque soin — aucun protocole ne s'applique avant que vos pieds aient été vus.",
 	},
 	{
 		title: "Techniques de pointe",
-		text: "Orthoplastie, orthonyxie, laser : l'innovation au service de votre confort.",
+		text: "Orthoplastie, orthonyxie, laser — des techniques maîtrisées en milieu de luxe, appliquées ici avec la même exigence.",
 	},
 	{
 		title: "Suivi & Conseils",
-		text: "Un accompagnement régulier pour préserver la santé de vos pieds.",
+		text: "Parce que vos pieds évoluent entre deux rendez-vous, la Dre Affes Ben Mahmoud assure un suivi continu — conseils adaptés, ajustements, prévention.",
 	},
 ];
 
@@ -182,83 +182,69 @@ function OrganicShapes() {
 				transition={{ duration: 2.3, delay: 2.2, ease: "easeOut" }}
 			/>
 
-			{/* Formes de test très visibles pour vérifier */}
-			<div className="absolute top-10 left-10 w-16 h-16 bg-softtail-500/60 rounded-full"></div>
-			<div className="absolute bottom-10 right-10 w-16 h-16 bg-softtail-400/60 rounded-full"></div>
-			<div className="absolute top-1/2 left-10 w-16 h-16 bg-neutralbg/70 rounded-full"></div>
-		</div>
-	);
-}
 
-// Composant pour les particules flottantes
-function FloatingParticles() {
-	const [positions, setPositions] = useState<{ x: number; y: number }[]>([]);
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => {
-		setMounted(true);
-	}, []);
-
-	useEffect(() => {
-		if (mounted && typeof window !== "undefined") {
-			setPositions(
-				Array.from({ length: 20 }, () => ({
-					x: Math.random() * window.innerWidth,
-					y: Math.random() * window.innerHeight,
-				}))
-			);
-		}
-	}, [mounted]);
-
-	if (!mounted || positions.length === 0) return null;
-
-	return (
-		<div className="absolute inset-0 overflow-hidden pointer-events-none">
-			{positions.map((pos, i) => (
-				<motion.div
-					key={i}
-					className="absolute w-1 h-1 bg-softtail-500/20 rounded-full"
-					initial={{
-						x: pos.x,
-						y: pos.y,
-						opacity: 0,
-					}}
-					animate={{
-						x: Math.random() * window.innerWidth,
-						y: Math.random() * window.innerHeight,
-						opacity: [0, 1, 0],
-					}}
-					transition={{
-						duration: 10 + Math.random() * 5,
-						repeat: Infinity,
-						ease: "linear",
-						delay: Math.random() * 3,
-					}}
-				/>
-			))}
 		</div>
 	);
 }
 
 export default function HeroSection() {
-	const [ref, inView] = useInView({
-		triggerOnce: true,
-		threshold: 0.1,
-	});
+	const heroTextRef = useRef<HTMLDivElement>(null);
+	const heroImageRef = useRef<HTMLDivElement>(null);
+	const heroBadgeRef = useRef<HTMLDivElement>(null);
 	const [openModal, setOpenModal] = useState(false);
-	const router = useRouter(); // Ajout du router
+	const router = useRouter();
+
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			// Image moves up slower than scroll (parallax depth)
+			gsap.to(heroImageRef.current, {
+				yPercent: -15,
+				ease: "none",
+				scrollTrigger: {
+					trigger: heroImageRef.current,
+					start: "top top",
+					end: "bottom top",
+					scrub: 0.8,
+				},
+			});
+
+			// Text moves up slightly faster (creates depth separation)
+			gsap.to(heroTextRef.current, {
+				yPercent: -8,
+				ease: "none",
+				scrollTrigger: {
+					trigger: heroTextRef.current,
+					start: "top top",
+					end: "bottom top",
+					scrub: 0.5,
+				},
+			});
+
+			// Subtle image scale as user scrolls
+			gsap.to(heroImageRef.current?.querySelector("img") || heroImageRef.current, {
+				scale: 1.06,
+				ease: "none",
+				scrollTrigger: {
+					trigger: heroImageRef.current,
+					start: "top top",
+					end: "bottom top",
+					scrub: 1,
+				},
+			});
+		});
+
+		return () => ctx.revert();
+	}, []);
 
 	return (
 		<section
-			ref={ref}
 			className="relative container min-h-screen overflow-hidden"
 			style={{
 				background: "#F8FAFC",
 			}}
 		>
-			{/* Formes organiques et particules */}
+			{/* Formes organiques */}
 			<OrganicShapes />
-			<FloatingParticles />
 
 			{/* Effet de fusion avec la section suivante */}
 			<div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#F5F5F5] via-[#E8E4D9]/50 to-transparent"></div>
@@ -266,11 +252,12 @@ export default function HeroSection() {
 			<div className="mx-auto flex w-full flex-col items-center justify-center py-0 lg:py-0 px-4 sm:px-6 lg:px-8">
 				<div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[50vh] w-full">
 					{/* Contenu de gauche - style exact de l'image */}
+					<div ref={heroTextRef}>
 					<motion.div
 						className="lg:pr-8 p-8 sm:p-12 lg:p-16"
 						variants={fadeIn("right", 0)}
 						initial="hidden"
-						animate={inView ? "show" : "hidden"}
+						animate="show"
 					>
 						{/* Badge "Podologie" */}
 						<motion.div
@@ -293,7 +280,7 @@ export default function HeroSection() {
 							className="text-5xl lg:text-7xl font-bold leading-tight mb-6"
 						>
 							<span className="text-softtail-500 block">Podomus</span>
-							<span className="text-gray-800 block">L&apos;Art du Soin</span>
+							<span className="text-gray-800 block">Podologie de précision.</span>
 						</motion.h1>
 
 						{/* Description - style exact de l'image */}
@@ -303,9 +290,7 @@ export default function HeroSection() {
 							transition={{ duration: 0.3, delay: 0.26, ease: [0.23, 1, 0.32, 1] }}
 							className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg"
 						>
-							Des soins sur-mesure, innovants et confidentiels, orchestrés par la
-							Docteure Sonda Affes Ben Mahmoud. L’excellence podologique, tout
-							simplement.
+							Formée dans les studios Bastien Gonzalez — aux Maldives, à Dubaï — la Dre Sonda Affes Ben Mahmoud exerce depuis plus de 10 ans la podologie de précision qu'on ne trouve d'ordinaire que dans les grands hôtels. Ici, c'est votre cabinet.
 						</motion.p>
 
 						{/* Boutons principaux - style uniforme */}
@@ -331,7 +316,7 @@ export default function HeroSection() {
 									size={20}
 									className="group-hover:scale-110 transition-transform duration-150"
 								/>
-								<span>Découvrir nos services</span>
+								<span>Voir nos soins</span>
 							</Button>
 						</div>
 
@@ -342,7 +327,7 @@ export default function HeroSection() {
 									500+
 								</div>
 								<div className="text-sm text-gray-600">
-									Patients satisfaits
+									Consultations
 								</div>
 							</div>
 							<div className="text-center">
@@ -350,19 +335,21 @@ export default function HeroSection() {
 									10+
 								</div>
 								<div className="text-sm text-gray-600">
-									Années d&apos;expérience
+									Années d&apos;exercice
 								</div>
 							</div>
 							<div className="text-center">
 								<div className="text-2xl sm:text-3xl font-bold text-softtail-400">
-									100%
+									2
 								</div>
-								<div className="text-sm text-gray-600">Taux de réussite</div>
+								<div className="text-sm text-gray-600">Studios Bastien Gonzalez</div>
 							</div>
 						</div>
 					</motion.div>
+					</div>
 
 					{/* Image de droite - forme exacte de l'image de référence */}
+					<div ref={heroImageRef}>
 					<motion.div
 						className="relative flex items-center justify-center w-full"
 						initial={{ x: 40, opacity: 0 }}
@@ -410,6 +397,7 @@ export default function HeroSection() {
 							</div>
 						</div>
 					</motion.div>
+					</div>
 				</div>
 			</div>
 
@@ -424,12 +412,10 @@ export default function HeroSection() {
 							Nos Services
 						</span>
 						<h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold xl:text-5xl text-brand mt-2">
-							Une approche moderne et personnalisée de la podologie
+							Ce que les meilleurs hôtels font pour vos pieds — maintenant en cabinet privé.
 						</h2>
 						<p className="mt-2 text-sm sm:text-base md:text-lg text-textmain font-medium">
-							Préparez-vous à redécouvrir la podologie avec l&apos;expertise de la
-							Docteure Sonda Affes Ben Mahmoud et des soins pensés pour votre
-							bien-être.
+							La Dre Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — des références mondiales du soin podologique, aux Maldives et à Dubaï. Chaque consultation chez Podomus applique les mêmes standards.
 						</p>
 					</div>
 

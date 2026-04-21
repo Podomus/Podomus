@@ -13,44 +13,6 @@ import { fadeIn } from "../lib/animation/variants";
 import { useInView } from "react-intersection-observer";
 import AppointmentModal from "../components/AppointmentModal";
 
-// Particules flottantes pour le fond
-function FloatingParticles() {
-  const [positions, setPositions] = useState<{x: number, y: number}[]>([]);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-  useEffect(() => {
-    if (mounted && typeof window !== "undefined") {
-      setPositions(Array.from({ length: 18 }, () => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * 600,
-      })));
-    }
-  }, [mounted]);
-  if (!mounted || positions.length === 0) return null;
-  return (
-    <div className="absolute inset-0 pointer-events-none z-0">
-      {positions.map((pos, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-[#40826D]/15 rounded-full"
-          initial={{ x: pos.x, y: pos.y, opacity: 0 }}
-          animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * 600,
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 12 + Math.random() * 6,
-            repeat: Infinity,
-            ease: "linear",
-            delay: Math.random() * 3,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 const ContactSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true });
   const [refQuote, inViewQuote] = useInView({ triggerOnce: true });
@@ -65,47 +27,18 @@ const ContactSection = () => {
       ref={ref}
     >
       <div className="container mx-auto px-4 ">
-      {/* Particules flottantes en arrière-plan */}
-      <FloatingParticles />
-
       {/* Formes organiques flottantes avec soft teal */}
-      <motion.div
+      <div
         className="absolute top-1/4 right-1/4 w-32 h-32 bg-[#E8E4D9]/30 rounded-full blur-2xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ animation: "blob-pulse 4s ease-in-out infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-[#40826D]/8 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
+        style={{ animation: "blob-pulse-b 5s ease-in-out 1s infinite", willChange: "transform" }}
       />
-      <motion.div
+      <div
         className="absolute top-1/2 left-1/3 w-20 h-20 bg-[#E8E4D9]/25 rounded-full blur-lg"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 3.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
+        style={{ animation: "blob-pulse-c 3.5s ease-in-out 2s infinite", willChange: "transform" }}
       />
       <motion.div
         variants={fadeIn("left", 0)}
@@ -123,7 +56,7 @@ const ContactSection = () => {
         >
           <div className="flex flex-col items-center justify-center gap-1 px-2 sm:px-0">
             <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
-              Contactez-nous
+              Ariana · La Soukra
             </span>
             <h2 className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Cabinet Podomus</h2>
           </div>
@@ -136,14 +69,13 @@ const ContactSection = () => {
               whileHover={{ scale: 1.05, x: 5 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+              <span
                 className="inline-flex"
+                style={{ animation: "icon-pulse-md 1.5s ease-in-out infinite" }}
               >
                 <TbCalendar size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
-              </motion.span>
-              Prendre rendez-vous en ligne
+              </span>
+              Réservez votre consultation
             </motion.button>
             <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
             <motion.a
@@ -154,13 +86,12 @@ const ContactSection = () => {
               whileHover={{ scale: 1.05, x: 5 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+              <span
                 className="inline-flex"
+                style={{ animation: "icon-pulse-md 1.5s ease-in-out 0.5s infinite" }}
               >
                 <TbMapPin size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
-              </motion.span>
+              </span>
               <span className="break-words text-xs sm:text-sm md:text-base">
                 Imm. Golf Center 2, Bureau BM2,<br />
                 La Soukra 2036
@@ -171,13 +102,12 @@ const ContactSection = () => {
               whileHover={{ scale: 1.05, x: 5 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
+              <span
                 className="inline-flex"
+                style={{ animation: "icon-pulse-md 1.5s ease-in-out 1s infinite" }}
               >
                 <TbPhone size={20} className="sm:w-6 sm:h-6 text-softtail-400" />
-              </motion.span>
+              </span>
               +216 51 617 044
             </motion.div>
           </div>
@@ -191,7 +121,7 @@ const ContactSection = () => {
         >
           <Image
             src="/6.jpg"
-            alt="Photo du cabinet Podomus"
+            alt="Le cabinet Podomus à La Soukra, Ariana"
             sizes="100vw"
             width={0}
             height={0}

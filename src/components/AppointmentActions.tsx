@@ -96,7 +96,7 @@ export function AppointmentActions({
         <Button
           size="sm"
           variant="default"
-          className="bg-green-600 hover:bg-green-700"
+          className="bg-green-600 hover:bg-green-700 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           onClick={() => updateStatus('completed')}
           disabled={!!loading}
         >
@@ -108,6 +108,7 @@ export function AppointmentActions({
         <Button
           size="sm"
           variant="destructive"
+          className="active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           onClick={() => updateStatus('cancelled')}
           disabled={!!loading}
         >
@@ -119,7 +120,7 @@ export function AppointmentActions({
         <Button
           size="sm"
           variant="outline"
-          className="border-amber-500 text-amber-500 hover:bg-amber-50"
+          className="border-amber-500 text-amber-500 hover:bg-amber-50 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           onClick={() => updateStatus('no_show')}
           disabled={!!loading}
         >
@@ -131,7 +132,7 @@ export function AppointmentActions({
         <Button
           size="sm"
           variant="outline"
-          className="border-blue-500 text-blue-500 hover:bg-blue-50"
+          className="border-blue-500 text-blue-500 hover:bg-blue-50 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           onClick={() => setRescheduleModalOpen(true)}
           disabled={!!loading}
         >

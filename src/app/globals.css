@@ -135,3 +135,55 @@ main > section + section {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── CSS replacements for Framer Motion repeat:Infinity animations ─── */
+
+/* Organic blobs: scale(1→1.2), opacity(0.3→0.6) */
+@keyframes blob-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50%       { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* Organic blobs: scale(1→1.3), opacity(0.2→0.5) */
+@keyframes blob-pulse-b {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50%       { transform: scale(1.3); opacity: 0.5; }
+}
+
+/* Organic blobs: scale(1→1.1), opacity(0.4→0.7) */
+@keyframes blob-pulse-c {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50%       { transform: scale(1.1); opacity: 0.7; }
+}
+
+/* Pulsing icon: scale(1→1.15) */
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+/* Pulsing icon: scale(1→1.2) */
+@keyframes icon-pulse-md {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.2); }
+}
+
+/* Mission-box glow: opacity(0→0.25→0.1→0.25→0) */
+@keyframes glow-pulse {
+  0%   { opacity: 0; }
+  25%  { opacity: 0.25; }
+  50%  { opacity: 0.1; }
+  75%  { opacity: 0.25; }
+  100% { opacity: 0; }
+}

@@ -74,7 +74,7 @@ function FloatingParticles() {
 const services = [
   {
     title: "Soins podologiques personnalisés",
-    description: "Des soins adaptés à chaque patient, pour la santé et la beauté de vos pieds. Bilan complet, soins de peau, ongles, conseils personnalisés et suivi.",
+    description: "Cors résistants, ongles épaissis, peau fissurée — chaque soin commence par un bilan complet, pas par une liste de prestations standard.",
     image: "/7.jpg",
     icon: <FaUserMd size={32} className="text-brand" />,
     details: {
@@ -86,12 +86,12 @@ const services = [
         "Suivi post-soin et recommandations sur-mesure"
       ],
       image: "/7.jpg",
-      extra: "Idéal pour tous ceux qui veulent des pieds sains, beaux et sans douleur."
+      extra: "Parce qu'un pied traité à la légère revient toujours vous voir."
     }
   },
   {
     title: "Soin du Pied Diabétique",
-    description: "Une prise en charge spécialisée et préventive pour les patients diabétiques. Le pied diabétique nécessite une attention particulière pour prévenir les complications graves.",
+    description: "Le pied diabétique ne pardonne pas les petites négligences — une plaie mal surveillée peut évoluer vite. On examine la vascularisation, la sensibilité, et on traite chaque callosité avant qu'elle ne devienne un risque.",
     image: "/9.jpg",
     icon: <FaHeart size={32} className="text-brand" />,
     details: {
@@ -103,12 +103,12 @@ const services = [
         "Suivi régulier et coordination médicale"
       ],
       image: "/9.jpg",
-      extra: "Prise en charge spécialisée — Suivi spécialisé pour prévenir toute complication."
+      extra: "Un suivi régulier qui peut, littéralement, préserver un pied."
     }
   },
   {
     title: "Orthoplastie & orthonyxie",
-    description: "Correction des déformations, soulagement des douleurs, appareillages sur-mesure, orthèses de protection et d’alignement.",
+    description: "L’orthoplastie redresse un orteil en griffe. L’orthonyxie libère un ongle incarné sans chirurgie. Des appareillages sur mesure, discrets, qu’on porte sans y penser.",
     image: "/8.jpg",
     icon: <TbTargetArrow size={32} className="text-highlight" />,
     details: {
@@ -119,28 +119,28 @@ const services = [
         "Appareillages discrets et confortables"
       ],
       image: "/8.jpg",
-      extra: "Pour retrouver confort et mobilité au quotidien."
+      extra: "Le bon appareillage change souvent tout dès le premier rendez-vous."
     }
   },
   {
     title: "Traitement laser",
-    description: "Des solutions innovantes pour les affections de l'ongle et de la peau avec des résultats progressifs.",
+    description: "Le laser traite les mycoses de l'ongle et les verrues plantaires sans douleur, sans arrêt de travail. Quelques séances — pas d'excision, pas d'acide.",
     image: "/laser.jpg",
     icon: <TbSparkles size={32} className="text-brand" />,
     details: {
       points: [
         "Traitement des mycoses de l’ongle (onychomycose)",
         "Traitement des verrues plantaires",
-        "Le traitement laser est très bien toléré et rapide",
+        "Séance d'environ 20 minutes, sans anesthésie",
         "Résultats progressifs et visibles après quelques séances"
       ],
       image: "/laser.jpg",
-      extra: "La technologie laser au service de vos pieds."
+      extra: "Aucune douleur. Des résultats visibles."
     }
   },
   {
     title: "Conseils et suivi",
-    description: "Un accompagnement sur-mesure pour prévenir et traiter durablement. Conseils d’hygiène, prévention, suivi post-soin.",
+    description: "La plupart des récidives arrivent parce que le suivi s’arrête après la guérison initiale. Nous continuons — pour les sportifs, les enfants, les patients diabétiques.",
     image: "/10.jpg",
     icon: <TbHeartHandshake size={32} className="text-highlight" />,
     details: {
@@ -151,34 +151,34 @@ const services = [
         "Accompagnement pour sportifs, enfants, seniors"
       ],
       image: "/10.jpg",
-      extra: "Un suivi de qualité pour des résultats durables."
+      extra: "Le soin s'arrête. Le suivi, non."
     }
   },
 ];
 
 const whyPodomus = [
-  { icon: <TbShieldCheck size={28} className="text-brand" />, text: "Expertise médicale reconnue" },
-  { icon: <TbSparkles size={28} className="text-highlight" />, text: "Technologies de pointe" },
-  { icon: <FaRegSmile size={28} className="text-brand" />, text: "Accueil chaleureux et confidentiel" },
-  { icon: <FaCheckCircle size={28} className="text-highlight" />, text: "Résultats visibles et durables" },
+  { icon: <TbShieldCheck size={28} className="text-brand" />, text: "10 ans d'expérience, dont les studios Bastien Gonzalez" },
+  { icon: <TbSparkles size={28} className="text-highlight" />, text: "Laser thérapeutique, orthonyxie, semelles sur mesure" },
+  { icon: <FaRegSmile size={28} className="text-brand" />, text: "Cabinet privé, sur rendez-vous uniquement, à Ariana" },
+  { icon: <FaCheckCircle size={28} className="text-highlight" />, text: "Des résultats qui tiennent — pas des soins à répéter sans fin" },
 ];
 
 const testimonials = [
   {
     name: "Sonia B.",
-    text: "Un cabinet d’exception ! J’ai retrouvé des pieds sains et beaux, merci pour l’écoute et le professionnalisme.",
+    text: "Je venais pour un ongle incarné chronique. Après l’orthonyxie, c’est réglé depuis plus de huit mois.",
     image: "/a.jpg",
     stars: 5,
   },
   {
     name: "Karim D.",
-    text: "Traitement laser efficace, résultats rapides. Je recommande vivement Podomus !",
+    text: "Le laser a éliminé une mycose de l'ongle que j'avais depuis deux ans. Trois séances ont suffi.",
     image: "/b.jpg",
     stars: 5,
   },
   {
     name: "Leila M.",
-    text: "Accueil très chaleureux, conseils personnalisés, suivi parfait. Une vraie référence.",
+    text: "Les semelles ont changé ma posture et mes douleurs de dos ont disparu. Je n'avais pas fait le lien.",
     image: "/c.jpg",
     stars: 5,
   },
@@ -187,26 +187,26 @@ const testimonials = [
 const faqs = [
   {
     question: "Quels types de soins proposez-vous ?",
-    answer: "Nous proposons des soins podologiques complets : bilan, soins de peau et ongles, orthoplastie, orthonyxie, traitement laser, conseils et suivi personnalisé.",
+    answer: "Bilan podologique complet, soins des cors et durillons, orthoplastie, orthonyxie, laser thérapeutique pour mycoses et verrues plantaires, semelles sur mesure, et suivi du pied diabétique.",
   },
   {
     question: "Le traitement laser est-il douloureux ?",
-    answer: "Non, le traitement laser est très bien toléré et rapide. Il permet de traiter efficacement mycoses, verrues et ongles incarnés.",
+    answer: "Non. Le laser traite les mycoses de l'ongle et les verrues plantaires sans anesthésie, sans arrêt de travail. La séance dure environ vingt minutes.",
   },
   {
     question: "Comment prendre rendez-vous ?",
-    answer: "Vous pouvez prendre rendez-vous en ligne via notre formulaire ou par téléphone. Nous vous accueillons sur rendez-vous uniquement pour garantir confidentialité et confort.",
+    answer: "Via le formulaire en ligne ou par téléphone. Nous recevons sur rendez-vous uniquement — pour que chaque patient ait le temps dont il a besoin.",
   },
   {
     question: "Les soins sont-ils adaptés aux enfants ?",
-    answer: "Oui, nous adaptons nos soins à tous les âges, y compris les enfants, avec douceur et pédagogie.",
+    answer: "Oui. Nous suivons les pieds plats, les pieds valgus, les boiteries et les déformations de croissance — dès les premières années de marche.",
   },
 ];
 
 const specializedServices = [
   {
     title: "Horaires & Rendez-vous",
-    description: "Planifiez votre consultation en toute simplicité avec nos horaires étendus et notre système de prise de rendez-vous en ligne.",
+    description: "Prenez rendez-vous en ligne — à l'heure qui vous convient, sans attendre.",
     icon: <FaCalendarAlt className="text-4xl text-blue-600" />,
     link: "/service/schedule",
     color: "from-blue-500 to-blue-600",
@@ -215,7 +215,7 @@ const specializedServices = [
   },
   {
     title: "Services pour Sportifs",
-    description: "Optimisez vos performances sportives avec nos soins podologiques spécialisés pour athlètes et sportifs.",
+    description: "Fasciite plantaire, tendinites, analyse de la foulée — pour continuer à vous entraîner sans compenser.",
     icon: <FaRunning className="text-4xl text-green-600" />,
     link: "/service/sportif",
     color: "from-green-500 to-green-600",
@@ -224,7 +224,7 @@ const specializedServices = [
   },
   {
     title: "Soins pour Enfants",
-    description: "Des soins spécialement adaptés aux plus jeunes avec une approche douce et rassurante.",
+    description: "Pied plat, pied valgus, boiteries — traiter tôt, c'est souvent éviter une orthèse à l'adolescence.",
     icon: <FaChild className="text-4xl text-pink-600" />,
     link: "/service/children",
     color: "from-pink-500 to-pink-600",
@@ -233,7 +233,7 @@ const specializedServices = [
   },
   {
     title: "Soins pour Seniors",
-    description: "Maintenez votre autonomie avec nos soins gériatriques spécialisés et notre accompagnement bienveillant.",
+    description: "Cors, durillons, ongles épaissis, prévention des chutes — pour rester debout et autonome.",
     icon: <FaHeart className="text-4xl text-red-600" />,
     link: "/service/old-people",
     color: "from-red-500 to-red-600",
@@ -387,49 +387,49 @@ export default function ServicesPage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.2 }}
               >
-                L&apos;
+                Dix ans de podologie clinique,
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.4 }}
               >
-                excellence podologique
+                 des techniques éprouvées —
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.6 }}
               >
-                , l&apos;
+                 orthoplastie, laser,
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.8 }}
               >
-                innovation
+                semelles sur mesure —
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2.0 }}
               >
-                {' '}et l&apos;
+                {' '}et un regard formé
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2.2 }}
               >
-                accompagnement sur-mesure
+                 aux studios Bastien Gonzalez.
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2.4 }}
               >
-                {' '}pour la santé et la beauté de vos pieds.
+                {' '}Maintenant à Ariana.
               </motion.span>
             </motion.p>
           </motion.div>
@@ -783,7 +783,7 @@ export default function ServicesPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Services Spécialisés par Profil
+            Soins par profil de patient
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -850,7 +850,7 @@ export default function ServicesPage() {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Pourquoi Choisir Nos Services ?
+            Ce qui distingue Podomus
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -860,7 +860,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Expertise Reconnue</h3>
               <p className="text-gray-600">
-                Notre équipe de podologues expérimentés vous garantit des soins de qualité et des résultats durables.
+                Dr. Sonda Affes Ben Mahmoud — 10 ans de pratique, formée dans les établissements Bastien Gonzalez à Dubaï et aux Maldives.
               </p>
             </div>
             
@@ -870,7 +870,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Approche Personnalisée</h3>
               <p className="text-gray-600">
-                Chaque patient est unique. Nous adaptons nos soins à vos besoins spécifiques et à votre mode de vie.
+                Un bilan complet à chaque première consultation — pas de protocole automatique, pas de soin standard.
               </p>
             </div>
             
@@ -880,7 +880,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Technologies Modernes</h3>
               <p className="text-gray-600">
-                Nous utilisons les dernières technologies pour un diagnostic précis et des traitements efficaces.
+                Laser thérapeutique, orthonyxie, orthoplastie sur mesure : les mêmes outils qu'en cabinet de luxe, accessibles en consultation de ville.
               </p>
             </div>
           </div>
@@ -901,7 +901,7 @@ export default function ServicesPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           >
-            Prêt à prendre soin de vos pieds ?
+            Votre premier bilan est à un rendez-vous.
           </motion.h3>
           <button
             onClick={() => setOpenModal(true)}

@@ -267,7 +267,7 @@ export default function AppointmentsPage() {
           </BreadcrumbList>
         </Breadcrumb>
         <Button
-          className="bg-softtail-600 hover:bg-softtail-700 text-white gap-1.5"
+          className="bg-softtail-600 hover:bg-softtail-700 text-white gap-1.5 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
           onClick={() => setIsAddDialogOpen(true)}
         >
           <Plus size={16} />
@@ -333,7 +333,7 @@ export default function AppointmentsPage() {
                     key={i}
                     onClick={() => setSelectedDate(day)}
                     className={[
-                      "flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl transition-all select-none",
+                      "flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl transition-[background-color,color,box-shadow,transform] duration-150 ease-out select-none active:scale-[0.97]",
                       isSelected
                         ? "bg-softtail-600 text-white shadow"
                         : isCurrentDay
@@ -392,15 +392,19 @@ export default function AppointmentsPage() {
           </CardHeader>
           <CardContent className="px-5 pb-5">
             {selectedDayAppointments.length === 0 ? (
-              <div className="text-center py-14 text-softtail-300">
+              <div className="text-center py-14 text-softtail-300 animate-in fade-in-0 duration-300">
                 <CalendarIcon className="h-10 w-10 mx-auto mb-3 opacity-40" />
                 <p className="text-sm text-softtail-400">Aucun rendez-vous ce jour-là</p>
               </div>
             ) : (
               <div className="space-y-2">
-                {selectedDayAppointments.map((apt) => (
-                  <AppointmentRow
+                {selectedDayAppointments.map((apt, index) => (
+                  <div
                     key={apt.id}
+                    className="animate-in fade-in-0 slide-in-from-bottom-1 fill-mode-both"
+                    style={{ animationDelay: `${index * 40}ms`, animationDuration: '250ms' }}
+                  >
+                  <AppointmentRow
                     appointment={apt}
                     updating={updatingId === apt.id}
                     onStatusChange={(status) => updateStatus(apt.id, status)}
@@ -409,6 +413,7 @@ export default function AppointmentsPage() {
                       setIsDeleteDialogOpen(true)
                     }}
                   />
+                  </div>
                 ))}
               </div>
             )}
@@ -521,11 +526,11 @@ export default function AppointmentsPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out">
               Annuler
             </Button>
             <Button
-              className="bg-softtail-600 hover:bg-softtail-700"
+              className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out"
               onClick={handleCreate}
               disabled={submitting}
             >
@@ -546,10 +551,10 @@ export default function AppointmentsPage() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)} className="active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out">
               Annuler
             </Button>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button variant="destructive" onClick={handleDelete} className="active:scale-[0.97] transition-[transform,color,background-color,border-color] duration-100 ease-out">
               Supprimer
             </Button>
           </DialogFooter>
@@ -572,7 +577,7 @@ function AppointmentRow({
   onDelete: () => void
 }) {
   return (
-    <div className="flex items-center gap-3 p-4 rounded-xl border border-softtail-100 bg-white hover:border-softtail-200 hover:shadow-sm transition-all">
+    <div className="flex items-center gap-3 p-4 rounded-xl border border-softtail-100 bg-white hover:border-softtail-200 hover:shadow-sm hover:-translate-y-0.5 transition-[border-color,box-shadow,transform] duration-150 ease-out">
 
       {/* Time block */}
       <div className="flex flex-col items-center justify-center min-w-[3.5rem] text-center">
@@ -616,7 +621,7 @@ function AppointmentRow({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 w-8 p-0 text-green-600 hover:bg-green-50 rounded-lg"
+                className="h-8 w-8 p-0 text-green-600 hover:bg-green-50 rounded-lg active:scale-[0.97] transition-[transform,color,background-color] duration-100 ease-out"
                 title="Marquer comme terminé"
                 onClick={() => onStatusChange("completed")}
               >
@@ -627,7 +632,7 @@ function AppointmentRow({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 w-8 p-0 text-red-500 hover:bg-red-50 rounded-lg"
+                className="h-8 w-8 p-0 text-red-500 hover:bg-red-50 rounded-lg active:scale-[0.97] transition-[transform,color,background-color] duration-100 ease-out"
                 title="Annuler"
                 onClick={() => onStatusChange("cancelled")}
               >
@@ -638,7 +643,7 @@ function AppointmentRow({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 w-8 p-0 text-gray-400 hover:bg-gray-50 rounded-lg"
+                className="h-8 w-8 p-0 text-gray-400 hover:bg-gray-50 rounded-lg active:scale-[0.97] transition-[transform,color,background-color] duration-100 ease-out"
                 title="Marquer absent"
                 onClick={() => onStatusChange("no_show")}
               >
@@ -648,7 +653,7 @@ function AppointmentRow({
             <Button
               size="sm"
               variant="ghost"
-              className="h-8 w-8 p-0 text-red-300 hover:bg-red-50 hover:text-red-500 rounded-lg"
+              className="h-8 w-8 p-0 text-red-300 hover:bg-red-50 hover:text-red-500 rounded-lg active:scale-[0.97] transition-[transform,color,background-color] duration-100 ease-out"
               title="Supprimer"
               onClick={onDelete}
             >

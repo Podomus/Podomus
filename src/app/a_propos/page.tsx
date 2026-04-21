@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/animation/variants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { 
   FaHeart, 
   FaAward, 
@@ -70,6 +71,61 @@ function FloatingParticles() {
 
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState(0);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const valuesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!timelineRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const cards = timelineRef.current!.querySelectorAll("[data-timeline-card]");
+
+      gsap.set(cards, { autoAlpha: 0, y: 40, x: (i) => i % 2 === 0 ? -20 : 20 });
+
+      ScrollTrigger.batch(cards, {
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            autoAlpha: 1,
+            y: 0,
+            x: 0,
+            duration: 0.75,
+            ease: "power3.out",
+            stagger: 0.12,
+            overwrite: true,
+          }),
+        start: "top 85%",
+        once: true,
+      });
+    }, timelineRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    if (!valuesRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const cards = valuesRef.current!.querySelectorAll("[data-values-card]");
+
+      gsap.set(cards, { autoAlpha: 0, y: 40 });
+
+      ScrollTrigger.batch(cards, {
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.75,
+            ease: "power3.out",
+            stagger: 0.12,
+            overwrite: true,
+          }),
+        start: "top 85%",
+        once: true,
+      });
+    }, valuesRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const stats = [
     { icon: <FaUsers className="text-3xl" />, number: "500+", label: "Patients Traités" },
@@ -82,25 +138,25 @@ export default function AboutPage() {
     {
       icon: <TbStethoscope className="text-4xl" />,
       title: "Expertise Médicale",
-      description: "Formation continue et techniques de pointe pour des soins d'excellence.",
+      description: "Protocoles issus de la podologie clinique et de l'hôtellerie de luxe — appliqués à chaque séance.",
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <FaHeart className="text-4xl" />,
       title: "Bienveillance",
-      description: "Accueil chaleureux et accompagnement personnalisé pour chaque patient.",
+      description: "Un accueil attentif, un suivi adapté — qu'il s'agisse d'un enfant de 8 ans ou d'un patient diabétique.",
       color: "from-pink-500 to-pink-600"
     },
     {
       icon: <TbShieldCheck className="text-4xl" />,
       title: "Sécurité",
-      description: "Hygiène irréprochable et protocoles stricts pour votre sécurité.",
+      description: "Stérilisation en autoclave, matériaux à usage unique, traçabilité à chaque consultation.",
       color: "from-green-500 to-green-600"
     },
     {
       icon: <TbTargetArrow className="text-4xl" />,
       title: "Innovation",
-      description: "Équipements modernes et techniques innovantes pour des résultats optimaux.",
+      description: "Semelles orthopédiques sur mesure, ondes de choc, analyse de la marche — les outils qui changent les traitements.",
       color: "from-purple-500 to-purple-600"
     }
   ];
@@ -109,32 +165,32 @@ export default function AboutPage() {
     {
       year: "2014",
       title: "Stage — CHU Farhat Hached, Sousse",
-      description: "Stage en oncologie au CHU Farhat Hached de Sousse. En collaboration avec un oncologue, elle développe un protocole de prévention et de prise en charge des complications podologiques liées à la chimiothérapie — une expertise qui nourrit encore aujourd'hui sa pratique avec les patients vulnérables."
+      description: "Aux côtés d'un oncologue du CHU Farhat Hached de Sousse, elle construit le premier protocole podologique consacré aux complications de la chimiothérapie — mucites plantaires, neuropathies périphériques, troubles de l'appui. Ce protocole, elle l'applique encore aujourd'hui avec ses patients sous traitement oncologique."
     },
     {
       year: "2016",
       title: "Cabinet Sonda Affes — Sfax",
-      description: "Fondation de son cabinet privé de pédicurie médicale et de podologie à Sfax. Pendant près de 5 ans, elle accompagne des patients de tous âges avec un focus sur la prévention, les orthèses sur mesure et l'éducation thérapeutique, tout en assurant la direction de la structure."
+      description: "Elle ouvre son cabinet de pédicurie médicale à Sfax et le dirige seule pendant cinq ans — pieds plats, neuropathies diabétiques, tendinopathies du sportif, orthèses sur mesure. Son premier laboratoire clinique complet."
     },
     {
       year: "2019",
       title: "Secrétaire Générale — ATSP",
-      description: "Nommée secrétaire générale de l'Association Tunisienne pour la Santé du Pied (ATSP). Elle contribue activement au développement de la podologie en Tunisie, à l'organisation de congrès spécialisés et au rayonnement de la profession."
+      description: "L'ATSP la nomme secrétaire générale. Elle organise des congrès nationaux, structure les protocoles de formation continue et travaille à faire reconnaître une profession encore peu réglementée en Tunisie."
     },
     {
       year: "2021",
       title: "Bastien Gonzalez Studio — Maldives",
-      description: "Studio Manager au One&Only Reethi Rah, l'un des resorts les plus exclusifs au monde. Elle prodigue des soins podologiques avancés à une clientèle VIP internationale — célébrités, athlètes, personnalités — tout en assurant la coordination d'équipe et les standards cinq étoiles du studio."
+      description: "Studio Manager au One&Only Reethi Rah aux Maldives — l'un des resorts les plus exclusifs au monde — elle traite des athlètes professionnels, des célébrités et des dirigeants d'entreprise tout en coordonnant l'équipe thérapeutique. C'est là qu'elle apprend ce que signifie soigner sans droit à l'erreur."
     },
     {
       year: "2023",
       title: "Bastien Gonzalez Studio — Dubaï",
-      description: "Nommée Studio Manager au One&Only Royal Mirage à Dubaï. Elle allie expertise clinique et leadership dans un environnement cosmopolite exigeant, encadre les thérapeutes juniors et garantit l'excellence de la marque Bastien Gonzalez dans l'un des hôtels les plus prestigieux du Moyen-Orient."
+      description: "La marque la transfère au One&Only Royal Mirage à Dubaï. Elle forme les thérapeutes juniors, standardise les protocoles de soin et représente Bastien Gonzalez auprès d'une clientèle du Golfe exigeante — rôle de clinicienne, mais aussi de directrice et de formatrice."
     },
     {
       year: "2025",
       title: "Lancement de Podomus — La Soukra",
-      description: "Retour en Tunisie avec une vision enrichie par dix ans d'expérience clinique et internationale. Elle crée Podomus à Ariana, un cabinet qui allie rigueur médicale, innovation et l'art du soin d'exception — parce que des pieds en bonne santé méritent bien plus qu'un traitement clinique."
+      description: "En décembre 2024, elle rentre en Tunisie avec dix ans de pratique accumulés dans trois pays — CHU d'oncologie à Sousse, cabinet privé à Sfax, resorts Bastien Gonzalez aux Maldives et à Dubaï — et ouvre Podomus à La Soukra. Chaque pied traité ici bénéficie de tout ce parcours."
     }
   ];
 
@@ -177,7 +233,7 @@ export default function AboutPage() {
               whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
             >
-              Excellence podologique, forgée entre la Tunisie, les Maldives et Dubaï
+              Une podologie forgée entre Sousse, les Maldives et Dubaï — et ramenée ici.
             </motion.p>
           </motion.div>
 
@@ -230,10 +286,7 @@ export default function AboutPage() {
                 Notre Mission
               </h2>
               <p className="text-lg text-textmain mb-6 leading-relaxed">
-                Plus qu&apos;un cabinet, Podomus est un espace d&apos;excellence et d&apos;éducation en podologie. 
-                Nous combinons expertise médicale, savoir-faire hôtelier de luxe et une approche 
-                holistique et préventive de la santé du pied — parce que des pieds sains 
-                méritent plus qu&apos;un traitement clinique, ils méritent un soin avec intention.
+                Sonda Affes a exercé dans un CHU d&apos;oncologie, dirigé son propre cabinet pendant cinq ans et soigné dans deux resorts One&amp;Only — aux Maldives, puis à Dubaï. Ce que Podomus apporte en Tunisie, c&apos;est la rigueur clinique de l&apos;hôpital et le soin précis du studio de luxe — dans le même cabinet.
               </p>
               <div className="flex items-center gap-4">
                 <TbTargetArrow className="text-4xl text-brand" />
@@ -251,9 +304,7 @@ export default function AboutPage() {
               <div className="bg-gradient-to-br from-brand to-highlight rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Notre Vision</h3>
                 <p className="text-lg mb-6">
-                  Apporter en Tunisie le même niveau de soin podologique que celui proposé 
-                  dans les meilleurs établissements cinq étoiles au monde — accessible, humain 
-                  et centré sur le patient.
+                  Ce que Sonda a pratiqué au One&amp;Only Reethi Rah et au One&amp;Only Royal Mirage — protocoles rigoureux, matériaux de haute qualité, attention au moindre détail — elle l&apos;applique aujourd&apos;hui à La Soukra, sans compromis.
                 </p>
                 <div className="flex items-center gap-2">
                   <TbStar className="text-2xl" />
@@ -280,29 +331,23 @@ export default function AboutPage() {
               Notre Histoire
             </h2>
             <p className="text-lg text-textmain max-w-2xl mx-auto">
-              Découvrez le parcours qui a fait de Podomus une référence en podologie
+              Dix ans, trois pays, six étapes — le parcours qui explique pourquoi Podomus existe.
             </p>
           </motion.div>
 
-          <motion.div
+          <div
             className="relative"
-            variants={fadeIn("up", 0.2)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            ref={timelineRef}
           >
             {/* Timeline */}
             <div className="space-y-8">
               {timeline.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
+                  data-timeline-card
                   className={`flex items-center gap-8 ${
                     index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -16 : 16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                 >
                   <div className="flex-1">
                     <div className="bg-white rounded-2xl p-6 shadow-lg">
@@ -318,10 +363,10 @@ export default function AboutPage() {
                     )}
                   </div>
                   <div className="flex-1"></div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -343,22 +388,16 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <motion.div
+          <div
+            ref={valuesRef}
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={fadeIn("up", 0.2)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
           >
             {values.map((value, index) => (
               <motion.div
                 key={index}
+                data-values-card
                 className="group relative"
                 whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
               >
                 <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 shadow-lg border border-gray-100 group-hover:shadow-xl transition-all duration-300">
                   <div className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -369,7 +408,7 @@ export default function AboutPage() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -387,7 +426,7 @@ export default function AboutPage() {
               Notre Fondatrice &amp; Directrice
             </h2>
             <p className="text-lg text-textmain max-w-2xl mx-auto">
-              Des professionnels passionnés dédiés à votre bien-être
+              Une podologue, dix ans d&apos;exercice clinique, trois pays.
             </p>
           </motion.div>
 
@@ -423,8 +462,8 @@ export default function AboutPage() {
                   Diplômée de l&apos;ESSTSS de Sousse, Sonda fonde son cabinet à Sfax en 2016 avant
                   de rejoindre les Bastien Gonzalez Studios — au One&amp;Only Reethi Rah aux Maldives
                   (2021–2023) puis au One&amp;Only Royal Mirage à Dubaï (2023–2025). En décembre 2024,
-                  elle rentre en Tunisie et lance Podomus : un cabinet où l&apos;expertise médicale
-                  rencontre l&apos;art du soin d&apos;exception.
+                  elle rentre en Tunisie et ouvre Podomus : ce qu&apos;elle a appris partout,
+                  elle le pratique ici.
                 </p>
                 <div className="flex justify-center gap-6">
                   <div className="flex items-center gap-2 text-sm text-textmain">
@@ -478,7 +517,7 @@ export default function AboutPage() {
               Nous Contacter
             </h2>
             <p className="text-lg text-textmain max-w-2xl mx-auto">
-              Prêt à prendre soin de vos pieds ? Contactez-nous dès aujourd&apos;hui
+              Un pied qui fait mal n&apos;attend pas. Prenez rendez-vous.
             </p>
           </motion.div>
 

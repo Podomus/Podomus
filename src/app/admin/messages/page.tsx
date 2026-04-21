@@ -41,7 +41,7 @@ function StatusBadge({ status }: { status: string }) {
   }[status] ?? "bg-gray-100 text-gray-600 border-gray-200"
 
   return (
-    <span className={cn("inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium", cls)}>
+    <span className={cn("inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium transition-colors duration-150", cls)}>
       {STATUS_LABELS[status] ?? status}
     </span>
   )
@@ -54,7 +54,7 @@ function StatusDot({ status }: { status: string }) {
     replied: "bg-green-500",
     archived: "bg-amber-400",
   }[status] ?? "bg-gray-400"
-  return <span className={cn("inline-block w-2 h-2 rounded-full flex-shrink-0", cls)} />
+  return <span className={cn("inline-block w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150", cls)} />
 }
 
 function formatDate(dateString: string) {
@@ -248,7 +248,7 @@ export default function MessagesPage() {
                 key={tab.key}
                 onClick={() => setFilter(tab.key)}
                 className={cn(
-                  "flex-1 py-2.5 text-xs font-medium transition-colors relative",
+                  "flex-1 py-2.5 text-xs font-medium transition-[color,background-color,border-color,transform] duration-100 active:scale-[0.97] relative",
                   filter === tab.key
                     ? "text-softtail-700 bg-white border-b-2 border-softtail-500"
                     : "text-softtail-500 hover:text-softtail-700 hover:bg-softtail-50"
@@ -270,7 +270,7 @@ export default function MessagesPage() {
           {/* Message list */}
           <div className="flex-1 overflow-y-auto">
             {filteredMessages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full gap-3 text-softtail-400 p-8">
+              <div className="flex flex-col items-center justify-center h-full gap-3 text-softtail-400 p-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <TbMessageCircle className="h-10 w-10 opacity-40" />
                 <p className="text-sm text-center">Aucun message dans cette catégorie</p>
               </div>
@@ -280,11 +280,11 @@ export default function MessagesPage() {
                   key={msg.id}
                   onClick={() => handleSelectMessage(msg)}
                   className={cn(
-                    "w-full text-left px-4 py-3 border-b border-softtail-50 transition-colors",
+                    "w-full text-left px-4 py-3 border-b border-softtail-50 transition-[background-color,border-color] duration-150",
                     selectedId === msg.id
-                      ? "bg-softtail-50 border-l-2 border-l-softtail-500"
-                      : "hover:bg-gray-50",
-                    msg.status === "new" && "bg-red-50/40 hover:bg-red-50/60"
+                      ? "bg-softtail-50 border-l-2 border-l-softtail-500 active:bg-softtail-100/80"
+                      : "hover:bg-gray-50 active:bg-gray-100",
+                    msg.status === "new" && "bg-red-50/40 hover:bg-red-50/60 active:bg-red-50/80"
                   )}
                 >
                   <div className="flex items-center justify-between gap-2 mb-1">
@@ -317,7 +317,7 @@ export default function MessagesPage() {
         {/* Right panel – message detail */}
         <div className="flex-1 overflow-y-auto bg-softtail-50/20">
           {!selectedMessage ? (
-            <div className="flex flex-col items-center justify-center h-full gap-4 text-softtail-400">
+            <div className="flex flex-col items-center justify-center h-full gap-4 text-softtail-400 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <div className="w-16 h-16 rounded-full bg-softtail-100 flex items-center justify-center">
                 <TbInbox className="h-8 w-8 text-softtail-400" />
               </div>
@@ -325,7 +325,7 @@ export default function MessagesPage() {
               <p className="text-sm opacity-70">Cliquez sur un message dans la liste pour le lire</p>
             </div>
           ) : (
-            <div className="p-6 max-w-2xl">
+            <div className="p-6 max-w-2xl animate-in fade-in slide-in-from-bottom-2 duration-200">
               <Card className="shadow-sm border-softtail-100">
                 <div className="p-6 space-y-5">
                   {/* Header: subject + badge */}
@@ -384,7 +384,7 @@ export default function MessagesPage() {
                         size="sm"
                         variant="outline"
                         onClick={() => updateStatus(selectedMessage.id, "read")}
-                        className="text-softtail-700 border-softtail-200 hover:bg-softtail-50"
+                        className="text-softtail-700 border-softtail-200 hover:bg-softtail-50 active:scale-[0.97] transition-transform duration-100"
                       >
                         <TbCheck className="h-4 w-4 mr-1.5" />
                         Marquer comme lu
@@ -395,7 +395,7 @@ export default function MessagesPage() {
                         size="sm"
                         variant="outline"
                         onClick={() => updateStatus(selectedMessage.id, "archived")}
-                        className="text-amber-700 border-amber-200 hover:bg-amber-50"
+                        className="text-amber-700 border-amber-200 hover:bg-amber-50 active:scale-[0.97] transition-transform duration-100"
                       >
                         <TbArchive className="h-4 w-4 mr-1.5" />
                         Archiver
@@ -405,7 +405,7 @@ export default function MessagesPage() {
                       size="sm"
                       variant="outline"
                       onClick={() => deleteMessage(selectedMessage.id)}
-                      className="text-red-600 border-red-200 hover:bg-red-50 ml-auto"
+                      className="text-red-600 border-red-200 hover:bg-red-50 ml-auto active:scale-[0.97] transition-transform duration-100"
                     >
                       <TbTrash className="h-4 w-4 mr-1.5" />
                       Supprimer

@@ -63,7 +63,10 @@ interface Produit {
   champsCustom?: Record<string, any>
 }
 
-const fadeInUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
+const fadeInUp = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] as [number, number, number, number] } }
+}
 
 const appointmentStatusMap: Record<string, { label: string; className: string }> = {
   scheduled:  { label: "Planifié",     className: "bg-amber-100 text-amber-800 border-amber-200" },
@@ -241,10 +244,10 @@ export default function PatientDetailsPage() {
               </p>
             </div>
             <div className="flex items-center gap-2 mt-4 sm:mt-0">
-              <Button variant="outline" onClick={() => router.push('/admin/patients')}>
+              <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => router.push('/admin/patients')}>
                 <ArrowLeft size={16} className="mr-2" /> Retour aux patients
               </Button>
-              <Button className="bg-amber-500 hover:bg-amber-600" onClick={openEditDialog}>
+              <Button className="bg-amber-500 hover:bg-amber-600 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={openEditDialog}>
                 <Edit size={16} className="mr-2" /> Modifier
               </Button>
             </div>
@@ -253,7 +256,7 @@ export default function PatientDetailsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* Patient info card */}
-            <motion.div className="lg:col-span-1" initial="hidden" animate="visible" variants={fadeInUp}>
+            <motion.div className="lg:col-span-1" initial="hidden" animate="visible" variants={fadeInUp} transition={{ duration: 0.2 }}>
               <Card className="border border-gray-200 shadow-sm">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2 text-gray-700">
@@ -347,18 +350,18 @@ export default function PatientDetailsPage() {
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.06, duration: 0.2 }}
             >
               <Card className="border border-gray-200 shadow-sm h-full">
                 <CardContent className="pt-4">
                   <Tabs defaultValue="appointments">
                     <TabsList className="mb-4 w-full justify-start">
-                      <TabsTrigger value="appointments" className="gap-2">
+                      <TabsTrigger value="appointments" className="gap-2 transition-[color,background-color] duration-150">
                         <Calendar size={14} />
                         Rendez-vous
                         <Badge variant="secondary" className="ml-1 text-xs">{appointments.length}</Badge>
                       </TabsTrigger>
-                      <TabsTrigger value="ortheses" className="gap-2">
+                      <TabsTrigger value="ortheses" className="gap-2 transition-[color,background-color] duration-150">
                         <Package size={14} />
                         Orthèses
                         <Badge variant="secondary" className="ml-1 text-xs">{produits.length}</Badge>
@@ -366,9 +369,9 @@ export default function PatientDetailsPage() {
                     </TabsList>
 
                     {/* Onglet Rendez-vous */}
-                    <TabsContent value="appointments">
+                    <TabsContent value="appointments" className="data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:slide-in-from-left-1 data-[state=active]:duration-150">
                       {appointments.length === 0 ? (
-                        <div className="text-center py-12 text-gray-400">
+                        <div className="text-center py-12 text-gray-400 animate-in fade-in-0 duration-200">
                           <Calendar size={32} className="mx-auto mb-3 opacity-30" />
                           <p>Aucun rendez-vous pour ce patient</p>
                         </div>
@@ -405,9 +408,9 @@ export default function PatientDetailsPage() {
                     </TabsContent>
 
                     {/* Onglet Orthèses */}
-                    <TabsContent value="ortheses">
+                    <TabsContent value="ortheses" className="data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:slide-in-from-left-1 data-[state=active]:duration-150">
                       {produits.length === 0 ? (
-                        <div className="text-center py-12 text-gray-400">
+                        <div className="text-center py-12 text-gray-400 animate-in fade-in-0 duration-200">
                           <Package size={32} className="mx-auto mb-3 opacity-30" />
                           <p>Aucune orthèse pour ce patient</p>
                         </div>
@@ -418,7 +421,7 @@ export default function PatientDetailsPage() {
                             .map(prod => {
                               const s = produitStatusMap[prod.status] ?? { label: prod.status, className: "bg-gray-100 text-gray-800" }
                               return (
-                                <div key={prod.id} className="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors">
+                                <div key={prod.id} className="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 cursor-default">
                                   <div className="flex justify-between items-start gap-2">
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center gap-2 flex-wrap">
@@ -482,59 +485,59 @@ export default function PatientDetailsPage() {
             <div>
               <Label>Prénom *</Label>
               <Input placeholder="Prénom" value={editForm.prenom}
-                onChange={e => setEditForm({ ...editForm, prenom: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, prenom: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Nom *</Label>
               <Input placeholder="Nom" value={editForm.nom}
-                onChange={e => setEditForm({ ...editForm, nom: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, nom: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Date de naissance</Label>
               <Input type="date" value={editForm.dateNaissance}
-                onChange={e => setEditForm({ ...editForm, dateNaissance: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, dateNaissance: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>N° sécurité sociale</Label>
               <Input placeholder="X XX XX XX XXX XXX XX" value={editForm.numSecu}
-                onChange={e => setEditForm({ ...editForm, numSecu: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, numSecu: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Téléphone</Label>
               <Input placeholder="06 XX XX XX XX" value={editForm.telephone}
-                onChange={e => setEditForm({ ...editForm, telephone: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, telephone: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Email</Label>
               <Input type="email" placeholder="email@exemple.com" value={editForm.email}
-                onChange={e => setEditForm({ ...editForm, email: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, email: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div className="col-span-2">
               <Label>Adresse</Label>
               <Input placeholder="Adresse complète" value={editForm.adresse}
-                onChange={e => setEditForm({ ...editForm, adresse: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, adresse: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Code postal</Label>
               <Input placeholder="75000" value={editForm.codePostal}
-                onChange={e => setEditForm({ ...editForm, codePostal: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, codePostal: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div>
               <Label>Ville</Label>
               <Input placeholder="Ville" value={editForm.ville}
-                onChange={e => setEditForm({ ...editForm, ville: e.target.value })} className="mt-1" />
+                onChange={e => setEditForm({ ...editForm, ville: e.target.value })} className="mt-1 transition-[box-shadow] duration-150" />
             </div>
             <div className="col-span-2">
               <Label>Notes cliniques</Label>
               <Textarea placeholder="Observations, antécédents, traitements en cours..."
                 value={editForm.notes}
                 onChange={e => setEditForm({ ...editForm, notes: e.target.value })}
-                className="mt-1 resize-none h-24" />
+                className="mt-1 resize-none h-24 transition-[box-shadow] duration-150" />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
-            <Button className="bg-amber-500 hover:bg-amber-600" onClick={handleUpdate}
+            <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
+            <Button className="bg-amber-500 hover:bg-amber-600 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleUpdate}
               disabled={!editForm.nom || !editForm.prenom}>
               Enregistrer les modifications
             </Button>

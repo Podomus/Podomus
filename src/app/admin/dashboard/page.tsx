@@ -65,16 +65,20 @@ function fmtDelivery(iso: string | null) {
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 
 function StatCard({
-  icon, iconBg, label, value, sub,
+  icon, iconBg, label, value, sub, index,
 }: {
   icon: React.ReactNode
   iconBg: string
   label: string
   value: number
   sub: string
+  index: number
 }) {
   return (
-    <Card className="bg-white shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+    <Card
+      className="bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-200 ease-out border border-slate-100 animate-in fade-in-0 slide-in-from-bottom-2"
+      style={{ animationDelay: `${index * 50}ms`, animationDuration: "300ms", animationFillMode: "both" }}
+    >
       <CardContent className="p-5">
         <div className="flex items-start gap-4">
           <div className={`p-2.5 rounded-xl ${iconBg} shrink-0`}>{icon}</div>
@@ -110,7 +114,7 @@ function ListSkeleton() {
   return (
     <div className="space-y-3">
       {[...Array(4)].map((_, i) => (
-        <div key={i} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+        <div key={i} className="flex items-center justify-between py-2.5 border-b border-gray-100 last:border-0">
           <div className="space-y-1.5">
             <Skeleton className="h-4 w-36" />
             <Skeleton className="h-3 w-24" />
@@ -182,7 +186,7 @@ export default function DashboardPage() {
           variant="outline"
           size="sm"
           onClick={handleLogout}
-          className="gap-2 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 self-start sm:self-auto"
+          className="gap-2 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 active:scale-[0.97] self-start sm:self-auto"
         >
           <LogOut className="h-4 w-4" />
           Déconnexion
@@ -201,6 +205,7 @@ export default function DashboardPage() {
               label="Patients total"
               value={stats?.totalPatients ?? 0}
               sub="patients enregistrés"
+              index={0}
             />
             <StatCard
               icon={<CalendarDays className="h-5 w-5 text-emerald-600" />}
@@ -208,6 +213,7 @@ export default function DashboardPage() {
               label="Rendez-vous aujourd'hui"
               value={stats?.upcomingAppointments ?? 0}
               sub="rendez-vous à venir"
+              index={1}
             />
             <StatCard
               icon={<Package className="h-5 w-5 text-amber-600" />}
@@ -215,6 +221,7 @@ export default function DashboardPage() {
               label="Orthèses en attente"
               value={stats?.pendingProducts ?? 0}
               sub="en cours de fabrication"
+              index={2}
             />
             <StatCard
               icon={<MessageSquare className="h-5 w-5 text-violet-600" />}
@@ -222,6 +229,7 @@ export default function DashboardPage() {
               label="Nouveaux messages"
               value={newMessages}
               sub="messages non lus"
+              index={3}
             />
           </>
         )}
@@ -239,7 +247,7 @@ export default function DashboardPage() {
             </CardTitle>
             <button
               onClick={() => router.push("/admin/appointments")}
-              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-colors"
+              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-[color,transform] duration-150 ease-out active:scale-[0.97]"
             >
               Voir tout <ChevronRight className="h-3 w-3" />
             </button>
@@ -284,7 +292,7 @@ export default function DashboardPage() {
             </CardTitle>
             <button
               onClick={() => router.push("/admin/orders")}
-              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-colors"
+              className="text-xs text-slate-400 hover:text-softtail-700 flex items-center gap-0.5 transition-[color,transform] duration-150 ease-out active:scale-[0.97]"
             >
               Voir tout <ChevronRight className="h-3 w-3" />
             </button>
@@ -324,7 +332,7 @@ export default function DashboardPage() {
         <div className="flex flex-wrap gap-3">
           <Button
             onClick={() => router.push("/admin/appointments")}
-            className="gap-2 bg-softtail-700 hover:bg-softtail-800 text-white"
+            className="gap-2 bg-softtail-700 hover:bg-softtail-800 text-white active:scale-[0.97]"
           >
             <Plus className="h-4 w-4" />
             Nouveau rendez-vous
@@ -332,7 +340,7 @@ export default function DashboardPage() {
           <Button
             variant="outline"
             onClick={() => router.push("/admin/patients")}
-            className="gap-2"
+            className="gap-2 active:scale-[0.97]"
           >
             <UserPlus className="h-4 w-4" />
             Nouveau patient
@@ -340,7 +348,7 @@ export default function DashboardPage() {
           <Button
             variant="outline"
             onClick={() => router.push("/admin/ortheses")}
-            className="gap-2"
+            className="gap-2 active:scale-[0.97]"
           >
             <ClipboardList className="h-4 w-4" />
             Nouvelle orthèse
