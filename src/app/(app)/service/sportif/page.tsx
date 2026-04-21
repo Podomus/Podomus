@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaRunning, FaDumbbell, FaHeart, FaCheckCircle, FaStar } from "react-icons/fa";
 import { TbTargetArrow, TbShieldCheck, TbSparkles } from "react-icons/tb";
-import AppointmentModal from "../../../components/AppointmentModal";
+import AppointmentModal from "../../../../components/AppointmentModal";
 
 
 export default function SportifPage() {

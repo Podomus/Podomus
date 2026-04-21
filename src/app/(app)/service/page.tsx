@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaStar, FaUserMd, FaRegSmile, FaChevronDown, FaCalendarAlt, FaRunning, FaChild, FaHeart } from "react-icons/fa";
 import { TbTargetArrow, TbHeartHandshake, TbShieldCheck, TbSparkles } from "react-icons/tb";
-import AppointmentModal from "../../components/AppointmentModal";
-import { useIsMobile } from "../../hooks/useIsMobile";
+import AppointmentModal from "../../../components/AppointmentModal";
+import { useIsMobile } from "../../../hooks/useIsMobile";
 
 // Particules flottantes décoratives
 function FloatingParticles() {

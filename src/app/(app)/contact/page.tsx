@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { TbClock, TbMail, TbMapPin, TbMessageCircle, TbPhone } from "react-icons/tb";
-import AppointmentModal from "../../components/AppointmentModal";
-import { useIsMobile } from "../../hooks/useIsMobile";
+import AppointmentModal from "../../../components/AppointmentModal";
+import { useIsMobile } from "../../../hooks/useIsMobile";
 
 // Particules flottantes décoratives
 function FloatingParticles() {
