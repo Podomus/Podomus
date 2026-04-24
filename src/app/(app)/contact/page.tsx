@@ -49,8 +49,8 @@ const contactInfo = [
   {
     icon: <TbPhone size={32} className="text-brand" />,
     title: "Téléphone",
-    value: "+216 51 617 044",
-    link: "tel:+21651617044",
+    value: "+216 28 451 433",
+    link: "tel:+21628451433",
     description: "Appelez-nous pour prendre rendez-vous"
   },
   {
@@ -63,14 +63,14 @@ const contactInfo = [
   {
     icon: <TbMapPin size={32} className="text-brand" />,
     title: "Adresse",
-    value: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036",
-    link: "https://maps.app.goo.gl/uV382aFHbzwSFruK9",
+    value: "Bureau A2.7, 2eme Etage, Le Doyen Medical, Av. Fattouma Bourguiba, La Soukra 2036",
+    link: "https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6",
     description: "Notre cabinet à La Soukra"
   },
   {
     icon: <TbClock size={32} className="text-highlight" />,
     title: "Horaires",
-    value: "Lun-Ven\u00A0: 9h-18h | Sam\u00A0: 9h-13h",
+    value: "Lun-Ven\u00A0: 9h30-16h30 | Sam-Dim\u00A0: Fermé",
     link: null,
     description: "Sur rendez-vous uniquement"
   }

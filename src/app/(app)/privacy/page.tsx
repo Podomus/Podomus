@@ -236,11 +236,11 @@ const PrivacyPage = () => {
             </p>
             <div className="bg-neutralbg rounded-lg p-3 sm:p-4 space-y-2">
               <p className="text-xs sm:text-sm md:text-base text-textmain">
-                <a href="https://maps.app.goo.gl/uV382aFHbzwSFruK9" target="_blank" rel="noopener noreferrer"><strong>Cabinet Podomus</strong><br />
+                <a href="https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6" target="_blank" rel="noopener noreferrer"><strong>Cabinet Podomus</strong><br />
                 Docteure Sonda Affes Ben Mahmoud<br />
-                Imm. Golf Center 2, Bureau BM2<br />
-                La Soukra 2036<br /></a>
-                Téléphone : <a href="tel:+21651617044" className="text-brand hover:text-highlight">+216 51 617 044</a><br />
+                Bureau A2.7, 2eme Etage, Le Doyen Medical<br />
+                Av. Fattouma Bourguiba, La Soukra 2036<br /></a>
+                Téléphone : <a href="tel:+21628451433" className="text-brand hover:text-highlight">+216 28 451 433</a><br />
                 Email : <a href="mailto:contact@podomus.tn" className="text-brand hover:text-highlight">contact@podomus.tn</a>
               </p>
             </div>

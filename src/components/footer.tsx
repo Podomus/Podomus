@@ -259,9 +259,9 @@ export default function Footer() {
                     <TbMapStar size={18} className="text-highlight mt-1 flex-shrink-0" />
                   </motion.div>
                   <div className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
-                    <a href="https://maps.app.goo.gl/uV382aFHbzwSFruK9" target="_blank" rel="noopener noreferrer">
-                      <p>Imm. Golf Center 2, Bureau BM2</p>
-                      <p>La Soukra 2036</p>
+                    <a href="https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6" target="_blank" rel="noopener noreferrer">
+                      <p>Bureau A2.7, 2eme Etage, Le Doyen Medical</p>
+                      <p>Av. Fattouma Bourguiba, La Soukra 2036</p>
                     </a>
                   </div>
                 </motion.div>
@@ -277,7 +277,7 @@ export default function Footer() {
                     <TbPhone size={18} className="text-highlight flex-shrink-0" />
                   </motion.div>
                   <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
-                    <a href="tel:+21651617044" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 51 617 044</a>
+                    <a href="tel:+21628451433" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 28 451 433</a>
                   </span>
                 </motion.div>
                 <motion.div
@@ -322,8 +322,8 @@ export default function Footer() {
               </motion.h3>
               <div className="space-y-2 text-sm text-white/80">
                 {[
-                  { day: "Lundi–Vendredi", time: "09:00–18:00" },
-                  { day: "Samedi", time: "09:00–13:00" },
+                  { day: "Lundi–Vendredi", time: "09:30–16:30" },
+                  { day: "Samedi", time: "Fermé" },
                   { day: "Dimanche", time: "Fermé" }
                 ].map((schedule, index) => (
                   <motion.div

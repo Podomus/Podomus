@@ -539,8 +539,9 @@ export default function AboutPage() {
               <FaMapMarkerAlt className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Adresse</h3>
               <p className="text-textmain">
-                Bureau BM2, 1er Étage<br />
-                Imm. Golf Center 2<br />
+                Bureau A2.7, 2eme Etage<br />
+                Le Doyen Medical<br />
+                Av. Fattouma Bourguiba<br />
                 La Soukra 2036
               </p>
             </motion.div>
@@ -556,8 +557,8 @@ export default function AboutPage() {
               <FaClock className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Horaires</h3>
               <p className="text-textmain">
-                Lundi - Vendredi: 9h - 18h<br />
-                Samedi: 9h - 13h<br />
+                Lundi - Vendredi: 9h30 - 16h30<br />
+                Samedi: Fermé<br />
                 Dimanche: Fermé
               </p>
             </motion.div>
@@ -573,7 +574,7 @@ export default function AboutPage() {
               <FaPhone className="text-4xl text-brand mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand mb-2">Contact</h3>
               <p className="text-textmain mb-2">
-                Téléphone: <a href="tel:+21651617044" className="text-brand hover:text-highlight">+216 51 617 044</a><br />
+                Téléphone: <a href="tel:+21628451433" className="text-brand hover:text-highlight">+216 28 451 433</a><br />
                 Email: <a href="mailto:contact@podomus.tn" className="text-brand hover:text-highlight">contact@podomus.tn</a>
               </p>
               <div className="flex justify-center gap-3 mt-4">
