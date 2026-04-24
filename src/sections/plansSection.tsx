@@ -12,7 +12,7 @@ const trustPoints = [
   {
     icon: <TbCalendar size={32} />,
     title: "Rendez-vous rapide",
-    text: "Disponible en semaine et le samedi matin",
+    text: "Disponible du lundi au vendredi, 9h30 à 16h30",
   },
   {
     icon: <TbShieldCheck size={32} />,
@@ -22,7 +22,7 @@ const trustPoints = [
   {
     icon: <TbMapPin size={32} />,
     title: "Cabinet à La Soukra",
-    text: "Imm. Golf Center 2, Bureau BM2, La Soukra",
+    text: "Bureau A2.7, 2eme Etage, Le Doyen Medical, La Soukra",
   },
 ];
 
@@ -99,10 +99,10 @@ const PlansSection = () => {
             </Button>
 
             <a
-              href="tel:+21651617044"
+              href="tel:+21628451433"
               className="text-sm font-medium text-textmain/50 transition-colors duration-150 hover:text-brand"
             >
-              Ou appelez le <a href="tel:+21651617044" className="hover:underline">+216 51 617 044</a>
+              Ou appelez le <a href="tel:+21628451433" className="hover:underline">+216 28 451 433</a>
             </a>
           </motion.div>
         </div>

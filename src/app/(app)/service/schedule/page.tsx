@@ -9,18 +9,18 @@ export default function SchedulePage() {
 
   const scheduleData = {
     weekdays: [
-      { day: "Lundi", hours: "9:00 - 18:00", status: "Ouvert" },
-      { day: "Mardi", hours: "9:00 - 18:00", status: "Ouvert" },
-      { day: "Mercredi", hours: "9:00 - 18:00", status: "Ouvert" },
-      { day: "Jeudi", hours: "9:00 - 18:00", status: "Ouvert" },
-      { day: "Vendredi", hours: "9:00 - 18:00", status: "Ouvert" },
-      { day: "Samedi", hours: "9:00 - 13:00", status: "Ouvert" },
+      { day: "Lundi", hours: "9:30 - 16:30", status: "Ouvert" },
+      { day: "Mardi", hours: "9:30 - 16:30", status: "Ouvert" },
+      { day: "Mercredi", hours: "9:30 - 16:30", status: "Ouvert" },
+      { day: "Jeudi", hours: "9:30 - 16:30", status: "Ouvert" },
+      { day: "Vendredi", hours: "9:30 - 16:30", status: "Ouvert" },
+      { day: "Samedi", hours: "Fermé", status: "Fermé" },
       { day: "Dimanche", hours: "Fermé", status: "Fermé" }
     ],
     contact: {
-      phone: { number: "+216 51 617 044", href: "tel:+21651617044" },
+      phone: { number: "+216 28 451 433", href: "tel:+21628451433" },
       email: { address: "contact@podomus.tn", href: "mailto:contact@podomus.tn" },
-      address: { text: "Imm. Golf Center 2, Bureau BM2, La Soukra 2036", href: "https://maps.app.goo.gl/uV382aFHbzwSFruK9" }
+      address: { text: "Bureau A2.7, 2eme Etage, Le Doyen Medical, Av. Fattouma Bourguiba, La Soukra 2036", href: "https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6" }
     }
   };
 

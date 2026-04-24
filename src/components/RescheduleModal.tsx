@@ -119,9 +119,10 @@ export function RescheduleModal({
                   <SelectValue placeholder="Sélectionner une heure" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Array.from({ length: 17 }, (_, i) => {
-                    const hour = Math.floor(i / 2) + 8 // Commence à 8h00
-                    const minute = (i % 2) * 30 // 0 ou 30 minutes
+                  {Array.from({ length: 15 }, (_, i) => {
+                    const totalMinutes = 9 * 60 + 30 + i * 30 // Commence à 9h30
+                    const hour = Math.floor(totalMinutes / 60)
+                    const minute = totalMinutes % 60
                     const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
                     return <SelectItem key={time} value={time}>{time}</SelectItem>
                   })}
