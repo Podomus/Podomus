@@ -71,7 +71,8 @@ const AboutSection = () => {
             <motion.p
               className="text-sm sm:text-lg md:text-xl font-medium text-textmain bg-white/90 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg mt-4"
               initial={{ y: 40, opacity: 0 }}
-              exit={{ y: 0, opacity: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.06 }}
             >
               Avant d'ouvrir Podomus, Sonda Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — à Dubaï, puis aux Maldives — là où la podologie rencontre l'hôtellerie de luxe et où chaque détail du soin est traité avec la même exigence qu'une suite cinq étoiles.<br />
@@ -82,7 +83,8 @@ const AboutSection = () => {
             <motion.div
               className="flex flex-col items-center justify-center rounded-2xl bg-highlight p-4 sm:p-6 text-center xl:p-10 mt-4 sm:mt-6 shadow-lg relative overflow-visible"
               initial={{ y: 16, opacity: 0 }}
-              exit={{ y: 0, opacity: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.1 }}
             >
               {/* Lueur animée */}
@@ -102,7 +104,7 @@ const AboutSection = () => {
               <motion.p
                 className="mt-3 sm:mt-5 text-sm sm:text-lg font-medium text-white md:text-xl relative z-10"
                 initial={{ y: 16, opacity: 0 }}
-                exit={{ y: 0, opacity: 1 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.15 }}
               >
