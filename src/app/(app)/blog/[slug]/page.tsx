@@ -33,12 +33,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return { title: 'Post Not Found' }
 
+  const seoTitle = post.seo?.seoTitle || post.title
+  const seoDesc = post.seo?.seoDescription || post.excerpt || undefined
+  const ogImage = post.seo?.ogImage?.asset
+    ? { url: urlFor(post.seo.ogImage).width(1200).height(630).url(), width: 1200, height: 630 }
+    : post.coverImage?.asset
+      ? { url: urlFor(post.coverImage).width(1200).height(630).url(), width: 1200, height: 630 }
+      : undefined
+
   return {
-    title: `${post.title} | Blog Podomus`,
-    description: post.excerpt || undefined,
-    openGraph: post.coverImage?.asset
-      ? { images: [urlFor(post.coverImage).width(1200).height(630).url()] }
-      : undefined,
+    title: `${seoTitle} | Blog Podomus`,
+    description: seoDesc,
+    alternates: { canonical: `https://podomus.tn/blog/${slug}` },
+    openGraph: {
+      title: seoTitle,
+      description: seoDesc,
+      url: `https://podomus.tn/blog/${slug}`,
+      images: ogImage ? [ogImage] : undefined,
+    },
   }
 }
 

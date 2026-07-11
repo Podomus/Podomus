@@ -8,6 +8,7 @@ import { callToAction } from './objects/callToAction'
 import { heroSection } from './objects/heroSection'
 import { infoSection } from './objects/infoSection'
 import { testimonialSection } from './objects/testimonialSection'
+import { seo } from './objects/seo'
 import button from './objects/button'
 import {
   aboutSection,
@@ -33,6 +34,7 @@ export const schemaTypes = [
   button,
   blockContent,
   callToAction,
+  seo,
   heroSection,
   infoSection,
   testimonialSection,

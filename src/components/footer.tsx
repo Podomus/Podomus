@@ -22,14 +22,19 @@ type ButtonSize = "sm" | "md" | "lg" | undefined;
 
 interface SocialLinkProps {
   href: string;
-  icon: ReactNode;
-  size: ButtonSize;
+  icon: React.ReactNode;
+  size?: "sm" | "md" | "lg";
   delay: number;
+  label: string;
 }
 
-function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
+function SocialLink({ href, icon, size, delay, label }: SocialLinkProps) {
   return (
-    <motion.div
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
       initial={{ scale: 0.85, opacity: 0 }}
       whileInView={{ scale: 1, opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -45,16 +50,10 @@ function SocialLink({ href, icon, size, delay }: SocialLinkProps) {
         transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
       whileTap={{ scale: 0.95 }}
+      className="inline-flex items-center justify-center w-9 h-9 bg-white border border-white/20 text-brand hover:bg-white/90 hover:border-white/40 transition-[background-color,border-color,box-shadow] duration-200 shadow-lg hover:shadow-xl rounded-full"
     >
-      <Link href={href} isExternal>
-        <Button
-          isIconOnly
-          startContent={icon}
-          size={size}
-          className="bg-white border border-white/20 text-brand hover:bg-white/90 hover:border-white/40 transition-[background-color,border-color,box-shadow] duration-200 shadow-lg hover:shadow-xl active:scale-[0.97]"
-        />
-      </Link>
-    </motion.div>
+      {icon}
+    </motion.a>
   );
 }
 
@@ -187,7 +186,7 @@ export default function Footer() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4, delay: 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
-              <Link href="/">
+              <Link href="/" aria-label="Podomus - Accueil">
                 <motion.div
                   className="flex flex-col items-start group"
                   whileHover={{ scale: 1.05 }}
@@ -359,7 +358,7 @@ export default function Footer() {
             >
               <motion.h3
                 className="text-lg font-semibold mb-4"
-                whileHover={{ scale: 1.02, color: '#40826D' }}
+                whileHover={{ scale: 1.02, color: '#4A7C59' }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 Navigation
@@ -375,7 +374,7 @@ export default function Footer() {
                     key={index}
                     href={link.href}
                     className="flex items-center gap-2 group hover:text-highlight transition-colors duration-300"
-                    whileHover={{ x: 5, color: "#40826D" }}
+                    whileHover={{ x: 5, color: "#4A7C59" }}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -479,18 +478,21 @@ export default function Footer() {
                   icon={<FaInstagram size={18} className="text-brand" />}
                   size="sm"
                   delay={0.1}
+                  label="Instagram Podomus"
                 />
                 <SocialLink
                   href="https://www.facebook.com/cabinetsondaaffes"
                   icon={<FaFacebookF size={18} className="text-brand" />}
                   size="sm"
                   delay={0.2}
+                  label="Facebook Podomus"
                 />
                 <SocialLink
                   href="https://www.linkedin.com/in/sonda-affes-651821200/"
                   icon={<FaLinkedinIn size={18} className="text-brand" />}
                   size="sm"
                   delay={0.3}
+                  label="LinkedIn Podomus"
                 />
               </div>
             </motion.div>

@@ -220,13 +220,13 @@ export default function ContactPage() {
         <motion.div
           className="absolute inset-0 z-0"
           style={{ 
-            background: "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)" 
+            background: "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)" 
           }}
           animate={{ 
             background: [
-              "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 30% 70%, #40826d10 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)"
+              "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 30% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)",
+              "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)"
             ]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -267,7 +267,7 @@ export default function ContactPage() {
             whileHover={{ 
               scale: 1.02, 
               boxShadow: "0 20px 60px rgba(64, 130, 109, 0.2)",
-              borderColor: "#40826D"
+              borderColor: "#4A7C59"
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
@@ -323,7 +323,7 @@ export default function ContactPage() {
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 12px 40px 0 rgba(64, 130, 109, 0.18)",
-                borderColor: "#40826D"
+                borderColor: "#4A7C59"
               }}
             >
               <motion.div

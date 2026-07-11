@@ -85,7 +85,7 @@ export default function LoginPage() {
             required
             className="px-3 py-2.5 rounded-lg border border-gray-300 text-sm outline-none
                        transition-[border-color,box-shadow] duration-150 ease-out
-                       focus:border-[#40826D] focus:ring-2 focus:ring-[#40826D]/20"
+                       focus:border-softtail-600 focus:ring-2 focus:ring-softtail-600/20"
           />
           <input
             type="password"
@@ -95,12 +95,12 @@ export default function LoginPage() {
             required
             className="px-3 py-2.5 rounded-lg border border-gray-300 text-sm outline-none
                        transition-[border-color,box-shadow] duration-150 ease-out
-                       focus:border-[#40826D] focus:ring-2 focus:ring-[#40826D]/20"
+                       focus:border-softtail-600 focus:ring-2 focus:ring-softtail-600/20"
           />
           <motion.button
             type="submit"
             disabled={loading}
-            className="py-2.5 rounded-lg bg-[#40826D] text-white font-semibold text-sm
+            className="py-2.5 rounded-lg bg-softtail-600 text-white font-semibold text-sm
                        disabled:opacity-50 disabled:cursor-not-allowed"
             whileTap={!loading ? { scale: 0.97 } : {}}
             transition={{ duration: 0.1, ease: "easeOut" }}

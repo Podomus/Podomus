@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   title: 'Blog | Podomus',
   description:
     'Conseils podologiques, actualités et articles sur la santé des pieds par Sonda Affes, fondatrice de Podomus.',
+  alternates: {
+    canonical: 'https://podomus.tn/blog',
+  },
+  openGraph: {
+    url: 'https://podomus.tn/blog',
+  },
 }
 
 export default async function BlogPage() {

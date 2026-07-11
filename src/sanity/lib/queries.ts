@@ -33,9 +33,7 @@ export const POST_QUERY = defineQuery(`
     featured,
     lastReviewed,
     medicalDisclaimer,
-    seoTitle,
-    seoDescription,
-    seoKeywords,
+    seo,
     category->{
       _id,
       title,
@@ -96,8 +94,7 @@ export const SETTINGS_QUERY = defineQuery(`
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_type == "homePage"][0]{
     title,
-    seoTitle,
-    seoDescription,
+    seo,
     sections[] {
       _type,
       _key,
@@ -124,6 +121,7 @@ export const PAGE_QUERY = defineQuery(`
     slug,
     heading,
     subheading,
+    seo,
     pageBuilder[] {
       ...,
       _type == "callToAction" => {

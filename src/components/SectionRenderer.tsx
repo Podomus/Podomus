@@ -76,12 +76,12 @@ export default function SectionRenderer({ section }: { section: Section }) {
               </h2>
             )}
             {section.services && section.services.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {section.services.map((svc, i) => (
-                  <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-semibold text-brand mb-2">{svc.title}</h3>
+                  <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <h3 className="text-lg font-bold text-brand mb-2">{svc.title}</h3>
                     {svc.description && (
-                      <p className="text-textmain text-sm">{svc.description}</p>
+                      <p className="text-textmain text-sm leading-relaxed">{svc.description}</p>
                     )}
                     {svc.link && (
                       <a
@@ -114,12 +114,12 @@ export default function SectionRenderer({ section }: { section: Section }) {
               </h2>
             )}
             {section.values && section.values.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {section.values.map((val, i) => (
-                  <div key={i} className="flex flex-col items-start">
-                    <h3 className="text-lg font-semibold text-brand mb-2">{val.title}</h3>
+                  <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <h3 className="text-lg font-bold text-brand mb-2">{val.title}</h3>
                     {val.description && (
-                      <p className="text-textmain text-sm">{val.description}</p>
+                      <p className="text-textmain text-sm leading-relaxed">{val.description}</p>
                     )}
                   </div>
                 ))}
@@ -166,8 +166,8 @@ export default function SectionRenderer({ section }: { section: Section }) {
             {section.testimonials && section.testimonials.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {section.testimonials.map((t, i) => (
-                  <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <p className="italic text-textmain mb-4">&#8220;{t.quote}&#8221;</p>
+                  <div key={i} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                    <p className="italic text-textmain leading-relaxed mb-4">&#8220;{t.quote}&#8221;</p>
                     <p className="font-semibold text-brand">{t.patientName}</p>
                     {t.rating && (
                       <p className="text-yellow-400 mt-1">{'★'.repeat(t.rating)}</p>
@@ -190,7 +190,7 @@ export default function SectionRenderer({ section }: { section: Section }) {
             {section.items && section.items.length > 0 && (
               <div className="space-y-4">
                 {section.items.map((item, i) => (
-                  <div key={i} className="border border-gray-200 rounded-xl p-5 bg-white">
+                  <div key={i} className="rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
                     <h3 className="font-semibold text-brand mb-2">{item.question}</h3>
                     <p className="text-textmain text-sm leading-relaxed">{item.answer}</p>
                   </div>

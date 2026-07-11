@@ -61,7 +61,7 @@ const ServicesSection = () => {
       >
         <div className="flex w-full flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5 md:items-start md:justify-start text-textmain">
           <div data-reveal className="text-center md:text-start px-2 sm:px-0">
-            <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
+            <span className="text-lg sm:text-xl font-light text-softtail-600 tracking-wide uppercase">
               Nos Services
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold xl:text-5xl text-brand mt-2">
@@ -73,23 +73,18 @@ const ServicesSection = () => {
           </div>
 
           <div
-            className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
+            className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
           >
-            {[
-              { anchor: "soins" },
-              { anchor: "orthoplastie" },
-              { anchor: "conseils" }
-            ].map((meta, index) => (
+            {services.map((svc, index) => (
               <div
-                data-reveal
                 key={`service-${index}`}
-                className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-[border-color,box-shadow] duration-200 group hover:shadow-2xl"
+                className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-0.5"
               >
-                <div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-300">
-                  <TbTargetArrow size={32} className="text-softtail-400" />
+                <div className="w-14 h-14 bg-softtail-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-softtail-500/20 transition-colors duration-300">
+                  <TbTargetArrow size={28} className="text-softtail-600" />
                 </div>
-                <h4 className="mb-2 font-bold text-softtail-400 group-hover:underline text-base sm:text-lg">{services[index].title}</h4>
-                <p className="text-xs sm:text-sm font-light">{services[index].text}</p>
+                <h3 className="mb-2 font-bold text-brand text-base sm:text-lg">{svc.title}</h3>
+                <p className="text-sm text-textmain font-light leading-relaxed">{svc.text}</p>
               </div>
             ))}
           </div>

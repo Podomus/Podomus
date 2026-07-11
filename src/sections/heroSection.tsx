@@ -267,7 +267,7 @@ export default function HeroSection() {
 							className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/50 mb-8"
 						>
 							<div className="w-2 h-2 bg-softtail-500 rounded-full"></div>
-							<span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
+							<span className="text-lg sm:text-xl font-light text-softtail-600 tracking-wide uppercase">
 								Podologie
 							</span>
 						</motion.div>
@@ -288,7 +288,7 @@ export default function HeroSection() {
 							initial={{ y: 16, opacity: 0 }}
 							animate={{ y: 0, opacity: 1 }}
 							transition={{ duration: 0.3, delay: 0.26, ease: [0.23, 1, 0.32, 1] }}
-							className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg"
+							className="text-lg lg:text-xl text-textmain leading-relaxed mb-8 max-w-lg"
 						>
 							Formée dans les studios Bastien Gonzalez — aux Maldives, à Dubaï — la Dre Sonda Affes Ben Mahmoud exerce depuis plus de 10 ans la podologie de précision qu'on ne trouve d'ordinaire que dans les grands hôtels. Ici, c'est votre cabinet.
 						</motion.p>
@@ -323,26 +323,26 @@ export default function HeroSection() {
 						{/* Statistiques - style exact de l'image */}
 						<div className="flex justify-between items-center gap-4 sm:gap-6 mt-4 sm:mt-6">
 							<div className="text-center">
-								<div className="text-2xl sm:text-3xl font-bold text-softtail-400">
+								<div className="text-2xl sm:text-3xl font-bold text-softtail-600">
 									500+
 								</div>
-								<div className="text-sm text-gray-600">
+								<div className="text-sm text-textmain">
 									Consultations
 								</div>
 							</div>
 							<div className="text-center">
-								<div className="text-2xl sm:text-3xl font-bold text-softtail-400">
+								<div className="text-2xl sm:text-3xl font-bold text-softtail-600">
 									10+
 								</div>
-								<div className="text-sm text-gray-600">
+								<div className="text-sm text-textmain">
 									Années d&apos;exercice
 								</div>
 							</div>
 							<div className="text-center">
-								<div className="text-2xl sm:text-3xl font-bold text-softtail-400">
+								<div className="text-2xl sm:text-3xl font-bold text-softtail-600">
 									2
 								</div>
-								<div className="text-sm text-gray-600">Studios Bastien Gonzalez</div>
+								<div className="text-sm text-textmain">Studios Bastien Gonzalez</div>
 							</div>
 						</div>
 					</motion.div>
@@ -403,73 +403,64 @@ export default function HeroSection() {
 
 			{/* Section Services intégrée */}
 			<div
-				className="relative z-10 mx-auto flex w-full flex-col items-center justify-center py-0 sm:py-0 lg:py-0 px-4 sm:px-6 lg:px-8"
+				className="relative z-10 mx-auto flex w-full flex-col items-center justify-center py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8"
 				style={{ backgroundColor: "#F8FAFC" }}
 			>
-				<div className="flex w-full flex-col items-center justify-center gap-6 sm:gap-8 md:items-start md:justify-start text-textmain">
-					<div className="text-center md:text-start px-2 sm:px-0 p-8 sm:p-12 lg:p-16">
-						<span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
+				<div className="flex w-full flex-col items-center justify-center gap-8 sm:gap-10 lg:gap-12 text-textmain">
+					<div className="text-center max-w-3xl mx-auto">
+						<span className="text-lg sm:text-xl font-light text-softtail-600 tracking-wide uppercase">
 							Nos Services
 						</span>
-						<h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold xl:text-5xl text-brand mt-2">
+						<h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold xl:text-5xl text-brand mt-3">
 							Ce que les meilleurs hôtels font pour vos pieds — maintenant en cabinet privé.
 						</h2>
-						<p className="mt-2 text-sm sm:text-base md:text-lg text-textmain font-medium">
+						<p className="mt-3 text-sm sm:text-base md:text-lg text-textmain leading-relaxed">
 							La Dre Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — des références mondiales du soin podologique, aux Maldives et à Dubaï. Chaque consultation chez Podomus applique les mêmes standards.
 						</p>
 					</div>
 
 					<motion.div
-						className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full px-2 sm:px-0"
+						className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto"
 						variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-80px" }}
 					>
-						{[
-							{ anchor: "soins" },
-							{ anchor: "orthoplastie" },
-							{ anchor: "conseils" },
-						].map((meta, index) => (
+						{services.map((svc, index) => (
 							<motion.div
 								key={`service-${index}`}
 								variants={{
-									hidden: { opacity: 0, y: 16 },
-									visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } },
+									hidden: { opacity: 0, y: 20 },
+									visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] } },
 								}}
-								className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl border border-softtail-400/10 hover:border-softtail-400/30 transition-[border-color,box-shadow] duration-200 group hover:shadow-2xl"
+								whileHover={{ y: -4 }}
+								className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
 							>
-								<div className="w-16 h-16 bg-softtail-400/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-softtail-400/20 transition-colors duration-200">
-									<TbTargetArrow size={32} className="text-softtail-400" />
+								<div className="w-14 h-14 bg-softtail-500/10 rounded-xl flex items-center justify-center mb-5">
+									<TbTargetArrow size={28} className="text-softtail-600" />
 								</div>
-								<h4 className="mb-2 font-bold text-softtail-400 group-hover:underline text-base sm:text-lg">
-									{services[index].title}
-								</h4>
-								<p className="text-xs sm:text-sm font-light">
-									{services[index].text}
+								<h3 className="text-lg font-bold text-brand mb-2">
+									{svc.title}
+								</h3>
+								<p className="text-sm text-textmain leading-relaxed">
+									{svc.text}
 								</p>
 							</motion.div>
 						))}
 					</motion.div>
 
 					<motion.div
-						initial={{ y: 16, opacity: 0 }}
-						whileInView={{ y: 0, opacity: 1 }}
+						initial={{ opacity: 0, y: 12 }}
+						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-80px" }}
 						transition={{ duration: 0.3, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
-						className="w-full flex justify-center"
 					>
 						<Button
-							className="h-12 sm:h-14 md:h-16 px-6 sm:px-8 lg:px-10 text-sm sm:text-base md:text-lg font-semibold bg-softtail-500 text-white hover:bg-softtail-600 hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
-							endContent={
-								<IoCalendarOutline size={20} className="ml-2" />
-							}
+							className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-semibold bg-softtail-600 text-white hover:bg-softtail-700 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.97]"
+							endContent={<IoCalendarOutline size={18} />}
 							onPress={() => setOpenModal(true)}
 						>
-							<span className="hidden sm:inline">
 							Prendre rendez-vous
-							</span>
-							<span className="sm:hidden">Prendre RDV</span>
 						</Button>
 					</motion.div>
 				</div>

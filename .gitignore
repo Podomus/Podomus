@@ -40,3 +40,6 @@ next-env.d.ts
 .env
 
 dist/
+# playwright
+/playwright-report/
+/test-results/

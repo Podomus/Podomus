@@ -14,15 +14,9 @@ export const homePage = defineType({
       initialValue: 'Accueil',
     }),
     defineField({
-      name: 'seoTitle',
-      title: 'Titre SEO',
-      type: 'string',
-    }),
-    defineField({
-      name: 'seoDescription',
-      title: 'Description SEO',
-      type: 'text',
-      rows: 2,
+      name: 'seo',
+      title: 'SEO & Partages sociaux',
+      type: 'seo',
     }),
     defineField({
       name: 'sections',

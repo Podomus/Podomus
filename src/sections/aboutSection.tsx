@@ -39,7 +39,7 @@ const AboutSection = () => {
           style={{ animation: "blob-pulse 4.5s ease-in-out infinite", willChange: "transform" }}
         />
         <div
-          className="absolute bottom-1/3 right-1/5 w-20 h-20 bg-[#40826D]/8 rounded-full blur-xl"
+          className="absolute bottom-1/3 right-1/5 w-20 h-20 bg-brand/8 rounded-full blur-xl"
           style={{ animation: "blob-pulse-b 5.5s ease-in-out 1.5s infinite", willChange: "transform" }}
         />
         <div
@@ -61,7 +61,7 @@ const AboutSection = () => {
             <motion.div
               className="text-center px-2 sm:px-0 p-8 sm:p-12 lg:p-16"
             >
-              <span className="text-lg sm:text-xl font-light text-softtail-400 tracking-wide uppercase">
+              <span className="text-lg sm:text-xl font-light text-softtail-600 tracking-wide uppercase">
                 À Propos de Podomus
               </span>
               <h2 className="section-title mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
@@ -88,7 +88,7 @@ const AboutSection = () => {
               {/* Lueur animée */}
               <div
                 className="absolute -inset-4 z-0 rounded-2xl pointer-events-none"
-                style={{ background: "radial-gradient(circle, #4A7C5933 0%, transparent 80%)", animation: "glow-pulse 6s ease-in-out infinite" }}
+                style={{ background: "radial-gradient(circle, rgba(74,124,89,0.2) 0%, transparent 80%)", animation: "glow-pulse 6s ease-in-out infinite" }}
               />
               <span className="flex items-center justify-center gap-2 sm:gap-4 text-lg sm:text-2xl font-bold text-white xl:text-4xl relative z-10">
                 <span
@@ -118,18 +118,18 @@ const AboutSection = () => {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 aspect-square h-auto w-full min-w-[50%] p-3 sm:p-5">
+          <div className="grid grid-cols-2 gap-3 aspect-square h-auto w-full min-w-[50%] p-4 sm:p-6">
             {[
               { src: "/7.jpg", alt: "Podomus 1" },
               { src: "/8.jpg", alt: "Podomus 2" },
               { src: "/9.jpg", alt: "Podomus 3" },
               { src: "/10.jpg", alt: "Podomus 4" },
             ].map((img, i) => {
-              const parallaxFactors = [0.2, 0.1, -0.1, -0.2];
+              const parallaxFactors = [0.15, 0.05, -0.05, -0.15];
               return (
                 <motion.div
                   key={img.src}
-                  className="w-full h-full rounded-xl overflow-hidden cursor-pointer transition-transform"
+                  className="w-full h-full rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
                   style={{
                     transform: `translateY(${scrollY * parallaxFactors[i]}px)`
                   }}
@@ -139,7 +139,7 @@ const AboutSection = () => {
                     alt={img.alt}
                     width={400}
                     height={400}
-                    className="object-cover w-full h-full rounded-xl transition-transform duration-200"
+                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
                   />
                 </motion.div>
               );

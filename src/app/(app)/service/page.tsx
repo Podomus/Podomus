@@ -322,13 +322,13 @@ export default function ServicesPage() {
         <motion.div
           className="absolute inset-0 z-0"
           style={{ 
-            background: "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)" 
+            background: "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)" 
           }}
           animate={{ 
             background: [
-              "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 30% 70%, #40826d10 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 30%, #40826d15 0%, transparent 50%), radial-gradient(circle at 70% 70%, #40826d10 0%, transparent 50%)"
+              "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 30% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)",
+              "radial-gradient(circle at 30% 30%, rgba(74,124,89,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%)"
             ]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -371,8 +371,8 @@ export default function ServicesPage() {
             className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 shadow-2xl border border-white/20"
             whileHover={{ 
               scale: 1.02, 
-              boxShadow: "0 20px 60px rgba(64, 130, 109, 0.2)",
-              borderColor: "#40826D"
+              boxShadow: "0 20px 60px rgba(74, 124, 89, 0.2)",
+              borderColor: "#4A7C59"
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
@@ -464,14 +464,14 @@ export default function ServicesPage() {
             <motion.div
               className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{ 
-                background: "radial-gradient(circle at 40% 30%, rgba(64,130,109,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(91,160,138,0.2) 0%, transparent 60%)" 
+                background: "radial-gradient(circle at 40% 30%, rgba(74,124,89,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(74,124,89,0.2) 0%, transparent 60%)" 
               }}
               animate={{ 
                 opacity: [0.3, 0.6, 0.3],
                 background: [
-                  "radial-gradient(circle at 40% 30%, rgba(64,130,109,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(91,160,138,0.2) 0%, transparent 60%)",
-                  "radial-gradient(circle at 60% 30%, rgba(64,130,109,0.3) 0%, transparent 60%), radial-gradient(circle at 40% 70%, rgba(91,160,138,0.2) 0%, transparent 60%)",
-                  "radial-gradient(circle at 40% 30%, rgba(64,130,109,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(91,160,138,0.2) 0%, transparent 60%)"
+                  "radial-gradient(circle at 40% 30%, rgba(74,124,89,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(74,124,89,0.2) 0%, transparent 60%)",
+                  "radial-gradient(circle at 60% 30%, rgba(74,124,89,0.3) 0%, transparent 60%), radial-gradient(circle at 40% 70%, rgba(74,124,89,0.2) 0%, transparent 60%)",
+                  "radial-gradient(circle at 40% 30%, rgba(74,124,89,0.3) 0%, transparent 60%), radial-gradient(circle at 60% 70%, rgba(74,124,89,0.2) 0%, transparent 60%)"
                 ]
               }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -481,7 +481,7 @@ export default function ServicesPage() {
             <motion.div
               className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{ 
-                background: "linear-gradient(45deg, transparent 30%, rgba(64,130,109,0.3) 50%, transparent 70%)",
+                background: "linear-gradient(45deg, transparent 30%, rgba(74,124,89,0.3) 50%, transparent 70%)",
                 backgroundSize: "200% 200%"
               }}
               animate={{ 
@@ -520,7 +520,7 @@ export default function ServicesPage() {
                 initial={false}
                 animate={false}
                 transition={undefined}
-                whileHover={{ scale: 1.05, boxShadow: "0 12px 40px 0 rgba(64, 130, 109, 0.18)", borderColor: "#40826D" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 12px 40px 0 rgba(74, 124, 89, 0.18)", borderColor: "#4A7C59" }}
                 onClick={() => setOpenDetail(openDetail === i ? null : i)}
               >
                 <motion.div
@@ -551,7 +551,7 @@ export default function ServicesPage() {
                     initial={false}
                     animate={false}
                     transition={undefined}
-                    style={{ background: "radial-gradient(circle at 60% 40%, rgba(64,130,109,0.10) 0%, transparent 70%)" }}
+                    style={{ background: "radial-gradient(circle at 60% 40%, rgba(74,124,89,0.10) 0%, transparent 70%)" }}
                   />
                 </motion.div>
                 <motion.h3
@@ -648,7 +648,7 @@ export default function ServicesPage() {
               initial={false}
               animate={false}
               transition={undefined}
-              whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(64, 130, 109, 0.18)" }}
+              whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(74, 124, 89, 0.18)" }}
             >
               <span className="flex-shrink-0">{item.icon}</span>
               <span className="text-sm sm:text-base md:text-lg font-semibold text-brand">{item.text}</span>
@@ -690,7 +690,7 @@ export default function ServicesPage() {
               initial={false}
               animate={false}
               transition={undefined}
-              whileHover={{ scale: 1.05, boxShadow: "0 12px 40px 0 rgba(64, 130, 109, 0.18)", borderColor: "#40826D" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 12px 40px 0 rgba(74, 124, 89, 0.18)", borderColor: "#4A7C59" }}
             >
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-3 sm:mb-4 rounded-full overflow-hidden border-4 border-highlight">
                 <Image

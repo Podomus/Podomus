@@ -29,7 +29,31 @@ Podomus is a modern web platform built with Next.js, React 19, TypeScript, Tailw
 5. Start dev server: `npm run dev`.
 
 ## Testing
-- Add your unit/e2e tests in `__tests__` or `tests/`.
+
+E2E tests use Playwright. To run them:
+
+```bash
+# 1. Start the database
+docker compose up -d
+
+# 2. Build the app for production (faster than dev mode)
+npm run build
+
+# 3. Start the production server
+BETTER_AUTH_SECRET=$(openssl rand -base64 32) \
+  BETTER_AUTH_BASE_URL=http://localhost:3099 \
+  npx next start --port 3099
+
+# 4. In another terminal, run the tests
+npm run test:e2e
+```
+
+For headed mode (watch tests in browser): `npm run test:e2e:ui`
+
+### Test structure
+- `e2e/` — Test specs and page objects
+- `e2e/pages/` — Page Object Model classes
+- `playwright.config.ts` — Playwright configuration
 
 ## Deployment
 - Vercel ready. See `vercel.json` for config.

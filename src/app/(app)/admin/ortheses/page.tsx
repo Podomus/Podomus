@@ -316,14 +316,14 @@ export default function OrthesesPage() {
             </BreadcrumbList>
           </Breadcrumb>
           <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <Package className="h-6 w-6 text-teal-600" />
+            <Package className="h-6 w-6 text-softtail-600" />
             Gestion des orthèses
           </h1>
           <p className="text-sm text-slate-500">
             Suivi des commandes d'orthèses plantaires personnalisées
           </p>
         </div>
-        <Button onClick={openCreate} className="gap-2 bg-teal-600 hover:bg-teal-700 active:scale-[0.97] transition-transform duration-100">
+        <Button onClick={openCreate} className="gap-2 bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-transform duration-100">
           <Plus className="h-4 w-4" />
           Nouvelle orthèse
         </Button>
@@ -507,7 +507,7 @@ function OrtheseCard({
 
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex items-center gap-1.5 text-slate-600">
-            <Euro className="h-3.5 w-3.5 text-teal-600 shrink-0" />
+            <Euro className="h-3.5 w-3.5 text-softtail-600 shrink-0" />
             <span className="font-medium">{formatPrix(o.prix)}</span>
           </div>
           <div className="flex items-center gap-1.5 text-slate-600">
@@ -685,7 +685,7 @@ function OrtheseDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={submitting} className="active:scale-[0.97] transition-transform duration-100">
             Annuler
           </Button>
-          <Button onClick={onSubmit} disabled={submitting} className="bg-teal-600 hover:bg-teal-700 active:scale-[0.97] transition-transform duration-100">
+          <Button onClick={onSubmit} disabled={submitting} className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-transform duration-100">
             {submitting ? "Enregistrement…" : submitLabel}
           </Button>
         </DialogFooter>
