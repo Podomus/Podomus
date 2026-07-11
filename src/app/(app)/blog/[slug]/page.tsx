@@ -4,32 +4,26 @@ import Link from 'next/link'
 import { format, parseISO } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { PortableText } from '@portabletext/react'
-import { sanityFetch } from '@/sanity/lib/live'
+import { client } from '@/sanity/lib/client'
 import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import type { Metadata } from 'next'
 import { PostHeader, PostBody } from './PostContent'
+
+export const dynamic = 'force-dynamic'
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  const { data } = await sanityFetch({
-    query: POST_SLUGS_QUERY,
-    perspective: 'published',
-    stega: false,
-  })
+  const data = await client.fetch(POST_SLUGS_QUERY, {}, { perspective: 'published', useCdn: true })
   return data || []
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const { data: post } = await sanityFetch({
-    query: POST_QUERY,
-    params: { slug },
-    stega: false,
-  })
+  const post = await client.fetch(POST_QUERY, { slug }, { perspective: 'published', useCdn: true })
 
   if (!post) return { title: 'Post Not Found' }
 
@@ -92,10 +86,7 @@ const portableTextComponents = {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params
-  const { data: post } = await sanityFetch({
-    query: POST_QUERY,
-    params: { slug },
-  })
+  const post = await client.fetch(POST_QUERY, { slug }, { perspective: 'published', useCdn: true })
 
   if (!post) notFound()
 

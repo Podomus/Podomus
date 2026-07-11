@@ -2,12 +2,13 @@
  * Sanity seed script — creates test blog posts and categories.
  *
  * Usage:
- *   SANITY_WRITE_TOKEN="your-write-token" npx tsx scripts/seed-sanity.ts
+ *   SANITY_WRITE_TOKEN="your-editor-token" npx tsx scripts/seed-sanity.ts
  *
- * Get a write token from https://sq0ivtut.api.sanity.io/manage
+ * Get a token from https://sq0ivtut.api.sanity.io/manage → API → Tokens
  */
 
 import 'dotenv/config'
+import { createClient } from '@sanity/client'
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'sq0ivtut'
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
@@ -19,45 +20,31 @@ if (!token) {
   process.exit(1)
 }
 
-async function seed() {
-  console.log(`Seeding Sanity dataset: ${dataset}`)
+const client = createClient({
+  projectId,
+  dataset,
+  token,
+  apiVersion: '2025-03-15',
+  useCdn: false,
+})
 
-  // Create categories first
+async function seed() {
+  console.log(`Seeding Sanity dataset: ${dataset}\n`)
+
+  // Create categories
   const categories = [
     { _type: 'category', title: 'Soins', slug: { _type: 'slug', current: 'soins' }, description: 'Soins podologiques généraux' },
     { _type: 'category', title: 'Techniques', slug: { _type: 'slug', current: 'techniques' }, description: 'Techniques et innovations' },
     { _type: 'category', title: 'Sport', slug: { _type: 'slug', current: 'sport' }, description: 'Podologie du sportif' },
   ]
 
-  const created: any[] = []
+  const catIds: Record<string, string> = {}
   for (const cat of categories) {
-    const res = await fetch(
-      `https://${projectId}.api.sanity.io/v2025-03-15/data/mutate/${dataset}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          mutations: [
-            {
-              createOrReplace: {
-                ...cat,
-                _id: `cat-${cat.slug.current}`,
-              },
-            },
-          ],
-        }),
-      },
+    const result = await client.createOrReplace(
+      { _id: `cat-${cat.slug.current}`, ...cat },
     )
-    const data = await res.json()
-    if (data.error) {
-      console.error(`Failed to create category ${cat.title}:`, data.error)
-    } else {
-      console.log(`  ✓ Category: ${cat.title}`)
-      created.push(cat)
-    }
+    catIds[cat.slug.current] = result._id
+    console.log(`  ✓ Category: ${cat.title}`)
   }
 
   // Create test posts
@@ -75,12 +62,7 @@ async function seed() {
         {
           _type: 'block',
           style: 'normal',
-          children: [
-            {
-              _type: 'span',
-              text: 'La podologie préventive est une approche essentielle pour maintenir la santé de vos pieds à long terme. Tout comme vous consultez votre dentiste régulièrement, des visites périodiques chez votre podologue peuvent vous éviter bien des désagréments.',
-            },
-          ],
+          children: [{ _type: 'span', text: 'La podologie préventive est une approche essentielle pour maintenir la santé de vos pieds à long terme. Tout comme vous consultez votre dentiste régulièrement, des visites périodiques chez votre podologue peuvent vous éviter bien des désagréments.' }],
         },
       ],
     },
@@ -97,12 +79,7 @@ async function seed() {
         {
           _type: 'block',
           style: 'normal',
-          children: [
-            {
-              _type: 'span',
-              text: "L'orthoplastie est une technique de correction des ongles qui permet de traiter les ongles incarnés sans chirurgie. Cette méthode innovante utilise une résine spéciale pour redonner à l'ongle sa forme naturelle.",
-            },
-          ],
+          children: [{ _type: 'span', text: "L'orthoplastie est une technique de correction des ongles qui permet de traiter les ongles incarnés sans chirurgie. Cette méthode innovante utilise une résine spéciale pour redonner à l'ongle sa forme naturelle." }],
         },
       ],
     },
@@ -119,49 +96,23 @@ async function seed() {
         {
           _type: 'block',
           style: 'normal',
-          children: [
-            {
-              _type: 'span',
-              text: "La course à pied est l'un des sports les plus exigeants pour les pieds. Chaque kilomètre parcouru représente environ 1000 impacts au sol, ce qui sollicite énormément vos pieds, vos chevilles et vos genoux.",
-            },
-          ],
+          children: [{ _type: 'span', text: 'La course à pied est un sport exigeant pour les pieds. Chaque kilomètre représente environ 1000 impacts au sol, sollicitant pieds, chevilles et genoux.' }],
         },
       ],
     },
   ]
 
   for (const post of posts) {
-    const res = await fetch(
-      `https://${projectId}.api.sanity.io/v2025-03-15/data/mutate/${dataset}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          mutations: [
-            {
-              createOrReplace: {
-                ...post,
-                _id: `post-${post.slug.current}`,
-              },
-            },
-          ],
-        }),
-      },
+    await client.createOrReplace(
+      { _id: `post-${post.slug.current}`, ...post },
     )
-    const data = await res.json()
-    if (data.error) {
-      console.error(`Failed to create post ${post.title}:`, data.error)
-    } else {
-      console.log(`  ✓ Post: ${post.title}`)
-    }
+    console.log(`  ✓ Post: ${post.title}`)
   }
 
-  // Publish all by creating a release/publish mutation
-  console.log('\nDone! Publish the dataset to make posts visible.')
-  console.log('Or run: SANITY_WRITE_TOKEN=... npx sanity documents create --replace ...')
+  console.log('\n✅ Seeding complete. The posts should now appear on the blog.')
 }
 
-seed().catch(console.error)
+seed().catch((err) => {
+  console.error('\n❌ Seed failed:', err.message)
+  process.exit(1)
+})

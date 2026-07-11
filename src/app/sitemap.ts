@@ -1,4 +1,4 @@
-import { sanityFetch } from '@/sanity/lib/live'
+import { client } from '@/sanity/lib/client'
 import { POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 
 const BASE_URL = 'https://podomus.tn'
@@ -18,11 +18,7 @@ const staticPages = [
 ]
 
 export default async function sitemap() {
-  const { data: slugs } = await sanityFetch({
-    query: POST_SLUGS_QUERY,
-    perspective: 'published',
-    stega: false,
-  })
+  const slugs = await client.fetch(POST_SLUGS_QUERY, {}, { perspective: 'published', useCdn: true })
 
   const blogEntries = (slugs || []).map((entry: { slug: string }) => ({
     url: `${BASE_URL}/blog/${entry.slug}`,

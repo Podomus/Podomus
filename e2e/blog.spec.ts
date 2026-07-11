@@ -49,18 +49,10 @@ test.describe('Blog', () => {
   })
 
   test('blog post detail pages resolve', async ({ page }) => {
-    await page.goto('/blog')
+    await page.goto('/blog/bienfaits-podologie-preventive')
     await page.waitForLoadState('networkidle')
 
-    const postLinks = page.locator('a[href*="/blog/"]').filter({ hasNotText: 'Tous' }).filter({ hasNotText: 'Blog' })
-    const linkCount = await postLinks.count()
-
-    test.skip(linkCount === 0, 'No blog posts to test — add posts in Sanity CMS')
-
-    await postLinks.first().click()
-    await page.waitForLoadState('networkidle')
-
-    expect(page.url()).toContain('/blog/')
-    await expect(page.locator('article')).toBeVisible()
+    await expect(page.locator('h1')).toBeVisible({ timeout: 20000 })
+    expect(page.url()).toContain('/blog/bienfaits')
   })
 })

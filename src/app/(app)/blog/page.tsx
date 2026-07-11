@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { sanityFetch } from '@/sanity/lib/live'
+import { client } from '@/sanity/lib/client'
 import { POSTS_QUERY, CATEGORIES_QUERY } from '@/sanity/lib/queries'
 import type { Metadata } from 'next'
 import { BlogGrid } from './BlogGrid'
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 }
 
 export default async function BlogPage() {
-  const [{ data: posts }, { data: categories }] = await Promise.all([
-    sanityFetch({ query: POSTS_QUERY }),
-    sanityFetch({ query: CATEGORIES_QUERY }),
+  const [posts, categories] = await Promise.all([
+    client.fetch(POSTS_QUERY, {}, { perspective: 'published', useCdn: true }),
+    client.fetch(CATEGORIES_QUERY, {}, { perspective: 'published', useCdn: true }),
   ])
 
   return (
