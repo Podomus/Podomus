@@ -95,6 +95,6 @@ const config: Config = {
   	}
   },
 	darkMode: ["class", "class"],
-  plugins: [heroui(), require("tailwindcss-animate")],
+  plugins: [heroui(), require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 export default config;
