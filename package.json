@@ -12,6 +12,7 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
     "typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate",
+    "seed:sanity": "tsx scripts/seed-sanity.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",

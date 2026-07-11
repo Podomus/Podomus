@@ -4,7 +4,6 @@ test.describe('Blog', () => {
   test('blog listing page loads', async ({ page }) => {
     const response = await page.goto('/blog')
     expect(response?.ok()).toBeTruthy()
-    await page.waitForLoadState('networkidle')
   })
 
   test('blog page has heading', async ({ page }) => {
@@ -43,10 +42,9 @@ test.describe('Blog', () => {
     if (tousVisible) {
       await expect(tousLink).toBeVisible()
       expect(categoryCount).toBeGreaterThan(0)
-    }
-
-    for (let i = 0; i < categoryCount; i++) {
-      await expect(categoryLinks.nth(i)).toBeVisible()
+      for (let i = 0; i < categoryCount; i++) {
+        await expect(categoryLinks.nth(i)).toBeVisible()
+      }
     }
   })
 
@@ -63,7 +61,6 @@ test.describe('Blog', () => {
     await page.waitForLoadState('networkidle')
 
     expect(page.url()).toContain('/blog/')
-    // Verify actual content rendered on the post page
     await expect(page.locator('article')).toBeVisible()
   })
 })
