@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import Location from "../../public/location.png";
 import { TbMapPin, TbPhone, TbCalendar } from "react-icons/tb";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { IoCalendarOutline } from "react-icons/io5";
 import { TbMapStar } from "react-icons/tb";
 

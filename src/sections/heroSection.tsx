@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { IoCalendarOutline, IoPlay, IoAdd } from "react-icons/io5";
 import { TbTargetArrow } from "react-icons/tb";
 import { motion } from "framer-motion";

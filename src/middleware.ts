@@ -3,23 +3,27 @@ import type { NextRequest } from 'next/server'
 import { locales, defaultLocale, isLocale } from './i18n/config'
 
 export function middleware(request: NextRequest) {
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
+  const { pathname } = request.nextUrl
+  const segments = pathname.split('/').filter(Boolean)
 
-  if (!cookieLocale) {
-    const acceptLang = request.headers.get('Accept-Language') || ''
-    const preferred = acceptLang.split(',')[0]?.split('-')[0]?.toLowerCase() || ''
+  const hasEnPrefix = segments[0] === 'en'
+  const locale = hasEnPrefix ? 'en' : defaultLocale
 
-    const detected = isLocale(preferred) ? preferred : defaultLocale
-    const response = NextResponse.next()
-    response.cookies.set('NEXT_LOCALE', detected, {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 365,
-      sameSite: 'lax',
+  if (hasEnPrefix) {
+    const newPath = '/' + segments.slice(1).join('/')
+    const url = new URL(newPath || '/', request.url)
+    const response = NextResponse.rewrite(url)
+    response.cookies.set('NEXT_LOCALE', 'en', {
+      path: '/', maxAge: 60 * 60 * 24 * 365, sameSite: 'lax',
     })
     return response
   }
 
-  return NextResponse.next()
+  const response = NextResponse.next()
+  response.cookies.set('NEXT_LOCALE', defaultLocale, {
+    path: '/', maxAge: 60 * 60 * 24 * 365, sameSite: 'lax',
+  })
+  return response
 }
 
 export const config = {
