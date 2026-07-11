@@ -22,16 +22,9 @@ export function PostHeader({
   );
 }
 
-export function PostBody({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+export function PostBody({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      className={className}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, delay: 0.1, ease: EASE }}
