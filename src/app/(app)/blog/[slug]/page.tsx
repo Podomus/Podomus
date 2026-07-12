@@ -116,6 +116,24 @@ const portableTextComponents = {
     link: ({ children, value }: any) => <A value={value}>{children}</A>,
   },
   types: {
+    embed: ({ value }: any) => {
+      const url = value?.url || ''
+      const ytId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1]
+      const src = ytId
+        ? `https://www.youtube-nocookie.com/embed/${ytId}`
+        : url
+      return (
+        <div className="relative my-10 aspect-video rounded-2xl overflow-hidden shadow-lg">
+          <iframe
+            src={src}
+            title="Contenu embarqué"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
+      )
+    },
     image: ({ value }: any) => {
       if (!value?.asset) return null
       return (

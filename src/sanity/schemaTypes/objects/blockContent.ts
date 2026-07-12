@@ -59,5 +59,25 @@ export const blockContent = defineType({
         },
       ],
     }),
+    defineArrayMember({
+      name: 'embed',
+      title: 'Embed (YouTube, etc.)',
+      type: 'object',
+      fields: [
+        {
+          name: 'url',
+          type: 'url',
+          title: 'URL de la vidéo',
+          description: 'Collez le lien YouTube, Vimeo, etc.',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+      preview: {
+        select: { url: 'url' },
+        prepare({ url }: { url?: string }) {
+          return { title: url ? `🔗 Embed: ${url.substring(0, 50)}...` : 'Embed' }
+        },
+      },
+    }),
   ],
 })
