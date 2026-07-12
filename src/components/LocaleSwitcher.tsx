@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback } from 'react'
-import { usePathname } from 'next/navigation'
 import { useT } from '@/providers/I18nProvider'
 import { locales, defaultLocale } from '@/i18n/config'
 
@@ -12,15 +11,13 @@ function getCookie(name: string): string | undefined {
 }
 
 export function LocaleSwitcher() {
-  const pathname = usePathname()
   const current = getCookie('NEXT_LOCALE') || defaultLocale
   const next = locales.find((l) => l !== current) || defaultLocale
 
   const switchLocale = useCallback(() => {
-    const target = next === 'en' ? `/en${pathname}` : pathname.replace(/^\/en/, '') || '/'
     document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`
-    window.location.href = target
-  }, [next, pathname])
+    window.location.reload()
+  }, [next])
 
   const label = next === 'en' ? 'English' : 'Français'
 
