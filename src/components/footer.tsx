@@ -255,7 +255,7 @@ export default function Footer() {
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.25 }}
                   >
-                    <TbMapStar size={18} className="text-highlight mt-1 flex-shrink-0" />
+                    <TbMapStar size={18} className="text-white/70 mt-1 flex-shrink-0 group-hover:text-white transition-colors duration-300" />
                   </motion.div>
                   <div className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
                     <a href="https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6" target="_blank" rel="noopener noreferrer">
@@ -273,7 +273,7 @@ export default function Footer() {
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <TbPhone size={18} className="text-highlight flex-shrink-0" />
+                    <TbPhone size={18} className="text-white/70 flex-shrink-0" />
                   </motion.div>
                   <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
                     <a href="tel:+21628451433" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">+216 28 451 433</a>
@@ -288,7 +288,7 @@ export default function Footer() {
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <TbMail size={18} className="text-highlight flex-shrink-0" />
+                    <TbMail size={18} className="text-white/70 flex-shrink-0" />
                   </motion.div>
                   <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
                     <a href="mailto:contact@podomus.tn" className="text-white/80 group-hover:text-white/90 transition-colors duration-300">contact@podomus.tn</a>
@@ -340,7 +340,7 @@ export default function Footer() {
                     }}
                   >
                     <span className="group-hover:text-white transition-colors duration-300">{schedule.day}</span>
-                    <span className="group-hover:text-highlight transition-colors duration-300">{schedule.time}</span>
+                    <span className="group-hover:text-white transition-colors duration-300">{schedule.time}</span>
                   </motion.div>
                 ))}
               </div>
@@ -373,8 +373,8 @@ export default function Footer() {
                   <motion.a
                     key={index}
                     href={link.href}
-                    className="flex items-center gap-2 group hover:text-highlight transition-colors duration-300"
-                    whileHover={{ x: 5, color: "#4A7C59" }}
+                    className="flex items-center gap-2 group hover:text-white transition-colors duration-300"
+                    whileHover={{ x: 5, color: "#ffffff" }}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -386,7 +386,7 @@ export default function Footer() {
                     }}
                   >
                     <motion.span
-                      className="w-1 h-1 bg-highlight rounded-full"
+                      className="w-1.5 h-1.5 bg-white/50 rounded-full group-hover:bg-white transition-colors duration-300"
                       whileHover={{ scale: 1.5 }}
                       transition={{ duration: 0.2 }}
                     />
@@ -410,7 +410,7 @@ export default function Footer() {
                 whileHover={{ scale: 1.02, color: '#fafafa' }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
-                <a href="/service" className="hover:underline hover:text-highlight transition-colors duration-300">Nos Services</a>
+                <a href="/service" className="hover:underline hover:text-white transition-colors duration-300">Nos Services</a>
               </motion.h3>
               <div className="space-y-2 text-sm text-white/80 mb-6">
                 {[
@@ -422,8 +422,8 @@ export default function Footer() {
                   <motion.a
                     key={index}
                     href={`/service#${service.anchor}`}
-                    className="flex items-center gap-2 group hover:text-highlight transition-colors duration-300"
-                    whileHover={{ x: 5, color: "#fafafa" }}
+                    className="flex items-center gap-2 group hover:text-white transition-colors duration-300"
+                    whileHover={{ x: 5, color: "#ffffff" }}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -435,7 +435,7 @@ export default function Footer() {
                     }}
                   >
                     <motion.span
-                      className="w-1 h-1 bg-highlight rounded-full"
+                      className="w-1.5 h-1.5 bg-white/50 rounded-full group-hover:bg-white transition-colors duration-300"
                       whileHover={{ scale: 1.5 }}
                       transition={{ duration: 0.2 }}
                     />
