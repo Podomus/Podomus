@@ -21,7 +21,7 @@ const services: { title: string; text: string }[] = [
 	},
 	{
 		title: "Suivi & Conseils",
-		text: "Parce que vos pieds évoluent entre deux rendez-vous, la Dre Affes Ben Mahmoud assure un suivi continu — conseils adaptés, ajustements, prévention.",
+		text: "Parce que vos pieds évoluent entre deux rendez-vous, Sonda Affes Ben Mahmoud assure un suivi continu — conseils adaptés, ajustements, prévention.",
 	},
 ];
 
@@ -290,7 +290,7 @@ export default function HeroSection() {
 							transition={{ duration: 0.3, delay: 0.26, ease: [0.23, 1, 0.32, 1] }}
 							className="text-lg lg:text-xl text-textmain leading-relaxed mb-8 max-w-lg"
 						>
-							Formée dans les studios Bastien Gonzalez — aux Maldives, à Dubaï — la Dre Sonda Affes Ben Mahmoud exerce depuis plus de 10 ans la podologie de précision qu'on ne trouve d'ordinaire que dans les grands hôtels. Ici, c'est votre cabinet.
+							Formée dans les studios Bastien Gonzalez — aux Maldives, à Dubaï — Sonda Affes Ben Mahmoud exerce depuis plus de 10 ans la podologie de précision qu'on ne trouve d'ordinaire que dans les grands hôtels. Ici, c'est votre cabinet.
 						</motion.p>
 
 						{/* Boutons principaux - style uniforme */}
@@ -415,7 +415,7 @@ export default function HeroSection() {
 							Ce que les meilleurs hôtels font pour vos pieds — maintenant en cabinet privé.
 						</h2>
 						<p className="mt-3 text-sm sm:text-base md:text-lg text-textmain leading-relaxed">
-							La Dre Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — des références mondiales du soin podologique, aux Maldives et à Dubaï. Chaque consultation chez Podomus applique les mêmes standards.
+							Sonda Affes Ben Mahmoud a exercé dans les studios Bastien Gonzalez — des références mondiales du soin podologique, aux Maldives et à Dubaï. Chaque consultation chez Podomus applique les mêmes standards.
 						</p>
 					</div>
 

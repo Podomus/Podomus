@@ -179,7 +179,7 @@ export default function DashboardPage() {
       {/* ── Header ────────────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-softtail-800">Bonjour, Docteure Sonda 👋</h1>
+          <h1 className="text-2xl font-bold text-softtail-800">Bonjour, Sonda 👋</h1>
           <p className="text-sm text-slate-500 mt-1 capitalize">{todayFR}</p>
         </div>
         <Button

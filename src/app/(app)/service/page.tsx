@@ -860,7 +860,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Expertise Reconnue</h3>
               <p className="text-gray-600">
-                Dr. Sonda Affes Ben Mahmoud — 10 ans de pratique, formée dans les établissements Bastien Gonzalez à Dubaï et aux Maldives.
+                Sonda Affes Ben Mahmoud — 10 ans de pratique, formée dans les établissements Bastien Gonzalez à Dubaï et aux Maldives.
               </p>
             </div>
             

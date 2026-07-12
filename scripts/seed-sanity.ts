@@ -55,7 +55,7 @@ async function seed() {
       slug: { _type: 'slug', current: 'bienfaits-podologie-preventive' },
       excerpt: 'Découvrez comment des soins podologiques réguliers peuvent prévenir les douleurs et améliorer votre qualité de vie au quotidien.',
       date: new Date().toISOString(),
-      author: 'Dr. Sonda Affes Ben Mahmoud',
+      author: 'Sonda Affes Ben Mahmoud',
       featured: true,
       category: { _type: 'reference', _ref: 'cat-soins' },
       content: [
@@ -72,7 +72,7 @@ async function seed() {
       slug: { _type: 'slug', current: 'orthoplastie-guide-complet' },
       excerpt: "L'orthoplastie est une technique innovante pour corriger les ongles incarnés et autres pathologies unguéales.",
       date: new Date().toISOString(),
-      author: 'Dr. Sonda Affes Ben Mahmoud',
+      author: 'Sonda Affes Ben Mahmoud',
       featured: false,
       category: { _type: 'reference', _ref: 'cat-techniques' },
       content: [
@@ -89,7 +89,7 @@ async function seed() {
       slug: { _type: 'slug', current: 'podologie-sportif-conseils-coureurs' },
       excerpt: "Les coureurs sollicitent énormément leurs pieds. Voici les conseils de notre podologue pour éviter les blessures.",
       date: new Date().toISOString(),
-      author: 'Dr. Sonda Affes Ben Mahmoud',
+      author: 'Sonda Affes Ben Mahmoud',
       featured: false,
       category: { _type: 'reference', _ref: 'cat-sport' },
       content: [

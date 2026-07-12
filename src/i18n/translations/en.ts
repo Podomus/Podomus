@@ -17,7 +17,7 @@ const en: Translations = {
     badge: 'Podology',
     title: 'Podomus',
     subtitle: 'Precision podology.',
-    description: "Trained at Bastien Gonzalez studios — in the Maldives, Dubai — Dr. Sonda Affes Ben Mahmoud has practiced for over 10 years the precision podology usually found only in luxury hotels. Here, it's your clinic.",
+    description: "Trained at Bastien Gonzalez studios — in the Maldives, Dubai — Sonda Affes Ben Mahmoud has practiced for over 10 years the precision podology usually found only in luxury hotels. Here, it's your clinic.",
     ctaPrimary: 'Book an appointment',
     ctaSecondary: 'Our services',
     stats: {
@@ -29,7 +29,7 @@ const en: Translations = {
   servicesSection: {
     badge: 'Our Services',
     heading: 'What the best hotels do for your feet — now in a private clinic.',
-    description: "Dr. Affes Ben Mahmoud practiced at Bastien Gonzalez studios — global references in podology care, in the Maldives and Dubai. Every consultation at Podomus applies the same standards.",
+    description: "Sonda Affes Ben Mahmoud practiced at Bastien Gonzalez studios — global references in podology care, in the Maldives and Dubai. Every consultation at Podomus applies the same standards.",
     cards: [
       {
         title: 'Personalized Care',
@@ -41,7 +41,7 @@ const en: Translations = {
       },
       {
         title: 'Follow-up & Advice',
-        text: 'Because your feet evolve between appointments, Dr. Affes Ben Mahmoud ensures continuous follow-up — tailored advice, adjustments, prevention.',
+        text: 'Because your feet evolve between appointments, Sonda Affes Ben Mahmoud ensures continuous follow-up — tailored advice, adjustments, prevention.',
       },
     ],
     cta: 'Book an appointment',
@@ -60,12 +60,12 @@ const en: Translations = {
     cards: [
       {
         title: 'Trained at Bastien Gonzalez',
-        text: "Ten years of practice at Bastien Gonzalez studios — in the Maldives, then Dubai — shape a hand, a gaze, a way of treating that is unlike any other. Dr. Sonda Affes Ben Mahmoud now practices it in Ariana.",
+        text: "Ten years of practice at Bastien Gonzalez studios — in the Maldives, then Dubai — shape a hand, a gaze, a way of treating that is unlike any other. Sonda Affes Ben Mahmoud now practices it in Ariana.",
         image: '/a.jpg',
       },
       {
         title: 'Your case, your treatment',
-        text: "Your feet have a story — a posture, a pain you've carried for years, a shoe that made it worse. Dr. Sonda evaluates before touching. Then, and only then, she treats.",
+        text: "Your feet have a story — a posture, a pain you've carried for years, a shoe that made it worse. Sonda evaluates before touching. Then, and only then, she treats.",
         image: '/c.jpg',
       },
       {
@@ -95,7 +95,7 @@ const en: Translations = {
   },
   footer: {
     logo: 'Podomus - Home',
-    description: "Precision podology — Dr. Sonda Affes Ben Mahmoud practices podology at the level of the world's finest establishments, now in La Soukra.",
+    description: "Precision podology — Sonda Affes Ben Mahmoud practices podology at the level of the world's finest establishments, now in La Soukra.",
     navHeading: 'Navigation',
     servicesHeading: 'Our Services',
     contactHeading: 'Contact & Access',

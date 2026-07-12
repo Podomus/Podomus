@@ -218,7 +218,7 @@ export default function Footer() {
                 whileHover={{ color: "rgba(255, 255, 255, 0.9)" }}
                 transition={{ duration: 0.3 }}
               >
-                Spécialiste en soins podologiques d&apos;exception, la Docteure Sonda Affes Ben Mahmoud vous accompagne
+                Spécialiste en soins podologiques d&apos;exception, la Sonda Affes Ben Mahmoud vous accompagne
                 avec expertise et discrétion pour la santé et la beauté de vos pieds.
               </motion.p>
             </motion.div>
@@ -539,7 +539,7 @@ export default function Footer() {
                 whileHover={{ color: "rgba(255, 255, 255, 0.9)" }}
                 transition={{ duration: 0.3 }}
               >
-                Docteure Sonda Affes Ben Mahmoud
+                Sonda Affes Ben Mahmoud
               </motion.span>
             </div>
             <div className="flex items-center gap-4">

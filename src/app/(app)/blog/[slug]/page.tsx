@@ -205,7 +205,7 @@ export default async function PostPage({ params }: Props) {
             Prenez rendez-vous
           </h3>
           <p className="text-white/80 mb-6 max-w-md mx-auto">
-            La Dre Sonda Affes Ben Mahmoud vous reçoit au cabinet Podomus à La Soukra, Ariana.
+            Sonda Affes Ben Mahmoud vous reçoit au cabinet Podomus à La Soukra, Ariana.
           </p>
           <a
             href="tel:+21628451433"

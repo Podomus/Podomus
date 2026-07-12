@@ -5,7 +5,7 @@ export function LocalBusinessJsonLd() {
     '@id': 'https://podomus.tn/#business',
     name: 'Podomus — Cabinet de Podologie',
     description:
-      'Cabinet de podologie de précision dirigé par la Dre Sonda Affes Ben Mahmoud, formée chez Bastien Gonzalez.',
+      'Cabinet de podologie de précision dirigé par Sonda Affes Ben Mahmoud, formée chez Bastien Gonzalez.',
     url: 'https://podomus.tn',
     telephone: '+21651617044',
     email: 'contact@podomus.tn',
@@ -30,7 +30,7 @@ export function LocalBusinessJsonLd() {
     founder: {
       '@type': 'Person',
       name: 'Sonda Affes Ben Mahmoud',
-      jobTitle: 'Docteure en Podologie',
+      jobTitle: 'Podologue',
     },
   }
 

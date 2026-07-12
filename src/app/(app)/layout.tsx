@@ -21,13 +21,13 @@ const BASE_URL = "https://podomus.tn"
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Podomus — Podologue à La Soukra | Soins Podologiques de Précision | Dre Sonda Affes",
+    default: "Podomus — Podologue à La Soukra | Soins Podologiques de Précision | Sonda Affes",
     template: "%s | Podomus",
   },
   description:
-    "Cabinet de podologie de précision dirigé par la Dre Sonda Affes Ben Mahmoud, formée chez Bastien Gonzalez (Maldives, Dubaï). Orthoplastie, orthonyxie, laser — à La Soukra, Ariana.",
+    "Cabinet de podologie de précision dirigé par Sonda Affes Ben Mahmoud, formée chez Bastien Gonzalez (Maldives, Dubaï). Orthoplastie, orthonyxie, laser — à La Soukra, Ariana.",
   keywords:
-    "podologue La Soukra, podologue Ariana, podologue Tunis, Dre Sonda Affes Ben Mahmoud, podologie précision, orthoplastie, orthonyxie, traitement laser podologie, soins pieds Tunisie, cabinet podologue, Bastien Gonzalez",
+    "podologue La Soukra, podologue Ariana, podologue Tunis, Sonda Affes Ben Mahmoud, podologie précision, orthoplastie, orthonyxie, traitement laser podologie, soins pieds Tunisie, cabinet podologue, Bastien Gonzalez",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

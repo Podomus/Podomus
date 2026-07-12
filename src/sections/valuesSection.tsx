@@ -7,12 +7,12 @@ import { useScrollReveal } from "@/lib/useScrollReveal";
 const values: { title: string; text: string; image: string }[] = [
   {
     title: "Formée chez Bastien Gonzalez",
-    text: "Dix ans de pratique dans les studios Bastien Gonzalez — aux Maldives, puis à Dubaï — forment une main, un regard, une façon de soigner qui ne ressemble à rien d'autre. La Docteure Sonda Affes Ben Mahmoud l'exerce aujourd'hui à Ariana.",
+    text: "Dix ans de pratique dans les studios Bastien Gonzalez — aux Maldives, puis à Dubaï — forment une main, un regard, une façon de soigner qui ne ressemble à rien d'autre. La Sonda Affes Ben Mahmoud l'exerce aujourd'hui à Ariana.",
     image: "/a.jpg",
   },
   {
     title: "Votre cas, votre soin",
-    text: "Vos pieds ont une histoire — une posture, une douleur que vous portez depuis des années, une chaussure qui a tout aggravé. Le Dr. Sonda évalue avant de toucher. Ensuite, et seulement ensuite, elle soigne.",
+    text: "Vos pieds ont une histoire — une posture, une douleur que vous portez depuis des années, une chaussure qui a tout aggravé. Le Sonda évalue avant de toucher. Ensuite, et seulement ensuite, elle soigne.",
     image: "/c.jpg",
   },
   {

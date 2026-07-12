@@ -70,7 +70,7 @@ export const post = defineType({
       name: 'author',
       title: 'Auteur',
       type: 'string',
-      description: "Nom et qualifications de l'auteur (ex: Dr. Sonda Affes Ben Mahmoud, Pédicure-Podologue)",
+      description: "Nom et qualifications de l'auteur (ex: Sonda Affes Ben Mahmoud, Pédicure-Podologue)",
     }),
     defineField({
       name: 'featured',

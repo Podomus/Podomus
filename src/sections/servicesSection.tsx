@@ -68,7 +68,7 @@ const ServicesSection = () => {
               Une approche moderne et personnalisée de la podologie
             </h2>
             <p className="mt-2 text-sm sm:text-base md:text-lg text-textmain font-medium">
-              Préparez-vous à redécouvrir la podologie avec l&apos;expertise de la Docteure Sonda Affes Ben Mahmoud et des soins pensés pour votre bien-être.
+              Préparez-vous à redécouvrir la podologie avec l&apos;expertise de la Sonda Affes Ben Mahmoud et des soins pensés pour votre bien-être.
             </p>
           </div>
 

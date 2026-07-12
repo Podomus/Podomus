@@ -63,7 +63,7 @@ const PrivacyPage = () => {
               1. Introduction
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-textmain leading-relaxed">
-              Le Cabinet Podomus, dirigé par la Docteure Sonda Affes Ben Mahmoud, s&apos;engage à protéger la confidentialité 
+              Le Cabinet Podomus, dirigé par la Sonda Affes Ben Mahmoud, s&apos;engage à protéger la confidentialité 
               et la sécurité de vos informations personnelles. Cette politique décrit comment nous collectons, 
               utilisons et protégeons vos données.
             </p>
@@ -237,7 +237,7 @@ const PrivacyPage = () => {
             <div className="bg-neutralbg rounded-lg p-3 sm:p-4 space-y-2">
               <p className="text-xs sm:text-sm md:text-base text-textmain">
                 <a href="https://maps.app.goo.gl/XGuLd9WbkAQvmSpu6" target="_blank" rel="noopener noreferrer"><strong>Cabinet Podomus</strong><br />
-                Docteure Sonda Affes Ben Mahmoud<br />
+                Sonda Affes Ben Mahmoud<br />
                 Bureau A2.7, 2eme Etage, Le Doyen Medical<br />
                 Av. Fattouma Bourguiba, La Soukra 2036<br /></a>
                 Téléphone : <a href="tel:+21628451433" className="text-brand hover:text-highlight">+216 28 451 433</a><br />
