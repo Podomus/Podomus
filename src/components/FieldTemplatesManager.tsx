@@ -26,17 +26,6 @@ export const FieldTemplatesManager: React.FC = () => {
   const [saving, setSaving] = useState(false)
 
   // Charger les produits au démarrage
-  useEffect(() => {
-    loadCategories()
-  }, [])
-
-  // Charger le template quand le produit change
-  useEffect(() => {
-    if (selectedCategorieId) {
-      loadTemplate(selectedCategorieId)
-    }
-  }, [selectedCategorieId])
-
   const loadCategories = async () => {
     try {
       const response = await fetch('/api/field-templates')
@@ -68,6 +57,17 @@ export const FieldTemplatesManager: React.FC = () => {
       toast.error('Erreur lors du chargement du template')
     }
   }
+
+  useEffect(() => {
+    loadCategories()
+  }, [])
+
+  // Charger le template quand le produit change
+  useEffect(() => {
+    if (selectedCategorieId) {
+      loadTemplate(selectedCategorieId)
+    }
+  }, [selectedCategorieId])
 
   const saveTemplate = async () => {
     if (!selectedCategorieId) {
@@ -123,7 +123,7 @@ export const FieldTemplatesManager: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand"></div>
       </div>
     )
   }

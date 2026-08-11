@@ -8,13 +8,13 @@ test.describe('Blog', () => {
 
   test('blog page has heading', async ({ page }) => {
     await page.goto('/blog')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
     await expect(page.locator('h1:has-text("Blog")')).toBeVisible()
   })
 
   test('blog handles empty state or displays posts', async ({ page }) => {
     await page.goto('/blog')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const emptyState = page.locator('text=Aucun article')
     const blogGrid = page.locator('[class*="grid"] article, article')
@@ -31,7 +31,7 @@ test.describe('Blog', () => {
 
   test('category section renders when categories exist', async ({ page }) => {
     await page.goto('/blog')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const categoryLinks = page.locator('a[href*="/blog/category/"]')
     const categoryCount = await categoryLinks.count()
@@ -50,7 +50,7 @@ test.describe('Blog', () => {
 
   test('blog post detail pages resolve', async ({ page }) => {
     await page.goto('/blog/bienfaits-podologie-preventive')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     await expect(page.locator('h1')).toBeVisible({ timeout: 20000 })
     expect(page.url()).toContain('/blog/bienfaits')

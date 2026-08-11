@@ -477,7 +477,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
       )}
 
       {fields.length === 0 && canEdit && (
-        <div className="text-center py-8 text-gray-500 bg-blue-50/30 rounded-lg border-2 border-dashed border-blue-200">
+        <div className="text-center py-8 text-blue-800 bg-blue-50/30 rounded-lg border-2 border-dashed border-blue-200">
           <div className="flex flex-col items-center gap-3">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
               <Plus className="h-5 w-5 text-blue-500" />

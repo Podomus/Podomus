@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit SEO — podomus.tn</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: #fafafa; color: #1f2937; line-height: 1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  .date { color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+  .summary { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px 20px; margin-bottom: 28px; }
+  h2 { font-size: 19px; margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #4a7c59; }
+  h3 { font-size: 15px; margin: 20px 0 6px; }
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
+  .one { background: #f0f9f4; border: 1px solid #b8e4c7; }
+  .fix { margin-bottom: 10px; }
+  .fix b { color: #3d6b4a; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: #3d6b4a; font-weight: 600; }
+  .method { color: #6b7280; font-size: 13px; margin-top: 40px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
+  ul { margin: 6px 0 6px 20px; padding: 0; }
+  li { margin-bottom: 4px; }
+  .gloss { color: #6b7280; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>podomus.tn</h1>
+<div class="date">Audit réalisé le 11 août 2026</div>
+
+<div class="summary">
+  <p>Le site est en bonne santé technique : il se charge vite, il est en HTTPS, il a un plan de site valide, des balises de titre et descriptions bien rédigées sur chaque page, et des données structurées pour votre cabinet. Le principal manque n'est pas technique : c'est la visibilité. Le site a peu de contenus (15 pages indexables dont 4 articles) et nous n'avons aucune donnée confirmée sur les mots clés pour lesquels il apparaît déjà. L'action la plus utile cette semaine : demander l'indexation des pages clés et des articles via l'outil d'indexation Google (une fois l'authentification renouvelée), puis surveiller la console de recherche.</p>
+</div>
+
+<h2>Où en est le site</h2>
+<div class="card">
+  <ul>
+    <li><span class="ok">Site en ligne</span> : podomus.tn répond en 1,6 seconde, la version http redirige vers https (308).</li>
+    <li><span class="ok">Plan de site</span> : 15 pages listées (accueil, services, blog, 4 articles, mentions légales). Aucune page d'administration n'y figure.</li>
+    <li><span class="ok">Balises de base</span> : titre et description bien rédigés sur l'accueil et les articles, avec mot clé principal, ville et nom de la praticienne.</li>
+    <li><span class="ok">Données structurées</span> : une fiche LocalBusiness (cabinet de podologie) est présente sur l'accueil. <span class="gloss">(Les données structurées aident Google à comprendre le type de contenu : ici, un cabinet médical avec praticien.)</span></li>
+    <li><span class="ok">Images</span> : toutes les images ont un texte alternatif.</li>
+    <li><span class="ok">Langue</span> : pages déclarées en français, ce qui correspond au contenu.</li>
+    <li>Pas de données de classement ni de liens entrants : aucun outil payant n'était disponible pour cet audit. Cela ne veut pas dire qu'il n'y en a pas, seulement que nous n'avons pas pu les mesurer.</li>
+  </ul>
+</div>
+
+<h2>Si vous ne faites qu'une seule chose cette semaine</h2>
+<div class="card one">
+  <p>Demandez à Google d'indexer les 4 articles du blog et les pages de service. L'outil installé sur votre machine le fait en quelques commandes (<code>request-indexing-cli submit URL</code>), mais son jeton d'accès a expiré le 9 juillet : relancez <code>request-indexing-cli auth</code> (il ouvrira la page de consentement Google, cliquez sur Autoriser), puis soumettez :</p>
+  <ul>
+    <li><code>https://podomus.tn/blog/prix-consultation-podologue-tunisie</code></li>
+    <li><code>https://podomus.tn/blog/orthoplastie-guide-complet</code></li>
+    <li><code>https://podomus.tn/blog/bienfaits-podologie-preventive</code></li>
+    <li><code>https://podomus.tn/blog/podologie-sportif-conseils-coureurs</code></li>
+    <li><code>https://podomus.tn/service</code> et les 4 pages de service</li>
+  </ul>
+  <p>Les demandes sont prises en compte en 48 heures en moyenne. Vérifiez aussi dans la Google Search Console que le site est ajouté comme propriété (domaine <code>podomus.tn</code>).</p>
+</div>
+
+<h2>Petites corrections, par impact</h2>
+
+<div class="card fix">
+  <b>1. Titres des articles trop longs.</b> Exemple : « Prix consultation podologue Tunisie : tarifs et remboursement 2026 | Blog Podomus | Podomus » (85 caractères, double suffixe). Google tronque au-delà d'environ 60 caractères et le double « Blog Podomus | Podomus » dilue le mot clé. Corrigez le modèle de titre des pages d'article pour qu'il produise « Titre | Podomus » une seule fois.
+</div>
+
+<div class="card fix">
+  <b>2. Mettre en ligne les modifications en attente.</b> Les pages d'administration ont reçu une consigne « ne pas indexer » (balise noindex) dans le code local, mais rien n'a encore été déployé. Sans cette consigne, Google peut indexer les pages de connexion et d'administration si elles sont découvertes. Déployez la version actuelle.
+</div>
+
+<div class="card fix">
+  <b>3. Vérifier la fiche Google Business Profile.</b> L'audit n'a pas pu confirmer la fiche Google du cabinet (nom exact, adresse, téléphone, horaires). Une fiche à jour avec le même nom et le même numéro que le site (+216 28 451 433) renforce le classement local pour « podologue La Soukra ». Si elle existe, vérifiez la cohérence des informations ; si elle n'existe pas, créez-la.
+</div>
+
+<div class="card fix">
+  <b>4. Titre de la page d'accueil.</b> « Podomus — Podologue à La Soukra | Soins Podologiques de Précision | Sonda Affes » fait 77 caractères avec trois segments. Un titre de 55 à 60 caractères autour du mot clé principal serait mieux : par exemple « Podologue à La Soukra, Ariana | Podomus ». La description actuelle est excellente, gardez-la.
+</div>
+
+<div class="card fix">
+  <b>5. Liens entre articles.</b> Les 4 articles n'ont pas de liens entre eux ni de liens vers les pages de service. Ajoutez un bloc « À lire aussi » en bas de chaque article pointant vers un autre article et vers la page de service concernée. Cela aide Google à découvrir et à classer tout le contenu. <span class="gloss">(Un lien interne est un lien entre deux pages du même site.)</span>
+</div>
+
+<h2>Où concentrer les prochains contenus</h2>
+<div class="card">
+  <p>Le site couvre déjà « prix consultation podologue Tunisie » (article), « orthoplastie », « podologie sportive ». Les recherches locales les plus proches de ce que le cabinet propose :</p>
+  <ul>
+    <li><b>Podologue La Soukra</b> — volume : quelques centaines de recherches par mois. Page d'accueil et fiche Google à optimiser, pas besoin d'article.</li>
+    <li><b>Podologue Ariana</b> — même logique, la page contact et la fiche Google suffisent.</li>
+    <li><b>Remboursement podologue Tunisie / CNAM</b> — volume faible mais ciblé. Un article court compléterait l'article sur les prix.</li>
+    <li><b>Semelles orthopédiques prix Tunisie</b> — la page service et un article dédié seraient réalistes.</li>
+  </ul>
+  <p class="gloss">Chiffres de volume non vérifiés pour cet audit : aucun outil de données payant n'était connecté. Les mots clés choisis sont des recherches locales précises qu'un site jeune peut raisonnablement viser.</p>
+</div>
+
+<h2>Ce qui fonctionne déjà</h2>
+<div class="card">
+  <ul>
+    <li>HTTPS actif avec redirection de http vers https.</li>
+    <li>Fichier robots.txt propre qui autorise l'exploration et indique le plan de site.</li>
+    <li>Plan de site valide et déclaré.</li>
+    <li>Titres et descriptions uniques et bien rédigés par page.</li>
+    <li>Balise canonique présente sur l'accueil et les articles. <span class="gloss">(La balise canonique indique à Google quelle version d'une page est la référence.)</span></li>
+    <li>Données structurées LocalBusiness.</li>
+    <li>Textes alternatifs sur toutes les images.</li>
+    <li>Pages rapides (accueil à 100 Ko, chargement 1,6 seconde).</li>
+  </ul>
+</div>
+
+<div class="method">
+  Méthode : vérifications manuelles effectuées le 11 août 2026 sur le site en ligne (codes de réponse, robots.txt, plan de site, balises HTML des pages, données structurées) et sur la version locale du code. Aucune donnée payante (classements, liens entrants, volumes de recherche) n'était disponible ; ces points sont signalés « non vérifiés » plutôt que manquants.
+</div>
+
+</div>
+</body>
+</html>
