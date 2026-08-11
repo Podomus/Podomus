@@ -43,7 +43,7 @@ export default function SportifPage() {
       id: 3,
       title: "Soins des pieds du sportif",
       description: "Ampoules, ongles incarnés, durillons, hyperkératoses — les lésions qui semblent mineures mais sabotent un entraînement ou une compétition.",
-      icon: <TbShieldCheck className="text-3xl text-purple-600" />,
+      icon: <TbShieldCheck className="text-3xl text-brand" />,
       features: [
         "Traitement des ampoules",
         "Soins des ongles incarnés",
@@ -204,8 +204,8 @@ export default function SportifPage() {
             </div>
             
             <div className="text-center">
-              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <TbShieldCheck className="text-2xl text-purple-600" />
+              <div className="bg-brand/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <TbShieldCheck className="text-2xl text-brand" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Prévention</h3>
               <p className="text-gray-600">

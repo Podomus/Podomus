@@ -1,9 +1,15 @@
 import { Montserrat } from "next/font/google";
+import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { SidebarLeft } from "@/components/sidebar-left";
 
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap" });
+
+export const metadata: Metadata = {
+  title: "Administration | Podomus",
+  robots: { index: false, follow: false },
+};
 
 export default function AdminLayout({
   children,

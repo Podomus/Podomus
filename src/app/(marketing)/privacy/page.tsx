@@ -16,7 +16,7 @@ const PrivacyPage = () => {
         initial="hidden"
         animate={inView ? "show" : "hidden"}
         exit="hidden"
-        className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 lg:px-8 max-w-4xl"
+        className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8 lg:px-8"
         ref={ref}
       >
         {/* Bouton retour */}

@@ -101,21 +101,6 @@ export default function OrthesesPage() {
   const [form, setForm] = React.useState({ ...EMPTY_FORM })
   const [submitting, setSubmitting] = React.useState(false)
 
-  // ── Auth ──────────────────────────────────────────────────────────────────
-
-  React.useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await authClient.getSession()
-      if (!data?.user || data.user.email !== "admin@podomus.local") {
-        router.push("/login")
-        return
-      }
-      await Promise.all([fetchOrtheses(), fetchPatients()])
-      setLoading(false)
-    }
-    checkAuth()
-  }, [router])
-
   // ── Data fetching ─────────────────────────────────────────────────────────
 
   const fetchOrtheses = async () => {
@@ -139,6 +124,21 @@ export default function OrthesesPage() {
       toast.error("Impossible de charger les patients")
     }
   }
+
+  // ── Auth ──────────────────────────────────────────────────────────────────
+
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      const { data } = await authClient.getSession()
+      if (!data?.user || data.user.email !== "admin@podomus.local") {
+        router.push("/login")
+        return
+      }
+      await Promise.all([fetchOrtheses(), fetchPatients()])
+      setLoading(false)
+    }
+    checkAuth()
+  }, [router])
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 

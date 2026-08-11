@@ -39,7 +39,7 @@ const ValuesSection = () => {
       <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-[#E8E4D9]/20 rounded-full blur-xl pointer-events-none"
         style={{ animation: "blob-pulse-c 3.8s ease-in-out 0.8s infinite", willChange: "transform" }} />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const ValuesSection = () => {
         </motion.div>
 
         {/* Value cards — 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
           {values.map((v, i) => (
             <motion.div
               key={v.title}

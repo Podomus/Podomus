@@ -92,11 +92,11 @@ const ServicesSection = () => {
           <div data-reveal className="w-full sm:w-auto">
             <Button
               className="h-10 sm:h-12 md:h-16 w-full sm:w-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold bg-brand text-white hover:bg-highlight hover:shadow-lg transition-[transform,background-color,box-shadow] duration-150 active:scale-[0.97] tracking-wide uppercase"
-              endContent={<IoCalendarOutline size={16} className="ml-2 sm:ml-2 md:ml-2 sm:w-5 sm:h-5 md:text-2xl lg:text-3xl" />}
               onClick={() => setOpenModal(true)}
             >
               <span className="hidden sm:inline">Demander un rendez-vous privilégié</span>
               <span className="sm:hidden">Prendre RDV</span>
+              <IoCalendarOutline size={16} className="ml-2 sm:ml-2 md:ml-2 sm:w-5 sm:h-5 md:text-2xl lg:text-3xl" />
             </Button>
           </div>
           <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} />

@@ -55,7 +55,7 @@ export default function OldPeoplePage() {
       id: 4,
       title: "Prévention et conseils",
       description: "Le bon chaussage, les exercices de renforcement plantaire et un suivi régulier — trois conditions pour rester stable et autonome.",
-      icon: <TbSparkles className="text-3xl text-purple-600" />,
+      icon: <TbSparkles className="text-3xl text-brand" />,
       features: [
         "Conseils chaussures",
         "Exercices de renforcement",
@@ -86,7 +86,7 @@ export default function OldPeoplePage() {
     {
       title: "Suivi régulier",
       description: "Le pied diabétique ou fragile ne se traite pas une seule fois",
-      icon: <TbSparkles className="text-2xl text-purple-500" />
+      icon: <TbSparkles className="text-2xl text-brand" />
     }
   ];
 

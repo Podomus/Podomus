@@ -98,23 +98,6 @@ export default function MessagesPage() {
     }).catch(() => router.push("/login"))
   }, [router])
 
-  // Hide public header/footer
-  useEffect(() => {
-    const header = document.querySelector("header") as HTMLElement | null
-    const footer = document.querySelector("footer") as HTMLElement | null
-    if (header) header.style.display = "none"
-    if (footer) footer.style.display = "none"
-    return () => {
-      if (header) header.style.display = ""
-      if (footer) footer.style.display = ""
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!authLoading) fetchMessages()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authLoading])
-
   async function fetchMessages() {
     try {
       const res = await fetch("/api/contact")
@@ -125,6 +108,11 @@ export default function MessagesPage() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (!authLoading) fetchMessages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authLoading])
 
   async function updateStatus(id: string, status: string) {
     try {

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import UIProvider from "@/providers/UIProvider";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import ConditionalLayout from "@/components/ConditionalLayout";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { SanityLive } from "@/sanity/lib/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
@@ -64,11 +62,7 @@ export default async function RootLayout({
       </head>
       <body className={`${montserrat.className} bg-mainbg text-textmain`}>
         <I18nProvider translations={translations}>
-          <UIProvider>
-            <ConditionalLayout>
-              {children}
-            </ConditionalLayout>
-          </UIProvider>
+          {children}
         </I18nProvider>
         <SanityLive />
         {(await draftMode()).isEnabled && (

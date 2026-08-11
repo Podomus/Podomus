@@ -45,12 +45,12 @@ export default function LoginPage() {
           router.replace("/admin/dashboard");
           setTimeout(() => {
             if (window.location.pathname === "/login") {
-              window.location.href = "/admin/dashboard";
+              window.location.href = window.location.origin + "/admin/dashboard";
             }
           }, 500);
         } catch (routerError) {
           console.error("Erreur avec router.replace, utilisation de window.location:", routerError);
-          window.location.href = "/admin/dashboard";
+          window.location.href = window.location.origin + "/admin/dashboard";
         }
         return;
       } else {

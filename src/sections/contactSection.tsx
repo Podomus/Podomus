@@ -26,7 +26,7 @@ const ContactSection = () => {
       }}
       ref={ref}
     >
-      <div className="container mx-auto px-4 ">
+      <div className="max-w-7xl mx-auto px-4 ">
       {/* Formes organiques flottantes avec soft teal */}
       <div
         className="absolute top-1/4 right-1/4 w-32 h-32 bg-[#E8E4D9]/30 rounded-full blur-2xl"

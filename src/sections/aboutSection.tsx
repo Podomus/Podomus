@@ -32,7 +32,7 @@ const AboutSection = () => {
       id="About"
       ref={revealRef}
     >
-      <div className="container mx-auto px-4 ">
+      <div className="max-w-7xl mx-auto px-4 ">
         {/* Formes organiques flottantes avec soft teal */}
         <div
           className="absolute top-1/3 left-1/5 w-28 h-28 bg-[#E8E4D9]/40 rounded-full blur-2xl"

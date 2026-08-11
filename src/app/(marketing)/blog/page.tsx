@@ -3,6 +3,7 @@ import { client } from '@/sanity/lib/client'
 import { POSTS_QUERY, CATEGORIES_QUERY } from '@/sanity/lib/queries'
 import type { Metadata } from 'next'
 import { BlogGrid } from './BlogGrid'
+import AppointmentButton from '@/components/AppointmentButton'
 
 export const metadata: Metadata = {
   title: 'Blog | Podomus',
@@ -37,7 +38,7 @@ export default async function BlogPage() {
 
       {/* Categories */}
       {categories && categories.length > 0 && (
-        <section className="px-4 pb-8 max-w-6xl mx-auto">
+        <section className="px-4 sm:px-6 lg:px-8 pb-8 max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-2 justify-center">
             <Link
               href="/blog"
@@ -59,7 +60,7 @@ export default async function BlogPage() {
       )}
 
       {/* Posts Grid */}
-      <section className="px-4 pb-20 max-w-6xl mx-auto">
+      <section className="px-4 sm:px-6 lg:px-8 pb-20 max-w-7xl mx-auto">
         {!posts || posts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-textmain text-lg">
@@ -69,6 +70,19 @@ export default async function BlogPage() {
         ) : (
           <BlogGrid posts={posts} />
         )}
+      </section>
+
+      {/* CTA Section */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-20 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-br from-brand to-highlight rounded-2xl p-8 md:p-12 text-white text-center shadow-lg">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            Prendre rendez-vous
+          </h2>
+          <p className="text-white/80 mb-6 max-w-md mx-auto">
+            Sonda Affes Ben Mahmoud vous reçoit au cabinet Podomus à La Soukra, Ariana.
+          </p>
+          <AppointmentButton className="bg-white text-brand font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-xl transition-all" />
+        </div>
       </section>
     </main>
   )

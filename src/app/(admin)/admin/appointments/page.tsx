@@ -478,7 +478,6 @@ export default function AppointmentsPage() {
                           setDatePickerOpen(false)
                         }
                       }}
-                      initialFocus
                     />
                   </PopoverContent>
                 </Popover>

@@ -6,6 +6,7 @@ import { fr } from 'date-fns/locale'
 import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
+import AppointmentButton from '@/components/AppointmentButton'
 import { urlFor } from '@/sanity/lib/image'
 import type { Metadata } from 'next'
 import { PostHeader, PostBody } from './PostContent'
@@ -220,23 +221,12 @@ export default async function PostPage({ params }: Props) {
         {/* CTA Card */}
         <div className="mt-16 bg-gradient-to-br from-brand to-highlight rounded-2xl p-8 md:p-10 text-white text-center shadow-lg">
           <h3 className="text-xl md:text-2xl font-bold mb-3">
-            Prenez rendez-vous
+            Prendre rendez-vous
           </h3>
           <p className="text-white/80 mb-6 max-w-md mx-auto">
             Sonda Affes Ben Mahmoud vous reçoit au cabinet Podomus à La Soukra, Ariana.
           </p>
-          <a
-            href="tel:+21628451433"
-            className="inline-block bg-white text-brand font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-xl transition-all"
-          >
-            Appeler le +216 28 451 433
-          </a>
-          <div className="mt-3 text-sm text-white/60">
-            ou{' '}
-            <a href="/contact" className="underline hover:text-white transition-colors">
-              envoyez-nous un message
-            </a>
-          </div>
+          <AppointmentButton className="bg-white text-brand font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-xl transition-all" />
         </div>
       </div>
     </main>

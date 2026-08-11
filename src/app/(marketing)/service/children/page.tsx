@@ -55,7 +55,7 @@ export default function ChildrenPage() {
       id: 4,
       title: "Prévention et conseils",
       description: "Les chaussures adaptées à chaque stade de développement changent tout — on guide les parents à chaque consultation.",
-      icon: <TbSparkles className="text-3xl text-purple-600" />,
+      icon: <TbSparkles className="text-3xl text-brand" />,
       features: [
         "Conseils chaussures",
         "Prévention des déformations",
@@ -86,7 +86,7 @@ export default function ChildrenPage() {
     {
       age: "13-17 ans",
       description: "Dernière fenêtre de correction avant ossification complète.",
-      icon: <TbSparkles className="text-2xl text-purple-500" />
+      icon: <TbSparkles className="text-2xl text-brand" />
     }
   ];
 

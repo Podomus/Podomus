@@ -505,7 +505,7 @@ export default function ServicesPage() {
         />
       </motion.div>
       {/* Grille de services */}
-      <section className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
+      <section className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 w-full">
           {services.map((service, i) => (

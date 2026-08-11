@@ -250,7 +250,7 @@ export default function PatientsPage() {
     setIsEditDialogOpen(true)
   }
 
-  const FormFields = () => (
+  const renderFormFields = () => (
     <div className="grid grid-cols-2 gap-4">
       <div>
         <Label>Prénom *</Label>
@@ -464,7 +464,7 @@ export default function PatientsPage() {
               Créez une nouvelle fiche patient. Les champs marqués d'un * sont obligatoires.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4"><FormFields /></div>
+          <div className="py-4">{renderFormFields()}</div>
           <DialogFooter>
             <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsAddDialogOpen(false)}>Annuler</Button>
             <Button className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleCreate}
@@ -484,7 +484,7 @@ export default function PatientsPage() {
               {patientToEdit && `Fiche de ${patientToEdit.prenom} ${patientToEdit.nom}`}
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4"><FormFields /></div>
+          <div className="py-4">{renderFormFields()}</div>
           <DialogFooter>
             <Button variant="outline" className="active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={() => setIsEditDialogOpen(false)}>Annuler</Button>
             <Button className="bg-softtail-600 hover:bg-softtail-700 active:scale-[0.97] transition-[transform,color,background-color] duration-100" onClick={handleUpdate}

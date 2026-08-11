@@ -296,7 +296,7 @@ export default function ContactPage() {
       </motion.div>
 
       {/* Informations de contact */}
-      <section className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
+      <section className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
         <motion.h2
           className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand text-center mb-8 relative group"
           initial={{ y: 12, opacity: 0 }}
@@ -367,7 +367,7 @@ export default function ContactPage() {
       </motion.div>
 
       {/* Formulaire de contact et carte */}
-      <section className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
+      <section className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center py-8 px-4 sm:px-6 md:px-8">
         <motion.h2
           className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand text-center mb-8 relative group"
           initial={{ y: 12, opacity: 0 }}

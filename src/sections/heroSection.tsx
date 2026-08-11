@@ -420,7 +420,7 @@ export default function HeroSection() {
 					</div>
 
 					<motion.div
-						className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto"
+						className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl mx-auto"
 						variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
 						initial="hidden"
 						whileInView="visible"
@@ -457,10 +457,10 @@ export default function HeroSection() {
 					>
 						<Button
 							className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-semibold bg-softtail-600 text-white hover:bg-softtail-700 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.97]"
-							endContent={<IoCalendarOutline size={18} />}
 							onPress={() => setOpenModal(true)}
 						>
 							Prendre rendez-vous
+							<IoCalendarOutline size={18} />
 						</Button>
 					</motion.div>
 				</div>
