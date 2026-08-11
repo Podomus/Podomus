@@ -1,12 +1,10 @@
 import { defineField, defineType } from 'sanity'
-import {
-  UsersIcon,
-  TagIcon,
-  HelpCircleIcon,
-  StarIcon,
-  ThListIcon,
-  RocketIcon,
-} from '@sanity/icons'
+import { UsersIcon } from '@sanity/icons/Users'
+import { TagIcon } from '@sanity/icons/Tag'
+import { HelpCircleIcon } from '@sanity/icons/HelpCircle'
+import { StarIcon } from '@sanity/icons/Star'
+import { ThListIcon } from '@sanity/icons/ThList'
+import { RocketIcon } from '@sanity/icons/Rocket'
 
 // ---------------------------------------------------------------------------
 // aboutSection — about / intro section

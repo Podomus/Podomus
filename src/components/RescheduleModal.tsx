@@ -102,7 +102,6 @@ export function RescheduleModal({
                     mode="single"
                     selected={date}
                     onSelect={(date) => date && setDate(date)}
-                    initialFocus
                     locale={fr}
                   />
                 </PopoverContent>

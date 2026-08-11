@@ -1,5 +1,9 @@
 import { defineField, defineType } from 'sanity'
-import { BulbOutlineIcon, ComposeSparklesIcon, ImageIcon, LinkIcon, ControlsIcon } from '@sanity/icons'
+import { BulbOutlineIcon } from '@sanity/icons/BulbOutline'
+import { ComposeSparklesIcon } from '@sanity/icons/ComposeSparkles'
+import { ImageIcon } from '@sanity/icons/Image'
+import { LinkIcon } from '@sanity/icons/Link'
+import { ControlsIcon } from '@sanity/icons/Controls'
 
 export const callToAction = defineType({
   name: 'callToAction',

@@ -451,17 +451,15 @@ export default function Footer() {
               >
                 <Button
                   className="w-full h-12 text-sm font-medium bg-white text-brand hover:bg-white/90 transition-[background-color,box-shadow] duration-200 shadow-lg hover:shadow-xl"
-                  endContent={
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <IoCalendarOutline size={20} />
-                    </motion.div>
-                  }
                   onClick={() => setOpenModal(true)}
                 >
-                  Prendre rendez-vous
+                  <span>Réserver une consultation</span>
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <IoCalendarOutline size={20} />
+                  </motion.div>
                 </Button>
               </motion.div>
 
@@ -481,7 +479,7 @@ export default function Footer() {
                   label="Instagram Podomus"
                 />
                 <SocialLink
-                  href="https://www.facebook.com/cabinetsondaaffes"
+                  href="https://www.facebook.com/cabientsondaaffes"
                   icon={<FaFacebookF size={18} className="text-brand" />}
                   size="sm"
                   delay={0.2}
